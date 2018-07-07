@@ -183,6 +183,8 @@ ol, ul {
 }
 .social-widget {
     width: 400px;
+    color: #fff;
+    
 }
 ol, ul {
     list-style: none;
