@@ -121,7 +121,6 @@ a {
 
 .footer-container {
     width: 100%;
-    height: 350px;
     padding: 90px;
     display: flex;
     flex-direction: row;
@@ -177,6 +176,8 @@ ol, ul {
 }
 .social-widget {
     width: 400px;
+    color: #fff;
+    
 }
 ol, ul {
     list-style: none;
