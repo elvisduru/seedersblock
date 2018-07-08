@@ -227,7 +227,6 @@ button.button {
 	cursor: pointer;
 }
 
-<<<<<<< HEAD
 #intro {
 	text-align: center;
 }
@@ -348,8 +347,8 @@ button.button {
 
 .feature {
     height: 300px;
-    min-width: 200px;
-    max-width: 200px;
+    min-width: 250px;
+    max-width: 250px;
     border: 1px solid #eeeeee;
     display: flex;
     flex-direction: column;
