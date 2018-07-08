@@ -222,3 +222,39 @@ button.button {
 	outline: none;
 	cursor: pointer;
 }
+
+#features {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.feature {
+    height: 300px;
+    min-width: 200px;
+    max-width: 200px;
+    border: 1px solid #eeeeee;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0px 24px;
+    line-height: 1.5;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+.feature-icon{
+    font-size: 100px;
+    align-self: center;
+    color: #056cdb;
+}
+.feature-title{
+    font-weight: bolder;
+    font-size: 1.2em;
+    color: #021B79;
+}
+.feature-text{
+    color: #666666;
+    font-size: 1.1em;
+    
+}
+
