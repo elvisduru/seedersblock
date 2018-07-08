@@ -49,6 +49,10 @@ table {
 	border-spacing: 0;
 }
 
+* {
+	box-sizing: border-box;
+}
+
 html, body {
 	width: 100vw;
 }
@@ -221,4 +225,116 @@ button.button {
 	margin-top: 10px;
 	outline: none;
 	cursor: pointer;
+}
+
+#intro {
+	text-align: center;
+}
+
+.sponsor-carousel {
+	margin-top: 30px;
+	margin-bottom: 60px;
+}
+
+.sponsor-carousel h4 {
+	font-family: cursive;
+	color: #666;
+	margin-bottom: 20px;
+}
+
+.sponsors-logos {
+	width: 100%;
+	height: 50px;
+	background: #666;
+	line-height: 50px;
+}
+
+.intro-container {
+	margin-bottom: 30px;
+}
+
+.intro-container h2 {
+	font-size: 1.9em;
+	font-weight: 900;
+	color: #021B79;
+	margin-bottom: 20px;
+}
+
+.intro-container p {
+	line-height: 2.0;
+	padding: 0 200px;
+	color: #333;
+}
+
+#posts {
+	display: flex;
+	flex-direction: row;
+}
+
+.control-div {
+	flex: 1 0 auto;
+	width: 33.3%;
+	display: flex;
+	flex-direction: column;
+}
+
+.controls {
+	display: flex;
+	flex-direction: row;
+}
+
+.control-div h3 {
+	font-size: 1.4em;
+	font-weight: bold;
+	line-height: 1.6;
+	margin-bottom: 10px;
+}
+
+.control {
+	font-size: 2em;
+	color: #021B79;
+	margin-right: 5px;
+}
+
+.post-view {
+	height: 280px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	overflow: hidden;
+	align-items: center;
+}
+
+.post {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 98%;
+	margin: 0 15px;
+	box-shadow: 0 0 3px rgba(0,0,0, 0.5);
+	border-radius: 4px;
+}
+
+.post-image {
+	width: 280px;
+	height: 130px;
+	background-size: cover;
+	background-position: center;
+	background-image: url("https://images.pexels.com/photos/942317/pexels-photo-942317.jpeg?auto=compress&cs=tinysrgb&h=350");
+}
+
+.post-title {
+	color: #021B79;
+	font-weight: 700;
+	font-size: 1em;
+	line-height: 1.4em;
+	padding-bottom: 10px;
+}
+
+.post-text {
+	padding-bottom: 10px;
+}
+
+.post-body {
+	padding: 0 20px;	
 }
