@@ -71,6 +71,7 @@ body {
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
+	margin-bottom: 30px;
 }
 
 a {
@@ -100,12 +101,23 @@ a {
 	background: #0575E6;  /* fallback for old browsers */
 	background: -webkit-linear-gradient(to left, #021B79, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
 	background: linear-gradient(to left, #021B79, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	height: 100vh;
+}
+
+.hero-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .hero-text {
 	width: 40%;
 	line-height: 1.5;
 	padding-top: 40px;
+}
+
+.hero-vector {
+	width: 400px;
 }
 
 .hero-text h1 {
