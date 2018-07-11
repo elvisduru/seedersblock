@@ -71,7 +71,7 @@ body {
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 30px;
+	margin-bottom: 50px;
 }
 
 a {
@@ -87,6 +87,14 @@ a {
 
 .nav-link {
 	color: #022585;
+}
+
+.buttons > .button {
+	margin-left: 10px;
+}
+
+.nav-register {
+	background: #f4fe00 !important;
 }
 
 .button  {
@@ -116,8 +124,16 @@ a {
 	padding-top: 40px;
 }
 
+.platforms{
+	margin-top: 30px;
+}
+
+.platforms img {
+	width: 120px;
+}
+
 .hero-vector {
-	width: 400px;
+	width: 450px;
 }
 
 .hero-text h1 {
@@ -247,8 +263,21 @@ button.button {
 	margin-bottom: 60px;
 }
 
+.sponsors-logos {
+	margin-top: 60px;
+	margin-bottom: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.sponsors-logos img {
+	width: 100px;
+	margin-left: 20px;
+}
+
 .sponsor-carousel h4 {
-	font-family: cursive;
+	font-weight: bold;
 	color: #666;
 	margin-bottom: 20px;
 }
@@ -256,7 +285,6 @@ button.button {
 .sponsors-logos {
 	width: 100%;
 	height: 50px;
-	background: #666;
 	line-height: 50px;
 }
 
@@ -268,13 +296,22 @@ button.button {
 	font-size: 1.9em;
 	font-weight: 900;
 	color: #021B79;
-	margin-bottom: 20px;
+	margin-bottom: 30px;
+}
+
+.intro-container h3 {
+	font-size: 2.9em;
+	font-weight: 100;
+	color: #333;
+	margin-bottom: 30px;
 }
 
 .intro-container p {
-	line-height: 2.0;
+	line-height: 1.5;
 	padding: 0 200px;
 	color: #333;
+	font-size: 1.5em;
+	font-weight: lighter;
 }
 
 #posts {
@@ -400,7 +437,6 @@ button.button {
 
 button.button {
 	border-radius: 4px;
-	color: white;
 	font-family: Roboto;
 }
 
