@@ -4,7 +4,7 @@
 <head>
     <title>Seeders Block</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="./asset/css/niceCountryInput.css">
     <link rel="stylesheet" href="./asset/css/bootstrap-formhelpers.min.css  ">
     <link rel="stylesheet" type="text/css" href="./asset/css/main.css">
@@ -85,28 +85,33 @@
         </section>
         <section id="testimonials">
             <div class="viewer">
-                <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae aut eaque dolorum voluptatem veniam, eius.Recusandae aut eaque dolorum voluptatem veniam, eius. Lorem ipsum dolor sit amet, consectetur.</p>
-                <p class="lead">John Doe, @ World Bank</p>
+                <p class="viewer-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae aut eaque dolorum voluptatem veniam, eius.Recusandae aut eaque dolorum voluptatem veniam, eius. Lorem ipsum dolor sit amet, consectetur.</p>
+                <p class="viewer-lead">John Doe, @ World Bank</p>
             </div>
             <div class="testimonial">
-                <img src="http://via.placeholder.com/150x150" class="avatar">
-                <p class="hide">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos tenetur dolorum, corporis consectetur repudiandae quasi.</p>
+                <img src="./asset/img/ui-face1.jpg" class="avatar">
+                <p class="text hide">1Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos tenetur dolorum, corporis consectetur repudiandae quasi.</p>
+                <p class="lead hide">1Jack Smith, @ Global Bank</p>
             </div>
             <div class="testimonial">
-                <img src="http://via.placeholder.com/150x150" class="avatar">
-                <p class="hide">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam inventore deleniti quisquam, eum, maxime quia!</p>
+                <img src="./asset/img/ui-face2.jpg" class="avatar">
+                <p class="text hide">2Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam inventore deleniti quisquam, eum, maxime quia!</p>
+                <p class="lead hide">2Misty Steve, @ Nairobi</p>
             </div>
             <div class="testimonial">
-                <img src="http://via.placeholder.com/150x150" class="avatar">
-                <p class="hide">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam maxime labore repellat eum accusantium? Ipsum.</p>
+                <img src="./asset/img/ui-face3.jpg" class="avatar">
+                <p class="text hide">3Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam maxime labore repellat eum accusantium? Ipsum.</p>
+                <p class="lead hide">3Susan Love, @ Croatia</p>
             </div>
             <div class="testimonial">
-                <img src="http://via.placeholder.com/150x150" class="avatar">
-                <p class="hide">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus molestiae quis nobis ipsam, et obcaecati.</p>
+                <img src="./asset/img/ui-face4.jpg" class="avatar">
+                <p class="text hide">4Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus molestiae quis nobis ipsam, et obcaecati.</p>
+                <p class="lead hide">4Elvis Presley, @ Los Angeles</p>
             </div>
             <div class="testimonial">
-                <img src="http://via.placeholder.com/150x150" class="avatar">
-                <p class="hide">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non temporibus officia, neque eaque voluptas labore!</p>
+                <img src="./asset/img/ui-face5.jpg" class="avatar">
+                <p class="text hide">5Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non temporibus officia, neque eaque voluptas labore!</p>
+                <p class="lead hide">5John Doe, @ World Bank</p>
             </div>
         </section>
         <section id="posts" class="wrapper">
@@ -229,25 +234,34 @@
     </footer>
 
     <!-- MODALS -->
+
+    <!-- REGISTER FORM -->
     <section class="modal modal-register">
-        <form class="form-modal">
+        <form class="form-modal" id="signupForm">
             <div class="step-one">
                     <h1>Create an account</h1>
                     <div class="names">
-                        <input type="text" name="firstname" placeholder="First Name">
-                        <input type="text" name="lastname" placeholder="Last Name">
+                        <div>
+                            <input type="text" id="firstname" name="firstname" required placeholder="First Name">
+                        </div>
+                        <div>
+                            <input type="text" id="lastname" name="lastname" required placeholder="Last Name">
+                        </div>
+                    </div>
+                    <div class="username">
+                        <input type="text" id="username" name="username" required placeholder="Username">
                     </div>
                     <div class="email">
-                        <input type="text" name="email" placeholder="Email">
+                        <input type="email" name="email" id="email" placeholder="Email">
                     </div>
                     <hr>
-                    <button>Next</button>
+                    <button type="button" class="button">Next</button>
             </div>
             <div class="step-two">
                 <h1>Second Step of Registration</h1>
                 <div class="birth-date">
                     <p>Date of birth</p>
-                    <input type="date" name="dateOfBirth" id="dateOfBirth">
+                    <input type="date" name="dateOfBirth" required id="dateOfBirth">
                 </div>
                 <div class="gender">
                     <input type="radio" name="gender" id="male" value="male">
@@ -256,28 +270,54 @@
                     <label for="female">Female</label>
                 </div>
                 <div class="location">
-                        <select id="countries_states1" class="form-control bfh-countries" data-country="NG"></select>
-                        <select class="form-control bfh-states" data-country="countries_states1"></select>
-                        <select class="form-control bfh-languages" data-language="en_US" data-available="en_US,fr_CA,es_MX">
+                        <select name="country" id="countries_states1" class="form-control bfh-countries" data-country="NG"></select>
+                        <select name="state" class="form-control bfh-states" data-country="countries_states1"></select>
+                        <select name="language" class="form-control bfh-languages" data-language="en_US" data-available="en_US,fr_CA,es_MX">
                         </select>
                 </div>
                 <hr>
                 <div class="password">
-                    <input type="password" name="password" placeholder="Password">
-                    <input type="password" name="confirmPassword" placeholder="Confirm password">
+                    <div>
+                        <input type="password" id="password" name="password" placeholder="Password">
+                    </div>
+                    <div>
+                        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm password">
+                    </div>
                 </div>
                 <div class="tnc">
-                    <input type="checkbox" name="terms" id="terms" value="terms">
-                    <label for="terms"><a href="#">I agree with SeedersBlock social network terms of use.</a></label>
+                    <input type="checkbox" name="agree" id="agree" value="agree">
+                    <label for="agree"><a href="#">I agree with SeedersBlock social network terms of use.</a></label>
                 </div>
-                <input type="submit" value="Create account">
+                <div class="newsletter">
+                    <input type="checkbox" name="newsletter" id="newsletter" value="newsletter">
+                    <label for="newsletter">I'd like to recieve the newsletter</label>
+                </div>
+                <input class="button" type="submit" value="Create account">
             </div>
         </form>
     </section>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+    <!-- LOGIN FORM -->
+    <section class="modal modal-login">
+        <form class="form-modal" id="loginForm">
+            <h1>Login to your account</h1>
+            <div>
+                <input type="text" id="username" name="username" required placeholder="Username">
+            </div>
+            <div>
+                <input type="password" id="password" name="password" placeholder="Password">
+            </div>
+            <div class="forgot-pwd">
+                <a href="#">Forgot your password?</a>
+            </div>
+            <input class="button" type="submit" value="Log in">
+        </form>
+    </section>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="asset/js/niceCountryInput.js"></script>
     <script src="asset/js/bootstrap-formhelpers.min.js"></script>
+    <script src="asset/js/jquery.validate.min.js"></script>
+    <script src="asset/js/additional-methods.min.js"></script>
     <script src="asset/js/main.js"></script>
 </body>
 
