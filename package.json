@@ -1,7 +1,7 @@
 {
   "name": "seedersblock",
   "version": "1.0.0",
-  "description": "##TODOS",
+  "description": "SeedersBlock Application",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
