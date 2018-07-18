@@ -1,9 +1,10 @@
-# seedersblock
+# Seedersblock
 
-##TODOS
-Hero section
-subsections
+## COMPLETED
+* Landing Page
 
-##COMPLETED
-* Footer
-* Navbar
+## TODOS
+### Backend
+* Create Seed Model
+* Create Seed Routes
+
