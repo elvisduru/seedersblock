@@ -1,7 +1,7 @@
 var express 	= 	require('express'),
 	mongoose 	= 	require('mongoose'),
 	bodyParser 	= 	require('body-parser'),
-	Seed      	= 	require('./models/seeds.js');
+	Seed      	= 	require('./models/seeds.js'),
 	seedDB		=	require('./seed');
 
 var app = express();
