@@ -3,15 +3,16 @@
 <div class="container">
 	<div class="row">
 		<% seeds.forEach(function(seed) { %>
-			<div class="col col-md-3">
-				<div class="card">
+			
+			<!-- <div class="col col-md-4">
+				<div class="card mb-5">
 					<img src="<%= seed.image %>" alt="" class="card-img-top">
 					<div class="card-body">
 						<h5 class="card-title"><%= seed.title %></h5>
 						<div class="user-meta">
 							<img src="<%= seed.author.avatar %>" alt="" class="float-left mr-2 avatar rounded-circle">
 							<span class="author"><%= seed.author.username %></span><br>
-							<span class="created small text-muted"><%= seed.created %></span>
+							<span class="created small text-muted"><%= seed.created.toDateString() %></span>
 						</div>
 						<hr>
 						<div>
@@ -27,7 +28,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		<% }); %>
 	</div>
 </div>

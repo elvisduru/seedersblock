@@ -4,25 +4,25 @@ var	mongoose 	= 	require('mongoose'),
 
 var data = [];
 
-function SeedData() {
-	author = {
+function NewSeed() {
+	this.author = {
 		avatar: faker.image.avatar(),
 		username: faker.internet.userName() 
 	},
-	title = faker.lorem.sentence(),
-	image = faker.random.image(),
-	body = faker.lorem.paragraphs(),
-	category = faker.random.words(),
-	views = faker.random.number(),
-	commentCount = faker.random.number(),
-	upvoteCount = faker.random.number(),
-	downvoteCount = faker.random.number(),
-	earnings = faker.random.number();
-};
+	this.title = faker.lorem.sentence(),
+	this.image = faker.random.image(),
+	this.body = faker.lorem.paragraphs(),
+	this.category = faker.random.words(),
+	this.views = faker.random.number(),
+	this.commentCount = faker.random.number(),
+	this.upvoteCount = faker.random.number(),
+	this.downvoteCount = faker.random.number(),
+	this.earnings = faker.random.number();
+}
 
 
 for (var i = 0; i < 10; i++)
-	data.push(new SeedData());
+	data.push(new NewSeed());
 
 function seedDB() {
 	// Remove Existing Seeds
