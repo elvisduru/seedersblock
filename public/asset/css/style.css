@@ -1,0 +1,19 @@
+.nav {
+	background-color: #042b8b;
+}
+
+.mv {
+	margin-left: -100px;
+}
+
+.lbtn {
+	right: -90px;
+	background-color: #f65457;
+	border-radius: 20px;
+	border: 50px;
+	padding: 1px 30px;
+}
+
+.foot {
+	background-color: #0a64d3;
+}
