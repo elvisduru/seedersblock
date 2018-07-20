@@ -2,6 +2,7 @@ var express 	= 	require('express'),
 	mongoose 	= 	require('mongoose'),
 	bodyParser 	= 	require('body-parser'),
 	Seed      	= 	require('./models/seeds.js'),
+	faker		=	require('faker'),
 	seedDB		=	require('./seed');
 
 var app = express();

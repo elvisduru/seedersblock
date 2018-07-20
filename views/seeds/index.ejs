@@ -1,19 +1,35 @@
 <% include ../partials/header %>
 
-<!-- <h1>this is the index page</h1>
-
-<% seeds.forEach(function(seed) { %>
-
-<div>
-	<img src="<%= seed.image %>">
-	<p><%= seed.author %></p>
-	<p><%= seed.title %></p>
-	<p><%= seed.created.toDateString() %></p>
-	<p><%= seed.body %></p>
+<div class="container">
+	<div class="row">
+		<% seeds.forEach(function(seed) { %>
+			<div class="col col-md-3">
+				<div class="card">
+					<img src="<%= seed.image %>" alt="" class="card-img-top">
+					<div class="card-body">
+						<h5 class="card-title"><%= seed.title %></h5>
+						<div class="user-meta">
+							<img src="<%= seed.author.avatar %>" alt="" class="float-left mr-2 avatar rounded-circle">
+							<span class="author"><%= seed.author.username %></span><br>
+							<span class="created small text-muted"><%= seed.created %></span>
+						</div>
+						<hr>
+						<div>
+							<span class="mr-3 small"><i class="far fa-eye"></i> <%= seed.views %></span>
+							<span class="mr-3 small"><i class="fas fa-comment mr-1"></i><%= seed.commentCount %></span>
+							<a href="#" class="card-link small"><i class="fas fa-thumbs-up mr-1"></i> <%= seed.upvoteCount %></a>
+							<a href="#" class="card-link small"><i class="fas fa-thumbs-down"></i> <%= seed.downvoteCount %></a>
+						</div>
+						<hr>
+						<div>
+							<a href="#" class="card-link mr-3">Sow</a>
+							<span class="earnings">300GSD</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		<% }); %>
+	</div>
 </div>
-
-<% }); %> -->
-
-
 
 <% include ../partials/footer %>
