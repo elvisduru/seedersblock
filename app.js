@@ -19,7 +19,7 @@ app.set("view engine", "ejs");
 seedDB();
 
 // Landing page route
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
 	res.render("landing");
 });
 
@@ -29,25 +29,27 @@ app.get('/', function(req, res) {
 // ****************
 
 // Index Route
-app.get('/seeds', function(req, res) {
-	Seed.find({}, function(err, seeds) {
+app.get('/seeds', function (req, res) {
+	Seed.find({}, function (err, seeds) {
 		if (err) {
 			console.log(err);
 		} else {
-			res.render("seeds/index", {seeds: seeds});
+			res.render("seeds/index", {
+				seeds: seeds
+			});
 		}
 	});
-	
+
 });
 
-app.get('/seeds/new', function(req, res) {
+app.get('/seeds/new', function (req, res) {
 	res.render("seeds/new");
 });
 
-app.get('/seeds/edit', function(req, res) {
+app.get('/seeds/edit', function (req, res) {
 	res.render("seeds/edit");
 });
 
-app.listen(3000, function() {
+app.listen(3000, function () {
 	console.log("Started Seedersblock app...");
 });
