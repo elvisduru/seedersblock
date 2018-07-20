@@ -1,26 +1,28 @@
 var	mongoose 	= 	require('mongoose'),
+	faker		=	require('faker'),
 	Seed 		= 	require('./models/seeds.js');
 
-var data = [
-	{
-		author: "John Doe",
-		title: "How to win a match",
-		image: "https://images.unsplash.com/uploads/141103282695035fa1380/95cdfeef?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cf56dd62f7e28facff79eaf6e7a78df4&auto=format&fit=crop&w=500&q=60",
-		body: "some awesome post"		
+var data = [];
+
+function SeedData() {
+	author = {
+		avatar: faker.image.avatar(),
+		username: faker.internet.userName() 
 	},
-	{
-		author: "Susan Doe",
-		title: "How to lose a match",
-		image: "https://images.unsplash.com/uploads/141103282695035fa1380/95cdfeef?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cf56dd62f7e28facff79eaf6e7a78df4&auto=format&fit=crop&w=500&q=60",
-		body: "some awesome post"		
-	},
-	{
-		author: "Jackie Doe",
-		title: "How to win a match",
-		image: "https://images.unsplash.com/uploads/141103282695035fa1380/95cdfeef?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cf56dd62f7e28facff79eaf6e7a78df4&auto=format&fit=crop&w=500&q=60",
-		body: "some awesome post"		
-	}
-];
+	title = faker.lorem.sentence(),
+	image = faker.random.image(),
+	body = faker.lorem.paragraphs(),
+	category = faker.random.words(),
+	views = faker.random.number(),
+	commentCount = faker.random.number(),
+	upvoteCount = faker.random.number(),
+	downvoteCount = faker.random.number(),
+	earnings = faker.random.number();
+};
+
+
+for (var i = 0; i < 10; i++)
+	data.push(new SeedData());
 
 function seedDB() {
 	// Remove Existing Seeds
