@@ -176,3 +176,5 @@ $(".control-right").on("click", function() {
 		console.log(counter);
 	}
 })
+
+
