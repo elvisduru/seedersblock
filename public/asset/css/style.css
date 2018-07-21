@@ -34,7 +34,7 @@
 	text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
 }
 
-.card-action span > span {
+.card-action span>span {
 	font-size: 0.9em;
 }
 
@@ -52,6 +52,35 @@
 	width: 90%;
 }
 
-.collet-jobs {
+.head-bg {
+	background: #000;
+	position: relative;
+	padding: 10px;
+	margin-bottom: 50px;
+	height: 400px;
+}
+
+.head-bg-img {
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: url(https://getseeds.ca/demo_1/img/headers.jpg);
+	height: 100%;
+	width: 100%;
+	background-size: cover;
+	opacity: 0.2;
+	background-position: center center;
+}
+
+/* .collet-jobs {
 	color: black;
+} */
+
+.edit {
+	background-color: #8125e3;
+	border-radius: 100px;
+}
+
+.hn {
+	background-color: #0e0e0e00;
 }
