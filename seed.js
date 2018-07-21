@@ -20,7 +20,6 @@ function NewSeed() {
 	this.earnings = faker.random.number();
 }
 
-
 for (var i = 0; i < 6; i++)
 	data.push(new NewSeed());
 
@@ -40,7 +39,7 @@ function seedDB() {
 					console.log(err);
 				}
 				else {
-					console.log(createdSeed);
+					console.log("created seed");
 				}
 			});
 		});

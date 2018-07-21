@@ -42,14 +42,17 @@ app.get('/seeds', function (req, res) {
 
 });
 
+//NEW ROUTE
 app.get('/seeds/new', function (req, res) {
 	res.render("seeds/new");
 });
 
-app.get('/seeds/edit', function (req, res) {
-	res.render("seeds/edit");
-});
+// // CREATE ROUTE
+// app.get('/seeds/edit', function (req, res) {
+// 	res.render("seeds/edit");
+// });
 
 app.listen(3000, function () {
 	console.log("Started Seedersblock app...");
 });
+
