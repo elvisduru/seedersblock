@@ -10,3 +10,4 @@ function formatStr(str) {
 $(".card-action span > span").each(function(i) {
 	$(this).text(formatStr($(this).text()));
 });
+
