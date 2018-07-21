@@ -10,7 +10,7 @@ function NewSeed() {
 		username: faker.internet.userName() 
 	},
 	this.title = faker.lorem.sentence(),
-	this.image = faker.random.image(),
+	this.image = "https://source.unsplash.com/1600x900/",
 	this.body = faker.lorem.paragraphs(),
 	this.category = faker.random.words(),
 	this.views = faker.random.number(),
@@ -21,7 +21,7 @@ function NewSeed() {
 }
 
 
-for (var i = 0; i < 10; i++)
+for (var i = 0; i < 6; i++)
 	data.push(new NewSeed());
 
 function seedDB() {

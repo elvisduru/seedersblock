@@ -5,18 +5,40 @@
 		<!--side nav goes here -->
 		
 	</div>
-	<div class="col s9 teal">
-		<div class="col s12 m6">
-			<div class="card blue-grey darken-1">
-				<div class="card-content white-text">
-					<span class="card-title">Card Title</span>
-					<p>I am a very simple card. I am good at containing small bits of information.
-					I am convenient because I require little markup to use effectively.</p>
+	<div class="col s9 blue darken-4">
+		<div class="row">
+			<% seeds.forEach(function(seed) { %>
+				<div class="col s12 m4">
+					<div class="card hoverable">
+						<div class="card-image">
+							<img src="<%= seed.image %>">
+							<span class="card-title">Card Title</span>
+						</div>
+						<div class="card-content">
+							<p>
+								<%= seed.body.substring(0, 60) + "..." %>
+							</p>
+							<div class="divider"></div>
+							<div class="valign-wrapper">
+            					<div class="avatar">
+                					<img src="<%= seed.author.avatar %>" alt="" class="circle responsive-img">
+            					</div>
+				            	<div class="seed-meta">
+					            	<span class="black-text">
+					                	<%= seed.author.username %>
+					            	</span><br>
+					            	<span class="grey-text">
+					            		<%= seed.created.toDateString() %>
+					            	</span>
+				            	</div>
+				          	</div>							
+						</div>
+						<div class="card-action">
+							<span><i class="material-icons">remove_red_eye</i><%= seed.views %></span>
+						</div>
+					</div>
 				</div>
-				<div class="card-action">
-					<a href="#">This is a link</a>
-				</div>
-			</div>
+			<% }); %>	
 		</div>
 	</div>
 </div>

@@ -17,3 +17,19 @@
 .foot {
 	background-color: #0a64d3;
 }
+
+.card .divider {
+	margin: 10px 0;
+}
+
+.avatar {
+	width: 50px;
+}
+
+.seed-meta {
+	margin-left: 20px;
+}
+
+.card-title {
+	text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
+}
