@@ -1,4 +1,5 @@
 function formatStr(str) {
+	str = str.trim();
 	if (str.length > 3) {
 		str = str.substring(0, 3) + "k";
 		return str;
@@ -7,7 +8,7 @@ function formatStr(str) {
 	}
 }
 
-$(".card-action span > span").each(function(i) {
+$(".formatcount").each(function(i) {
 	$(this).text(formatStr($(this).text()));
 });
 

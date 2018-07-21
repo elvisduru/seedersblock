@@ -1,44 +1,5 @@
 <% include ../partials/header %>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-<script src="/asset/js/tinymce/jquery.tinymce.min.js"></script>
-<script src="/asset/js/tinymce/tinymce.min.js"></script>
-<script type="text/javascript">
-	tinymce.init({
-		selector: '#post-body',
-		plugins: "autosave textcolor colorpicker emoticons fullscreen image imagetools",
-  		toolbar: "undo redo | restoredraft forecolor backcolor emoticons fullscreen undo redo formats | help | image",
-  		autosave_interval: '20s',
-  		height: 400,
-  		branding: false,
-  		image_advtab: true,
-  		imagetools_cors_hosts: ['localhost'],
-  		style_formats: [
-		  {title: 'Image Left', selector: 'img', styles: {
-		    'float' : 'left',
-		    'margin': '0 10px 0 10px'
-		  }},
-		  {title: 'Image Right', selector: 'img', styles: {
-		    'float' : 'right',
-		    'margin': '0 10px 0 10px'
-		  }}
-		]
 
-
-	});
-</script>
-
-<nav>
-    <div class="nav-wrapper">
-      <form>
-        <div class="input-field">
-          <input id="search" type="search" required>
-          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-          <i class="material-icons">close</i>
-        </div>
-      </form>
-    </div>
-  </nav>
 <div class="container">
 	<div class="row">
 		<form class="col s12">
@@ -66,6 +27,15 @@
 				</div>
 			</div>
 		</form>
+	</div>
+</div>
+
+<div class="container">
+	<div data-editable data-name="main-content">
+	    <blockquote>
+	        Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.
+	    </blockquote>
+	    <p>John F. Woods</p>
 	</div>
 </div>
 
