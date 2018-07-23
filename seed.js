@@ -36,7 +36,7 @@ function seedDB() {
 		data.forEach(function(item) {
 			Seed.create(item, function(err, createdSeed) {
 				if (err) {
-					console.log(err);
+					console.log(err); 
 				}
 				else {
 					console.log("created seed");

@@ -12,3 +12,6 @@ $(".formatcount").each(function(i) {
 	$(this).text(formatStr($(this).text()));
 });
 
+$('#editor').trumbowyg({
+	autogrow: true
+});
