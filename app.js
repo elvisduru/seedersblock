@@ -12,6 +12,7 @@ mongoose.connect("mongodb://localhost/seedersblock");
 
 // app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
+app.use('/scripts', express.static(__dirname + '/node_modules/trumbowyg/dist/'));
 
 // Set EJS as default view engine
 app.set("view engine", "ejs");
