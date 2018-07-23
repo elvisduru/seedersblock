@@ -13,5 +13,14 @@ $(".formatcount").each(function(i) {
 });
 
 $('#editor').trumbowyg({
-	autogrow: true
+	autogrow: true,
+	autogrowOnEnter: true,
+	imageWidthModalEdit: true,
+	urlProtocol: true,
+});
+
+$("#post-form").submit(function(){
+	var postBody = $('#editor').trumbowyg('html');
+	console.log(postBody);
+  	$("#editor-content").val(postBody);
 });
