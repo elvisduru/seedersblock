@@ -64,17 +64,13 @@
 	position: absolute;
 	left: 0;
 	top: 0;
-	background: url(https://getseeds.ca/demo_1/img/headers.jpg);
+	background-image: url(https://getseeds.ca/demo_1/img/headers.jpg);
 	height: 100%;
 	width: 100%;
 	background-size: cover;
 	opacity: 0.2;
 	background-position: center center;
 }
-
-/* .collet-jobs {
-	color: black;
-} */
 
 .edit {
 	background-color: #8125e3;
