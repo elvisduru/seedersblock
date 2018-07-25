@@ -121,11 +121,20 @@ app.post('/seeds', upload.single('featuredImg'), function (req, res) {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log(createdSeed);
-				return res.send(createdSeed);
+				return res.redirect('/seeds');
 			}
 		});
 	}
+});
+
+app.get('/seeds/:id', function(req, res) {
+	Seed.findById(req.params.id, function(err, foundSeed) {
+		if (err) {
+			console.log(err);
+		} else {
+			res.render('seeds/show', {seed: foundSeed});
+		}
+	});
 });
 
 app.listen(3000, function () {
