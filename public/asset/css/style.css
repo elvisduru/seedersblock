@@ -96,6 +96,18 @@
 	background-color: #0e0e0e00;
 }
 
-/*#editor {
-	height: 400px;
-}*/
+
+
+/*******************************************************************************************
+	Show route styles
+*******************************************************************************************/
+
+.content-display {
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+.author-meta .avatar {
+	margin-right: 10px;
+	width: 70px;
+}
