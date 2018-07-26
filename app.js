@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(__dirname + "/public"));
 app.use('/trumbowyg', express.static(__dirname + '/node_modules/trumbowyg/'));
 app.use('/jquery-resizable-dom', express.static(__dirname + '/node_modules/jquery-resizable-dom/'));
+
 // Configure multer
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -40,11 +41,6 @@ var upload = multer({
 		}
 		cb(null, true);
 	}
-});
-
-// Configure multer
-var upload = multer({
-	storage: storage
 });
 
 // Set EJS as default view engine
@@ -83,80 +79,75 @@ app.get('/seeds/new', function (req, res) {
 });
 
 // CREATE ROUTE
-app.post('/seeds', upload.any(), function (req, res) {
-			if (!req.files) {
+app.post('/seeds', upload.single('featuredImg'), function (req, res) {
+	res.set('X-XSS-Protection', 0);
+	var host = req.headers.host;
+	var prefix = 'file/uploads/';
+	var filePath = req.protocol + "://" + host + '/' + prefix + req.file.filename;
 
-				app.post('/seeds', upload.single('featuredImg'), function (req, res) {
-						res.set('X-XSS-Protection', 0);
-						var host = req.headers.host;
-						var prefix = 'file/uploads/';
-						var filePath = req.protocol + "://" + host + '/' + prefix + req.file.filename;
+	// xss validation
+	req.body.seed.title = sanitizeHtml(req.body.seed.title);
+	req.body.seed.content = sanitizeHtml(req.body.seed.content, {
+		allowedTags: ['h3', 'h4', 'h5', 'h6', 'blockquote', 'p', 'a', 'ul', 'ol',
+			'nl', 'li', 'b', 'i', 'strong', 'em', 'strike', 'code', 'hr', 'br', 'div',
+			'table', 'thead', 'caption', 'tbody', 'tr', 'th', 'td', 'pre', 'iframe', 'img', 'br', 'hr', 'audio', 'video'
+		],
+		allowedAttributes: false,
+		allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com']
+	});
+	req.body.seed.excerpt = sanitizeHtml(req.body.seed.excerpt);
 
-						// xss validation
-						req.body.seed.title = sanitizeHtml(req.body.seed.title);
-						req.body.seed.content = sanitizeHtml(req.body.seed.content, {
-							allowedTags: ['h3', 'h4', 'h5', 'h6', 'blockquote', 'p', 'a', 'ul', 'ol',
-								'nl', 'li', 'b', 'i', 'strong', 'em', 'strike', 'code', 'hr', 'br', 'div',
-								'table', 'thead', 'caption', 'tbody', 'tr', 'th', 'td', 'pre', 'iframe', 'img', 'br', 'hr', 'audio', 'video'
-							],
-							allowedAttributes: false,
-							allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com']
-						});
-						req.body.seed.excerpt = sanitizeHtml(req.body.seed.excerpt);
+	var body = req.body.seed;
 
-						var body = req.body.seed;
+	var seed = {
+		author: {
+			username: faker.internet.userName(),
+			avatar: faker.image.avatar()
+		},
+		title: req.body.seed.title,
+		image: filePath,
+		body: req.body.seed.content,
+		excerpt: req.body.seed.excerpt,
+		category: req.body.seed.category,
+		views: faker.random.number(),
+		commentCount: faker.random.number(),
+		upvoteCount: faker.random.number(),
+		downvoteCount: faker.random.number(),
+		earnings: faker.random.number()
+	};
 
-						var seed = {
-							author: {
-								username: faker.internet.userName(),
-								avatar: faker.image.avatar()
-							},
-							title: req.body.seed.title,
-							image: filePath,
-							body: req.body.seed.content,
-							excerpt: req.body.seed.excerpt,
-							category: req.body.seed.category,
-							views: faker.random.number(),
-							commentCount: faker.random.number(),
-							upvoteCount: faker.random.number(),
-							downvoteCount: faker.random.number(),
-							earnings: faker.random.number()
-						};
+	if (!req.file) {
+		console.log("No file received");
+		return res.send({
+			success: false
+		});
 
-						if (!req.file) {
-							console.log("No file received");
-							return res.send({
-								success: false
-							});
+	} else {
+		console.log('file received');
+		Seed.create(seed, function (err, createdSeed) {
+			if (err) {
+				console.log(err);
+			} else {
+				return res.redirect('/seeds');
+			}
+		});
+	}
+});
 
-						} else {
-							console.log('file received');
-							return res.send({
-								success: true
-							})
-						}
-						Seed.create(seed, function (err, createdSeed) {
-							if (err) {
-								console.log(err);
-							} else {
-								return res.redirect('/seeds');
-							}
-						});
-					}
-				});
 
-			app.get('/seeds/:id', function (req, res) {
-				Seed.findById(req.params.id, function (err, foundSeed) {
-					if (err) {
-						console.log(err);
-					} else {
-						res.render('seeds/show', {
-							seed: foundSeed
-						});
-					}
-				});
+// Show Route
+app.get('/seeds/:id', function (req, res) {
+	Seed.findById(req.params.id, function (err, foundSeed) {
+		if (err) {
+			console.log(err);
+		} else {
+			res.render('seeds/show', {
+				seed: foundSeed
 			});
+		}
+	});
+});
 
-			app.listen(3000, function () {
-				console.log("Started Seedersblock app...");
-			});
+app.listen(3000, function () {
+	console.log("Started Seedersblock app...");
+});
