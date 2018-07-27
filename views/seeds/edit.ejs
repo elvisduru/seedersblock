@@ -1,1 +1,27 @@
-<h1>edit route</h1>
+<% include ../partials/header %>
+
+<div class="container">
+	<div class="row">
+		<h1>Edit Seed</h1>
+		<form class="col s12" action="/seeds/<%= seed._id %>?_method=PUT" id="post-form" method="POST">
+			<div class="row">
+				<div class="input-field col s12">
+					<i class="material-icons prefix">mode_edit</i>
+					<input type="text" id="post-title" name="seed[title]" value="<%= seed.title %>">
+					<label for="post-title">Post Title</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12 input-field">
+					<textarea id="editor" name="seed[content]" class="materialize-textarea" placeholder="Enter content here..."><%= seed.body %></textarea>
+				</div>
+			</div>
+			<input type="hidden" name="seed[excerpt]" id="excerpt">
+			<button class="btn waves-effect waves-light" type="submit">Submit
+				<i class="material-icons right">send</i>
+			</button>
+		</form>
+	</div>
+</div>
+
+<% include ../partials/footerCreate %>
