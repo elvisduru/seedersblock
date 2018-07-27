@@ -2,11 +2,12 @@ var express = require('express'),
 	mongoose = require('mongoose'),
 	bodyParser = require('body-parser'),
 	Seed = require('./models/seeds.js'),
+	Comment = require('./models/comments.js'),
 	faker = require('faker'),
 	multer = require('multer'),
 	sanitizeHtml = require('sanitize-html'),
 	methodOverride = require('method-override'),
-	seedDB		=	require('./seed');
+	seedDB = require('./seed');
 
 var app = express();
 
@@ -14,7 +15,9 @@ var app = express();
 mongoose.connect("mongodb://localhost/seedersblock");
 
 app.use(methodOverride('_method'));
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
 app.use(express.static(__dirname + "/public"));
 app.use('/trumbowyg', express.static(__dirname + '/node_modules/trumbowyg/'));
 app.use('/jquery-resizable-dom', express.static(__dirname + '/node_modules/jquery-resizable-dom/'));
@@ -144,8 +147,8 @@ app.get('/seeds/:id', function (req, res) {
 });
 
 // Delete Route
-app.delete('/seeds/:id/delete', function(req, res) {
-	Seed.findByIdAndRemove(req.params.id, function(err, removedSeed) {
+app.delete('/seeds/:id/delete', function (req, res) {
+	Seed.findByIdAndRemove(req.params.id, function (err, removedSeed) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -155,18 +158,20 @@ app.delete('/seeds/:id/delete', function(req, res) {
 });
 
 // Edit Route
-app.get('/seeds/:id/edit', function(req, res) {
-	Seed.findById(req.params.id, function(err, foundSeed) {
+app.get('/seeds/:id/edit', function (req, res) {
+	Seed.findById(req.params.id, function (err, foundSeed) {
 		if (err) {
 			console.log(err);
 		} else {
-			res.render('seeds/edit', {seed: foundSeed});
+			res.render('seeds/edit', {
+				seed: foundSeed
+			});
 		}
 	});
 });
 
 
-app.put('/seeds/:id', function(req, res) {
+app.put('/seeds/:id', function (req, res) {
 	res.set('X-XSS-Protection', 0);
 
 	// xss validation
@@ -189,7 +194,7 @@ app.put('/seeds/:id', function(req, res) {
 		excerpt: req.body.seed.excerpt
 	};
 
-	Seed.findByIdAndUpdate(req.params.id, seed, function(err, updatedSeed) {
+	Seed.findByIdAndUpdate(req.params.id, seed, function (err, updatedSeed) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -197,6 +202,37 @@ app.put('/seeds/:id', function(req, res) {
 		}
 	});
 });
+
+
+//NEW ROUTE FOR COMMENT 
+app.get('/seeds/:id/comments/new', function (req, res) {
+	res.render('comments/new');
+});
+
+//CREATE ROUTE FOR COMMENT
+app.post('seeds/:id/comments', function (req, res) {
+	var comment = {
+		author: {
+			username: faker.internet.userName(),
+			avatar: faker.image.avatar()
+		},
+		text: req.body.text
+	};
+
+	Comment.create(comment, function (err, newComment) {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(newComment);
+		}
+	});
+});
+
+
+
+
+
+
 
 app.listen(3000, function () {
 	console.log("Started Seedersblock app...");
