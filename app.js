@@ -1,9 +1,9 @@
-var express 	= 	require('express'),
-	mongoose 	= 	require('mongoose'),
-	bodyParser 	= 	require('body-parser'),
-	Seed      	= 	require('./models/seeds.js'),
-	faker		=	require('faker'),
-	multer		=	require('multer'),
+var express = require('express'),
+	mongoose = require('mongoose'),
+	bodyParser = require('body-parser'),
+	Seed = require('./models/seeds.js'),
+	faker = require('faker'),
+	multer = require('multer'),
 	sanitizeHtml = require('sanitize-html'),
 	methodOverride = require('method-override'),
 	seedDB		=	require('./seed');
@@ -22,14 +22,14 @@ app.use('/jquery-resizable-dom', express.static(__dirname + '/node_modules/jquer
 // Configure multer
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		cb(null, __dirname+'/public/file/uploads/');
+		cb(null, __dirname + '/public/file/uploads/');
 	},
 	filename: function (req, file, cb) {
 		cb(null, file.fieldname + '-' + Date.now());
 	}
 });
- 
-var upload = multer({ 
+
+var upload = multer({
 	storage: storage,
 	fileFilter: function (req, file, cb) {
 		if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
@@ -80,13 +80,14 @@ app.post('/seeds', upload.single('featuredImg'), function (req, res) {
 	var host = req.headers.host;
 	var prefix = 'file/uploads/';
 	var filePath = req.protocol + "://" + host + '/' + prefix + req.file.filename;
-	
+
 	// xss validation
 	req.body.seed.title = sanitizeHtml(req.body.seed.title);
 	req.body.seed.content = sanitizeHtml(req.body.seed.content, {
-		allowedTags: [ 'h3', 'h4', 'h5', 'h6', 'blockquote', 'p', 'a', 'ul', 'ol',
+		allowedTags: ['h3', 'h4', 'h5', 'h6', 'blockquote', 'p', 'a', 'ul', 'ol',
 			'nl', 'li', 'b', 'i', 'strong', 'em', 'strike', 'code', 'hr', 'br', 'div',
-			'table', 'thead', 'caption', 'tbody', 'tr', 'th', 'td', 'pre', 'iframe', 'img', 'br', 'hr', 'audio', 'video' ],
+			'table', 'thead', 'caption', 'tbody', 'tr', 'th', 'td', 'pre', 'iframe', 'img', 'br', 'hr', 'audio', 'video'
+		],
 		allowedAttributes: false,
 		allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com']
 	});
@@ -119,7 +120,7 @@ app.post('/seeds', upload.single('featuredImg'), function (req, res) {
 
 	} else {
 		console.log('file received');
-		Seed.create(seed, function(err, createdSeed) {
+		Seed.create(seed, function (err, createdSeed) {
 			if (err) {
 				console.log(err);
 			} else {
@@ -129,13 +130,15 @@ app.post('/seeds', upload.single('featuredImg'), function (req, res) {
 	}
 });
 
-//Show By Id
-app.get('/seeds/:id', function(req, res) {
-	Seed.findById(req.params.id, function(err, foundSeed) {
+// Show Route
+app.get('/seeds/:id', function (req, res) {
+	Seed.findById(req.params.id, function (err, foundSeed) {
 		if (err) {
 			console.log(err);
 		} else {
-			res.render('seeds/show', {seed: foundSeed});
+			res.render('seeds/show', {
+				seed: foundSeed
+			});
 		}
 	});
 });
@@ -155,4 +158,3 @@ app.delete('/seeds/:id/delete', function(req, res) {
 app.listen(3000, function () {
 	console.log("Started Seedersblock app...");
 });
-
