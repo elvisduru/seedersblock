@@ -70,7 +70,6 @@ app.get('/seeds', function (req, res) {
 
 //NEW ROUTE
 app.get('/seeds/new', function (req, res) {
-	console.log(req.file);
 	res.render("seeds/new");
 });
 
