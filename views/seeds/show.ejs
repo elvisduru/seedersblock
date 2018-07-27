@@ -21,6 +21,11 @@
 				<div class="row content-box">
 					<%- seed.body %>
 				</div>
+				<div class="row">
+					<form action="/seeds/<%= seed._id %>/delete?_method=DELETE" method="POST">
+						<button class="waves-effect waves-light btn" href=""><i class="material-icons left">delete</i>Delete Seed</button>
+					</form>	
+				</div>
 			</div>
 		</div>
 	</div>

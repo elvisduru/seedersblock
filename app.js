@@ -5,6 +5,7 @@ var express 	= 	require('express'),
 	faker		=	require('faker'),
 	multer		=	require('multer'),
 	sanitizeHtml = require('sanitize-html'),
+	methodOverride = require('method-override'),
 	seedDB		=	require('./seed');
 
 var app = express();
@@ -12,6 +13,7 @@ var app = express();
 // create database
 mongoose.connect("mongodb://localhost/seedersblock");
 
+app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 app.use('/trumbowyg', express.static(__dirname + '/node_modules/trumbowyg/'));
@@ -127,6 +129,7 @@ app.post('/seeds', upload.single('featuredImg'), function (req, res) {
 	}
 });
 
+//Show By Id
 app.get('/seeds/:id', function(req, res) {
 	Seed.findById(req.params.id, function(err, foundSeed) {
 		if (err) {
@@ -136,6 +139,18 @@ app.get('/seeds/:id', function(req, res) {
 		}
 	});
 });
+
+// Delete Route
+app.delete('/seeds/:id/delete', function(req, res) {
+	Seed.findByIdAndRemove(req.params.id, function(err, removedSeed) {
+		if (err) {
+			console.log(err);
+		} else {
+			res.redirect('/seeds');
+		}
+	});
+});
+
 
 app.listen(3000, function () {
 	console.log("Started Seedersblock app...");
