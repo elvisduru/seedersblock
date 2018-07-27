@@ -205,11 +205,20 @@ app.put('/seeds/:id', function (req, res) {
 
 //NEW ROUTE FOR COMMENT 
 app.get('/seeds/:id/comments/new', function (req, res) {
-	res.render('comments/new');
+	Seed.findById(req.params.id, function (err, foundSeed) {
+		if (err) {
+			console.log(err);
+		} else {
+			res.render('comments/new', {
+				seed: foundSeed
+			});
+		}
+	});
+
 });
 
 //CREATE ROUTE FOR COMMENT
-app.post('seeds/:id/comments', function (req, res) {
+app.post('/seeds/:id/comments', function (req, res) {
 	var comment = {
 		author: {
 			username: faker.internet.userName(),
@@ -226,11 +235,6 @@ app.post('seeds/:id/comments', function (req, res) {
 		}
 	});
 });
-
-
-
-
-
 
 
 app.listen(3000, function () {

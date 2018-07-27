@@ -1,20 +1,20 @@
 <% include ../partials/header %>
 
-<div class="container">
-	<div class="row">
-		<h1>Edit Seed</h1>
-		<form class="col s12" action="/seeds/<%= seed._id %>?_method=PUT" id="post-form" method="POST">
-			<div class="row">
-				<div class="col s12 input-field">
-					<input type="text" id="comment" name="text">
+	<div class="container">
+		<div class="row">
+			<h1>Create Comment</h1>
+			<form class="col s12" action="/seeds/<%= seed._id %>/comments" id="comment-form" method="POST">
+				<div class="row">
+					<div class="col s12 input-field">
+						<input type="text" id="comment" name="text">
+					</div>
 				</div>
-			</div>
-			<input type="hidden" name="seed[excerpt]" id="excerpt">
-			<button class="btn waves-effect waves-light" type="submit">Submit
-				<i class="material-icons right">send</i>
-			</button>
-		</form>
+				<input type="hidden" name="seed[excerpt]" id="excerpt">
+				<button class="btn waves-effect waves-light" type="submit">Submit
+					<i class="material-icons right">send</i>
+				</button>
+			</form>
+		</div>
 	</div>
-</div>
 
-<% include ../partials/footer %>
+	<% include ../partials/footer %>
