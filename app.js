@@ -1,5 +1,5 @@
 var express = require('express'),
-	app 	= express(),
+	app = express(),
 	mongoose = require('mongoose'),
 	bodyParser = require('body-parser'),
 	methodOverride = require('method-override'),
@@ -22,9 +22,6 @@ app.use('/trumbowyg', express.static(__dirname + '/node_modules/trumbowyg/'));
 app.use('/jquery-resizable-dom', express.static(__dirname + '/node_modules/jquery-resizable-dom/'));
 
 
-
-
-
 // Set EJS as default view engine
 app.set("view engine", "ejs");
 
@@ -33,8 +30,9 @@ app.set("view engine", "ejs");
 
 // requiring routes
 app.use("/seeds", seedRoutes);
-app.use("/seeds/:id/comments",commentRoutes);
+app.use("/seeds/:id/comments", commentRoutes);
 app.use("/", indexRoutes);
+
 
 
 app.listen(3000, function () {
