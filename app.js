@@ -21,19 +21,15 @@ app.use(express.static(__dirname + "/public"));
 app.use('/trumbowyg', express.static(__dirname + '/node_modules/trumbowyg/'));
 app.use('/jquery-resizable-dom', express.static(__dirname + '/node_modules/jquery-resizable-dom/'));
 
-
 // Set EJS as default view engine
 app.set("view engine", "ejs");
 
 // seedDB();
 
-
 // requiring routes
 app.use("/seeds", seedRoutes);
 app.use("/seeds/:id/comments", commentRoutes);
 app.use("/", indexRoutes);
-
-
 
 app.listen(3000, function () {
 	console.log("Started Seedersblock app...");
