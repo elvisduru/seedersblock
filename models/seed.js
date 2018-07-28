@@ -16,7 +16,13 @@ var seedSchema = new mongoose.Schema({
 	commentCount: Number,
 	upvoteCount: Number,
 	downvoteCount: Number,
-	earnings: Number
+	earnings: Number,
+	comments: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Comment'
+		}
+	]
 });
 
 module.exports = mongoose.model('Seed', seedSchema);

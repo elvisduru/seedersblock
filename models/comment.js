@@ -5,7 +5,8 @@ var commentSchema = new mongoose.Schema({
 		avatar: String,
 		username: String
 	},
-	text: String
+	text: String,
+	created: {type: Date, default: Date.now}
 });
 
 module.exports = mongoose.model('Comment', commentSchema);

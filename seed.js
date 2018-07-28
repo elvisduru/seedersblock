@@ -1,6 +1,7 @@
 var	mongoose 	= 	require('mongoose'),
 	faker		=	require('faker'),
-	Seed 		= 	require('./models/seeds.js');
+	Seed 		= 	require('./models/seed.js'),
+	Comment 	= 	require('./models/comment.js');
 
 var data = [];
 
@@ -21,7 +22,15 @@ function NewSeed() {
 	this.excerpt = faker.lorem.paragraphs();
 }
 
-for (var i = 0; i < 6; i++)
+function NewComment() {
+	this.author = {
+		avatar: faker.image.avatar(),
+		username: faker.internet.userName()
+	},
+	this.text = faker.lorem.sentence();
+}
+
+for (var i = 0; i < 2; i++)
 	data.push(new NewSeed());
 
 function seedDB() {
@@ -41,11 +50,27 @@ function seedDB() {
 				}
 				else {
 					console.log("created seed");
+					// Create a new comment
+					Comment.create(new NewComment(), function(err, newComment) {
+						if (err) {
+							console.log(err);
+						} else {
+							// Add comment to Seed
+							createdSeed.comments.push(newComment);
+							// Save the comment
+							createdSeed.save();
+							console.log(createdSeed);
+						}
+					});
+					
+					
 				}
 			});
 		});
 	});
 }
+
+
 
 module.exports = seedDB;
 

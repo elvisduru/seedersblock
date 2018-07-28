@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="col s12">
 				<div class="row author-meta valign-wrapper">
-					<div class="avatar">
+					<div class="user-avatar">
 						<img src="<%= seed.author.avatar %>" alt="" class="circle responsive-img">
 					</div>
 					<div>
@@ -18,6 +18,8 @@
 						</span>
 					</div>
 				</div>
+				<div class="row featured-img" style="background: url(<%= seed.image %>); background-size: cover;">
+				</div>
 				<div class="row content-box">
 					<%- seed.body %>
 				</div>
@@ -27,7 +29,59 @@
 					</div>
 					<form class="delete-seed-btn" action="/seeds/<%= seed._id %>/delete?_method=DELETE" method="POST">
 						<button class="waves-effect waves-light btn red" href=""><i class="material-icons left">delete</i>Delete Seed</button>
-					</form>	
+					</form>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<p><strong>Responses</strong></p>
+						<div class="card-panel add-comment">
+							<div class="row">
+							    <form class="col s12" action="/seeds/<%= seed._id %>/comments" method="POST">
+							      	<div class="row">
+							      		<div class="col s1">
+							      			<div class="user-avatar">
+							      				<img class="circle responsive-img" src="<%= seed.author.avatar %>" alt="">
+							      			</div>
+							      		</div>
+							        	<div class="col s11">
+							        		<div class="input-field">
+							        			<textarea id="new-comment" type="text" class="materialize-textarea" name="comment[text]"></textarea>
+												<label for="new-comment">Write a response...</label>
+							        		</div>
+							        	</div>
+							      	</div>
+							      	<div class="row">
+							      		<button class="btn waves-effect waves-light btn-flat" type="submit" name="action">Submit
+    										<i class="material-icons right">send</i>
+  										</button>
+							      	</div>
+							    </form>
+							  </div>
+						</div>
+
+						<% seed.comments.reverse().forEach(function (comment) { %>
+							<div class="card-panel comment">
+								<div class="card-content">
+									<div class="valign-wrapper">
+										<div class="user-avatar">
+											<img src="<%= comment.author.avatar %>" alt="" class="circle responsive-img">
+										</div>
+										<div class="comment-meta">
+											<span class="black-text">
+												<%= comment.author.username %>
+											</span>
+											<br>
+											<span class="grey-text">
+												<%= comment.created.toDateString() %> <%= comment.created.toLocaleTimeString() %>
+											</span>
+										</div>
+									</div>
+								</div>
+								<p><%= comment.text %></p>
+							</div>	
+						<% }); %>
+						
+					</div>
 				</div>
 			</div>
 		</div>

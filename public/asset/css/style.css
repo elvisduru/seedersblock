@@ -22,7 +22,7 @@
 	margin: 10px 0;
 }
 
-.avatar {
+.user-avatar {
 	width: 50px;
 }
 
@@ -107,9 +107,14 @@
 	padding-right: 10%;
 }
 
-.author-meta .avatar {
+.author-meta .user-avatar {
 	margin-right: 10px;
 	width: 70px;
+}
+
+.featured-img {
+	width: 100%;
+	height: 400px;
 }
 
 /*******************************************************************************************
@@ -117,4 +122,20 @@
 *******************************************************************************************/
 .delete-seed-btn {
 	margin-left: 20px;
+}
+
+
+/*******************************************************************************************
+	Comment styles
+*******************************************************************************************/
+.card-panel .user-avatar {
+	margin-right: 10px;
+}
+
+.add-comment .row {
+	margin-bottom: 0;
+}
+
+.add-comment .user-avatar {
+	padding-top: 14px;
 }
