@@ -46,6 +46,7 @@ router.get('/', function (req, res) {
 
 //NEW ROUTE
 router.get('/new', function (req, res) {
+	console.log(req.path);
 	res.render("seeds/new");
 });
 
