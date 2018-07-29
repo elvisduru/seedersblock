@@ -8,7 +8,7 @@ function formatStr(str) {
 	}
 }
 
-$(".formatcount").each(function(i) {
+$(".formatcount").each(function (i) {
 	$(this).text(formatStr($(this).text()));
 });
 

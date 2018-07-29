@@ -1,16 +1,16 @@
 $("#loginForm").validate({
-	submitHandler: function(form) {
+	submitHandler: function (form) {
 		form.submit();
 	}
 });
 
 $("#registerForm").validate({
-	submitHandler: function(form) {
+	submitHandler: function (form) {
 		form.submit();
 	}
 });
 
-$().ready(function() {
+$().ready(function () {
 	// validate login form
 	$("#loginForm").validate({
 		rules: {
@@ -78,26 +78,26 @@ $().ready(function() {
 		}
 	});
 
-	$(window).keydown(function(event){
-		if(event.keyCode == 13) {
+	$(window).keydown(function (event) {
+		if (event.keyCode == 13) {
 			event.preventDefault();
 			return false;
 		}
 	});
 
-	$('.step-one .button').on("click", function() {
-		if($("#signupForm").valid()) {
-			$(this).parent().fadeOut(function() {
+	$('.step-one .button').on("click", function () {
+		if ($("#signupForm").valid()) {
+			$(this).parent().fadeOut(function () {
 				$('.step-two').fadeIn();
 			});
 		}
 	});
 
-	$('.step-two .button').on("click", function() {
+	$('.step-two .button').on("click", function () {
 		$("#signupForm").valid();
 	});
 
-	$('#loginForm .button').on("click", function() {
+	$('#loginForm .button').on("click", function () {
 		$("#loginForm").valid();
 	});
 });
@@ -129,13 +129,13 @@ var testimonials = [],
 	avatars = [];
 
 function pushTestimonials() {
-	$('.text').each(function() {
+	$('.text').each(function () {
 		testimonials.push($(this).text());
 	});
-	$('.lead').each(function() {
+	$('.lead').each(function () {
 		leads.push($(this).text());
 	});
-	$('.avatar').each(function() {
+	$('.avatar').each(function () {
 		avatars.push($(this).attr("src"));
 	});
 }
@@ -144,7 +144,11 @@ function nextMsg() {
 	if (testimonials.length === 0) {
 		pushTestimonials();
 	}
-	$("[src='" + avatars.pop() + "']").animate({width: 100}, 1000).animate({width: 80}, 1000);
+	$("[src='" + avatars.pop() + "']").animate({
+		width: 100
+	}, 1000).animate({
+		width: 80
+	}, 1000);
 	$(".viewer-text").text(testimonials.pop()).fadeIn(500).delay(2000).fadeOut(500);
 	$(".viewer-lead").text(leads.pop()).fadeIn(500).delay(2000).fadeOut(500, nextMsg);
 }
@@ -155,8 +159,8 @@ nextMsg();
 // posts config
 var counter = 0;
 
-$(".control-left").on("click", function() {
-	
+$(".control-left").on("click", function () {
+
 	if (counter !== 600) {
 		$(".post").animate({
 			left: "-=300px"
@@ -164,10 +168,10 @@ $(".control-left").on("click", function() {
 		counter += 300;
 		console.log(counter);
 	}
-	
+
 });
 
-$(".control-right").on("click", function() {
+$(".control-right").on("click", function () {
 	if (counter !== 0) {
 		$(".post").animate({
 			left: "+=300px"
@@ -176,5 +180,4 @@ $(".control-right").on("click", function() {
 		console.log(counter);
 	}
 })
-
 
