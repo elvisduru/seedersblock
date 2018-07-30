@@ -20,53 +20,55 @@
 		<%}%>
 </head>
 <header>
-	<nav>
-		<div class="nav-wrapper">
-			<div class="brand">
-				<a href="/seeds" class="logo">SeedersBlock</a>
-				<a href="#" data-target="nav-mobile" class="sidenav-trigger">
-					<i class="material-icons">menu</i>
-				</a>
-			</div>
-			<div class="search">
-				<form autocomplete="off">
-					<div class="input-field">
-						<input id="search" type="search" placeholder="Search for friends and blog post!" required>
-						<label class="label-icon" for="search">
-							<i class="material-icons">search</i>
-						</label>
-						<i class="material-icons">close</i>
-					</div>
-				</form>
-			</div>
-			<div class="right-section">
-				<div class="notifications">
-					<div>
-						<i class="material-icons">notifications</i>
-						<span class="badge">10</span>
-					</div>
-					<div>
-						<i class="material-icons">mail_outline</i>
-						<span class="badge">10</span>
-					</div>
-				</div>
-				<div class="user-holder">
-					<span>User</span>
-					<!-- do user avatar login here -->
-					<i class="material-icons nav-avatar">person</i>
-					<a href="#" data-target="user-dropdown" class="dropdown-trigger">
-						<i class="material-icons">arrow_drop_down</i>
+	<div class="navbar-fixed">
+		<nav>
+			<div class="nav-wrapper">
+				<div class="brand">
+					<a href="/seeds" class="logo">SeedersBlock</a>
+					<a href="#" data-target="nav-mobile" class="sidenav-trigger">
+						<i class="material-icons">menu</i>
 					</a>
-					<ul class="dropdown-content" id="user-dropdown">
-						<li>
-							<a href="#">
-								<i class="material-icons">power_settings_new</i> Log out</a>
-						</li>
-					</ul>
+				</div>
+				<div class="search">
+					<form autocomplete="off">
+						<div class="input-field">
+							<input id="search" type="search" placeholder="Search for friends and blog post!" required>
+							<label class="label-icon" for="search">
+								<i class="material-icons">search</i>
+							</label>
+							<i class="material-icons">close</i>
+						</div>
+					</form>
+				</div>
+				<div class="right-section">
+					<div class="notifications">
+						<div>
+							<i class="material-icons">notifications</i>
+							<span class="badge">10</span>
+						</div>
+						<div>
+							<i class="material-icons">mail_outline</i>
+							<span class="badge">10</span>
+						</div>
+					</div>
+					<div class="user-holder">
+						<span>User</span>
+						<!-- do user avatar login here -->
+						<i class="material-icons nav-avatar">person</i>
+						<a href="#" data-target="user-dropdown" class="dropdown-trigger">
+							<i class="material-icons">arrow_drop_down</i>
+						</a>
+						<ul class="dropdown-content" id="user-dropdown">
+							<li>
+								<a href="#">
+									<i class="material-icons">power_settings_new</i> Log out</a>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
-		</div>
-	</nav>
+		</nav>
+	</div>
 
 	<ul class="sidenav sidenav-fixed" id="nav-mobile">
 		
