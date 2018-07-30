@@ -1,15 +1,17 @@
-main, footer {
-      padding-left: 250px;
-    }
-
-.sidenav {
-	width: 250px;
-	padding-top: 30px;
-	margin-top: 66px;
+main,
+footer {
+  padding-left: 250px;
 }
 
-@media only screen and (max-width : 992px) {
-  main, footer {
+.sidenav {
+  width: 250px;
+  padding-top: 30px;
+  margin-top: 66px;
+}
+
+@media only screen and (max-width: 992px) {
+  main,
+  footer {
     padding-left: 0;
   }
 }
@@ -52,4 +54,22 @@ main, footer {
 	top: -8px;
 	background: white;
 	left: 33%;
+}
+
+.sidenav-fixed span.badge {
+  margin-left: 0px;
+  font-weight: 300;
+  font-size: 0.8rem;
+  color: #fff;
+  background-color: #26a69a;
+  border-radius: 2px;
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-acc i {
+  font-size: 180px;
 }
