@@ -73,3 +73,22 @@ footer {
 .user-acc i {
   font-size: 180px;
 }
+
+.user-details {
+	width: 70%;
+}
+
+.user-details .prefix {
+	right: 0;
+	color: grey;
+}
+
+.user-details textarea {
+	margin-left: 0 !important;
+	margin-right: 3rem;
+}
+
+input[type=text]:not(.browser-default), input[type=date]:not(.browser-default) {
+	height: auto;
+	border-bottom: none;
+}
