@@ -1,5 +1,5 @@
 var express = require('express'),
-	router = express.Router({mergeParams: true}),
+	router = express.Router(),
 	multer = require('multer'),
 	Seed = require('../models/seed.js'),
 	faker = require('faker'),
