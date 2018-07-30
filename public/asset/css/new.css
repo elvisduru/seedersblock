@@ -13,3 +13,43 @@ main, footer {
     padding-left: 0;
   }
 }
+
+.extra {
+	margin: 30px auto;
+	width: 75%;
+	text-align: center;
+}
+
+.extra a {
+	margin-bottom: 30px;
+}
+
+.balance {
+	border: 1px solid #e0e0e0;
+	position: relative;
+	display: flex;
+	padding: 30px;
+	justify-content: center;
+	border-radius: 4px;
+}
+
+.balance p {
+	font-size: 2rem;
+	margin: 0;
+	line-height: 1.2rem;
+}
+
+.balance span {
+	font-size: 0.75rem;
+}
+
+.balance i {
+	font-size: 3rem;
+}
+
+.balance > span {
+	position: absolute;
+	top: -8px;
+	background: white;
+	left: 33%;
+}
