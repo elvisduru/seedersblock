@@ -88,12 +88,6 @@
 	border-radius: 100px;
 }
 
-.hn {
-	background-color: #0e0e0e00;
-}
-
-
-
 /*******************************************************************************************
 	Show route styles
 *******************************************************************************************/
@@ -116,14 +110,15 @@
 /*******************************************************************************************
 	Show route styles
 *******************************************************************************************/
+
 .delete-seed-btn {
 	margin-left: 20px;
 }
 
-
 /*******************************************************************************************
 	Comment styles
 *******************************************************************************************/
+
 .card-panel .user-avatar {
 	margin-right: 10px;
 }
@@ -138,6 +133,7 @@
 
 nav .search {
 	height: 60%;
+	width: 40%;
 	align-self: center;
 	border: 1px solid white;
 	border-radius: 30px;
@@ -172,7 +168,8 @@ nav .search .label-icon {
 	padding: 0 20px;
 }
 
-.nav i, nav i.material-icons {
+.nav i,
+nav i.material-icons {
 	line-height: normal;
 	height: unset;
 }
@@ -198,7 +195,8 @@ nav .search .label-icon {
 	padding: 0 20px;
 }
 
-.nav i, nav i.material-icons {
+.nav i,
+nav i.material-icons {
 	line-height: normal;
 	height: unset;
 }
@@ -214,7 +212,7 @@ nav .search .label-icon {
 	align-items: center;
 }
 
-.notifications > div {
+.notifications>div {
 	position: relative;
 	margin-right: 10px;
 }
