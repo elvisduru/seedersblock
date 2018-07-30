@@ -135,3 +135,102 @@
 .add-comment .user-avatar {
 	padding-top: 14px;
 }
+
+nav .search {
+	height: 60%;
+	align-self: center;
+	border: 1px solid white;
+	border-radius: 30px;
+}
+
+.input-field input[type=search]:focus:not(.browser-default) {
+	color: white;
+	background: none;
+	border-radius: 30px;
+}
+
+nav .search .label-icon {
+	top: 0.5rem;
+}
+
+.dropdown-trigger {
+	outline: none;
+}
+
+.dropdown-content {
+	width: 120px !important;
+}
+
+.dropdown-content i.material-icons {
+	margin-right: 5px !important;
+}
+
+.nav-wrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 0 20px;
+}
+
+.nav i, nav i.material-icons {
+	line-height: normal;
+	height: unset;
+}
+
+.right-section {
+	display: flex;
+	width: 200px;
+	justify-content: space-between;
+}
+
+.user-holder {
+	width: 100px;
+	justify-content: space-between;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.nav-wrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 0 20px;
+}
+
+.nav i, nav i.material-icons {
+	line-height: normal;
+	height: unset;
+}
+
+.right-section {
+	display: flex;
+	width: 200px;
+	justify-content: space-between;
+}
+
+.notifications {
+	display: flex;
+	align-items: center;
+}
+
+.notifications > div {
+	position: relative;
+	margin-right: 10px;
+}
+
+.notifications .badge {
+	min-width: unset;
+	padding: 3px;
+	margin-left: 0;
+	line-height: 1;
+	background: red;
+	color: unset;
+	border-radius: 50%;
+	font-size: 0.7rem;
+	font-weight: bold;
+	height: unset;
+	position: absolute;
+	top: -4px;
+	left: 14px;
+}

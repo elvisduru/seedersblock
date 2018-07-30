@@ -1,9 +1,18 @@
 header, main, footer {
-      padding-left: 300px;
+      padding-left: 250px;
     }
+
+.sidenav {
+	width: 250px;
+}
 
 @media only screen and (max-width : 992px) {
   header, main, footer {
     padding-left: 0;
   }
 }
+
+
+
+
+
