@@ -232,3 +232,11 @@ nav i.material-icons {
 	top: -4px;
 	left: 14px;
 }
+
+/* create stream btn */
+
+.stream-btn .btn-large {
+	border-radius: 70px;
+	background-color: #8d6dc4;
+	margin-left: 5px;
+}
