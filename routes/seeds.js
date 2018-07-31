@@ -2,6 +2,7 @@ var express = require('express'),
 	router = express.Router(),
 	multer = require('multer'),
 	Seed = require('../models/seed.js'),
+	path = require('path'),
 	faker = require('faker'),
 	sanitizeHtml = require('sanitize-html');
 
@@ -9,7 +10,7 @@ var express = require('express'),
 // Configure multer
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		cb(null, __dirname + '/public/file/uploads/');
+		cb(null, path.join(__dirname, '../public/file/uploads/'));
 	},
 	filename: function (req, file, cb) {
 		cb(null, file.fieldname + '-' + Date.now());

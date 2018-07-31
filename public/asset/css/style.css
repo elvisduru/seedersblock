@@ -121,6 +121,7 @@
 
 .card-panel .user-avatar {
 	margin-right: 10px;
+	margin-left: 5px;
 }
 
 .add-comment .row {
@@ -153,7 +154,7 @@ nav .search .label-icon {
 	outline: none;
 }
 
-.dropdown-content {
+nav .dropdown-content {
 	width: 120px !important;
 }
 

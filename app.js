@@ -1,6 +1,7 @@
 var express = require('express'),
 	app = express(),
 	mongoose = require('mongoose'),
+	multer = require('multer'),
 	bodyParser = require('body-parser'),
 	methodOverride = require('method-override'),
 	seedDB = require('./seed');

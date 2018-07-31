@@ -38,12 +38,12 @@
 							<div class="row">
 							    <form class="col s12" action="/seeds/<%= seed._id %>/comments" method="POST">
 							      	<div class="row">
-							      		<div class="col s1">
-							      			<div class="user-avatar">
+							      		<div class="col s2">
+							      			<div class="user-avatar text-center">
 							      				<img class="circle responsive-img" src="<%= seed.author.avatar %>" alt="">
 							      			</div>
 							      		</div>
-							        	<div class="col s11">
+							        	<div class="col s10">
 							        		<div class="input-field">
 							        			<textarea id="new-comment" type="text" class="materialize-textarea" name="comment[text]"></textarea>
 												<label for="new-comment">Write a response...</label>

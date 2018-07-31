@@ -1,0 +1,98 @@
+<% include ./partials/header %>
+
+<div class="row">
+	<div class="s12 m8">
+		<div class="row stream large">
+			<% seeds.forEach(function(seed) { %>
+				<div class="col s12 m12">
+					<div class="card hoverable">
+						<div class="card-image">
+							<img src="<%= seed.image %>">
+							<span class="card-title"><%= seed.title %></span>
+						</div>
+						<div class="card-content">
+							<p>
+								<%= seed.excerpt.substring(0, 50) + "..." %>
+							</p>
+							<div class="divider"></div>
+							<div class="valign-wrapper">
+								<div class="user-avatar">
+									<img src="<%= seed.author.avatar %>" alt="" class="circle responsive-img">
+								</div>
+								<div class="seed-meta">
+									<span class="black-text">
+										<%= seed.author.username %>
+									</span>
+									<br>
+									<span class="grey-text">
+										<%= seed.created.toDateString() %>
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="card-action">
+
+							<span class="valign-wrapper">
+								<i class="material-icons">remove_red_eye</i>
+								&nbsp;
+								<span class="formatcount">
+									<%= seed.views %>
+								</span>
+							</span>
+							<span class="valign-wrapper">
+								<i class="material-icons">comment</i>
+								&nbsp;
+								<span class="formatcount">
+									<%= seed.commentCount %>
+								</span>
+							</span>
+							<span class="valign-wrapper">
+								<i class="material-icons">thumb_up</i>
+								&nbsp;
+								<span class="formatcount">
+									<%= seed.upvoteCount %>
+								</span>
+							</span>
+							<span class="valign-wrapper">
+								<i class="material-icons">thumb_down</i>
+								&nbsp;
+								<span class="formatcount">
+									<%= seed.downvoteCount %>
+								</span>
+							</span>
+						</div>
+						<a class="link" href="/seeds/<%= seed._id %>">Read more</a>
+					</div>
+					<div class="comments-section">
+						<% seed.comments.reverse().slice(0,2).forEach(function (comment) { %>
+							<div class="card-panel comment grey lighten-5">
+								<div class="card-content">
+									<div class="valign-wrapper">
+										<div class="user-avatar">
+											<img src="<%= comment.author.avatar %>" alt="" class="circle responsive-img">
+										</div>
+										<div class="comment-meta">
+											<span class="black-text">
+												<%= comment.author.username %>
+											</span>
+											<span class="grey-text right">
+												<%= comment.created.toDateString() %> <%= comment.created.toLocaleTimeString() %>
+											</span>
+										</div>
+									</div>
+								</div>
+								<p><%= comment.text %></p>
+							</div>	
+						<% }); %>
+					</div>	
+				</div>
+				<% }); %>
+		</div>
+	</div>
+	<div class="s12 m4">
+		<!-- fetured posts go here -->
+	</div>
+</div>
+
+<% include ./partials/footer %>
+<% include  ./partials/footerDashboard %>
