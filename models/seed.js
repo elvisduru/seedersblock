@@ -2,6 +2,10 @@ var mongoose = require('mongoose');
 
 var seedSchema = new mongoose.Schema({
 	author: {
+		id: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'User'
+		},
 		avatar: String,
 		username: String 
 	},

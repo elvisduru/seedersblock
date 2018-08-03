@@ -279,42 +279,48 @@
 
     <!-- REGISTER FORM -->
     <section class="modal modal-register">
-        <form class="form-modal" id="signupForm">
+        <form class="form-modal" id="signupForm" action="/register" method="POST">
             <div class="step-one">
                 <h1>Create an account</h1>
                 <div class="names">
                     <div>
-                        <input type="text" id="firstname" name="firstname" required placeholder="First Name">
+                        <input type="text" id="firstname" name="user[firstname]" required placeholder="First Name">
                     </div>
                     <div>
-                        <input type="text" id="lastname" name="lastname" required placeholder="Last Name">
+                        <input type="text" id="lastname" name="user[lastname]" required placeholder="Last Name">
                     </div>
                 </div>
                 <div class="username">
                     <input type="text" id="username" name="username" required placeholder="Username">
                 </div>
                 <div class="email">
-                    <input type="email" name="email" id="email" placeholder="Email">
+                    <input type="email" name="user[email]" id="email" placeholder="Email">
                 </div>
                 <hr>
                 <button type="button" class="button">Next</button>
             </div>
             <div class="step-two">
                 <h1>Second Step of Registration</h1>
-                <div class="birth-date">
-                    <p>Date of birth</p>
-                    <input type="date" name="dateOfBirth" required id="dateOfBirth">
+                <div class="more-details">
+                    <div class="birth-date">
+                        <p>Date of birth</p>
+                        <input type="date" name="user[dateOfBirth]" required id="dateOfBirth">
+                    </div>
+                    <div class="occupation">
+                        <p>Occupation</p>
+                        <input type="text" name="user[occupation]" id="occupation">
+                    </div>
                 </div>
                 <div class="gender">
-                    <input type="radio" name="gender" id="male" value="male">
+                    <input type="radio" name="user[gender]" id="male" value="male">
                     <label for="male">Male</label>
-                    <input type="radio" name="gender" id="female" value="female">
+                    <input type="radio" name="user[gender]" id="female" value="female">
                     <label for="female">Female</label>
                 </div>
                 <div class="location">
-                    <select name="country" id="countries_states1" class="form-control bfh-countries" data-country="NG"></select>
-                    <select name="state" class="form-control bfh-states" data-country="countries_states1"></select>
-                    <select name="language" class="form-control bfh-languages" data-language="en_US" data-available="en_US,fr_CA,es_MX">
+                    <select name="user[country]" id="countries_states1" class="form-control bfh-countries" data-country="NG"></select>
+                    <select name="user[state]" class="form-control bfh-states" data-country="countries_states1"></select>
+                    <select name="user[language]" class="form-control bfh-languages" data-language="en_US" data-available="en_US,fr_CA,es_MX">
                     </select>
                 </div>
                 <hr>
@@ -343,7 +349,7 @@
 
     <!-- LOGIN FORM -->
     <section class="modal modal-login">
-        <form class="form-modal" id="loginForm">
+        <form class="form-modal" id="loginForm" action="/login" method="POST">
             <h1>Login to your account</h1>
             <div>
                 <input type="text" id="login-username" name="username" required placeholder="Username">

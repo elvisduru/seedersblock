@@ -1,18 +1,38 @@
 var express = require('express'),
 	app = express(),
 	mongoose = require('mongoose'),
-	multer = require('multer'),
 	bodyParser = require('body-parser'),
 	methodOverride = require('method-override'),
+	passport = require('passport'),
+	LocalStrategy = require("passport-local"),
+	User = require('./models/user'),
 	seedDB = require('./seed');
+
+// create database
+mongoose.connect("mongodb://localhost/seedersblock");
 
 // Configure Routes
 var seedRoutes = require("./routes/seeds");
 var commentRoutes = require("./routes/comments");
 var indexRoutes = require("./routes/index");
 
-// create database
-mongoose.connect("mongodb://localhost/seedersblock");
+// configure session middleware
+app.use(require('express-session')({
+	secret: "Express is really cool",
+	resave: false,
+	saveUninitialized: false
+}));
+
+// configure passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// configure strategy
+passport.use(new LocalStrategy(User.authenticate()));
+
+// serialize and deserialize user during session
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({
@@ -25,6 +45,7 @@ app.use('/jquery-resizable-dom', express.static(__dirname + '/node_modules/jquer
 // add req.path as local variable
 app.use(function(req, res, next) {
 	res.locals.path = req.path;
+	res.locals.currentUser = req.user;
 	next();
 });
 

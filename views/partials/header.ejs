@@ -55,7 +55,9 @@
 						</div>
 					</div>
 					<div class="user-holder">
-						<span>User</span>
+						<% if (currentUser) { %>
+							<span><%= currentUser.username %></span>
+						<%}%>
 						<!-- do user avatar login here -->
 						<i class="material-icons nav-avatar">person</i>
 						<a href="#" data-target="user-dropdown" class="dropdown-trigger">
@@ -63,7 +65,7 @@
 						</a>
 						<ul class="dropdown-content" id="user-dropdown">
 							<li>
-								<a href="#">
+								<a href="/logout">
 									<i class="material-icons">power_settings_new</i> Log out</a>
 							</li>
 						</ul>

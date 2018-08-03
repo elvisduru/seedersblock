@@ -36,9 +36,9 @@ $().ready(function () {
 	// validate signup form on keyup and submit
 	$("#signupForm").validate({
 		rules: {
-			firstname: "required",
-			lastname: "required",
-			username: {
+			"user[firstname]": "required",
+			"user[lastname]": "required",
+			"user[username]": {
 				required: true,
 				minlength: 2
 			},
@@ -51,16 +51,16 @@ $().ready(function () {
 				minlength: 5,
 				equalTo: "#password"
 			},
-			email: {
+			"user[email]": {
 				required: true,
 				email: true
 			},
 			agree: "required"
 		},
 		messages: {
-			firstname: "Please enter your firstname",
-			lastname: "Please enter your lastname",
-			username: {
+			"user[firstname]": "Please enter your firstname",
+			"user[lastname]": "Please enter your lastname",
+			"user[username]": {
 				required: "Please enter a username",
 				minlength: "Your username must consist of at least 2 characters"
 			},
@@ -73,7 +73,7 @@ $().ready(function () {
 				minlength: "Your password must be at least 5 characters long",
 				equalTo: "Please enter the same password as above"
 			},
-			email: "Please enter a valid email address",
+			"user[email]": "Please enter a valid email address",
 			agree: "Please accept our policy"
 		}
 	});

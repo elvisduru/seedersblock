@@ -597,11 +597,20 @@ hr {
 	margin-bottom: 20px;
 }
 
+.step-two .more-details {
+	display: flex;
+}
+
+.step-two .more-details > div{
+	display: inline-block;
+	margin-right: 30px;
+}
+
 .step-two .button, .step-two h1 {
 	align-self: center;
 }
 
-.birth-date p {
+.birth-date p, .occupation p {
 	text-decoration: underline;
 	text-decoration-color: #4bb8fb;
 	margin-bottom: 10px;
