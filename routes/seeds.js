@@ -33,6 +33,7 @@ var upload = multer({
 
 // Index Route
 router.get('/', function (req, res) {
+	console.log(req.user);
 	Seed.find({}, function (err, seeds) {
 		if (err) {
 			console.log(err);
@@ -71,8 +72,9 @@ router.post('/', upload.single('featuredImg'), function (req, res) {
 
 	var seed = {
 		author: {
-			username: faker.internet.userName(),
-			avatar: faker.image.avatar()
+			id: req.user._id,
+			username: req.user.username,
+			avatar: req.user.avatar
 		},
 		title: req.body.seed.title,
 		body: req.body.seed.content,

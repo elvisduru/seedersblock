@@ -29,8 +29,9 @@ router.post('/', function (req, res) {
 	req.body.comment.text = sanitizeHtml(req.body.comment.text);
 	var comment = {
 		author: {
-			username: faker.internet.userName(),
-			avatar: faker.image.avatar()
+			id: req.user._id,
+			username: req.user.username,
+			avatar: req.user.avatar
 		},
 		text: req.body.comment.text
 	};

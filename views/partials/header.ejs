@@ -41,7 +41,7 @@
 					</form>
 				</div>
 				<div class="stream-btn">
-					<a href="/stream" class="waves-effect waves-light btn">Create A Stream</a>
+					<a href="/seeds/new" class="waves-effect waves-light btn">Create A Seed</a>
 				</div>
 				<div class="right-section">
 					<div class="notifications">
@@ -58,12 +58,19 @@
 						<% if (currentUser) { %>
 							<span><%= currentUser.username %></span>
 						<%}%>
-						<!-- do user avatar login here -->
-						<i class="material-icons nav-avatar">person</i>
+						<% if (currentUser.avatar) {%>
+							<img src="<%= currentUser.avatar %>" class="header-avatar">
+						<% } else { %>
+							<i class="material-icons">person</i>
+						<% } %>
 						<a href="#" data-target="user-dropdown" class="dropdown-trigger">
 							<i class="material-icons">arrow_drop_down</i>
 						</a>
 						<ul class="dropdown-content" id="user-dropdown">
+							<li>
+								<a href="/settings">
+									<i class="material-icons">settings</i> Settings</a>
+							</li>
 							<li>
 								<a href="/logout">
 									<i class="material-icons">power_settings_new</i> Log out</a>

@@ -1,48 +1,52 @@
 <% include ./partials/header %>
 
     <div class="container">
-        <h1><%= currentUser.username %> Profile</h1>
+        <h1>Edit Profile</h1>
         <div class="row">
             <div class="col s12 m10">
                 <div class="card-panel">
                     <div class="card-content">
-                        <div class="user-acc">
-                            <div>
-                                <i class="material-icons">account_box</i>
+                        <form action="/settings" id="user-settings" method="POST" enctype="multipart/form-data">
+                            <div class="user-acc">
+                                <div>
+                                    <div id="profile-container">
+                                        <img id="profileImage" src="<%= currentUser.avatar %>" />
+                                        <span>Change Avatar</span>
+                                    </div>
+                                    <input id="imageUpload" type="file" name="avatar" placeholder="Photo" capture>
+                                </div>
+                                <div class="gsd-btn">
+                                    <a class="btn-flat disabled">1000 GSDs</a>
+                                </div>
+                                <div class="buy-gsd">
+                                    <a class="waves-effect waves-light btn blue" href="#">Buy GSDs</a>
+                                </div>
                             </div>
-                            <div class="gsd-btn">
-                                <a class="btn-flat disabled">1000 GSDs</a>
-                            </div>
-                            <div class="buy-gsd">
-                                <a class="waves-effect waves-light btn blue" href="#">Buy GSDs</a>
-                            </div>
-                        </div>
-                        <div class="user-details">
-                            <h5>John Harvester</h5>
-                            <div class="input-field">
-                                <i class="material-icons prefix">mode_edit</i>
-                                <textarea class="materialize-textarea" placeholder="Your personal seeder network status"></textarea>
-                            </div>
-                            <div class="user-info">
-                                <form action="#" id="user-settings">
+                            <div class="user-details">
+                                <h5>Elvis</h5>
+                                <div class="input-field">
+                                    <i class="material-icons prefix">mode_edit</i>
+                                    <textarea class="materialize-textarea" name="status" placeholder="Your personal seeder network status"><%= currentUser.status %></textarea>
+                                </div>
+                                <div class="user-info">
                                     <table class="responsive-table">
                                         <tr class="input-field">
                                             <td>Date of birth:</td>
-                                            <td><input type="date" value="2014-07-14"></td>
+                                            <td><input type="date" name="dateOfBirth" value="<%= currentUser.dateOfBirth %>"></td>
                                         </tr>
                                         <tr class="input-field">
                                             <td>City:</td>
-                                            <td><input type="text" value="Accra"></td>
+                                            <td><input type="text" name="state" value="<%= currentUser.state %>"></td>
                                         </tr>
                                         <tr class="input-field">
                                             <td>Profession:</td>
-                                            <td><input type="text" value="Miner"></td>
+                                            <td><input type="text" name="occupation" value="<%= currentUser.occupation %>"></td>
                                         </tr>
                                     </table>
-                                </form>
+                                    <button type="submit" class="updateProfilebtn waves-effect waves-light btn green">Update profile</button>
+                                </div>
                             </div>
-                        </div>
-
+                        </form>
                     </div>
                 </div>
             </div>
