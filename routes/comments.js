@@ -10,20 +10,6 @@ var express = require('express'),
 // Comment Route
 // ****************
 
-//NEW ROUTE FOR COMMENT 
-router.get('/new', function (req, res) {
-	Seed.findById(req.params.id, function (err, foundSeed) {
-		if (err) {
-			console.log(err);
-		} else {
-			res.render('comments/new', {
-				seed: foundSeed
-			});
-		}
-	});
-
-});
-
 //CREATE ROUTE FOR COMMENT
 router.post('/', function (req, res) {
 	req.body.comment.text = sanitizeHtml(req.body.comment.text);

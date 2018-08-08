@@ -2,6 +2,7 @@ var express = require('express'),
 	router = express.Router(),
 	multer = require('multer'),
 	Seed = require('../models/seed.js'),
+	ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
 	path = require('path'),
 	faker = require('faker'),
 	sanitizeHtml = require('sanitize-html');
@@ -32,7 +33,7 @@ var upload = multer({
 // ****************
 
 // Index Route
-router.get('/', function (req, res) {
+router.get('/', ensureLoggedIn('/'), function (req, res) {
 	console.log(req.user);
 	Seed.find({}, function (err, seeds) {
 		if (err) {
@@ -47,7 +48,7 @@ router.get('/', function (req, res) {
 });
 
 //NEW ROUTE
-router.get('/new', function (req, res) {
+router.get('/new', ensureLoggedIn('/'), function (req, res) {
 	console.log(req.path);
 	res.render("seeds/new");
 });
@@ -108,7 +109,7 @@ router.post('/', upload.single('featuredImg'), function (req, res) {
 });
 
 // Show Route
-router.get('/:id', function (req, res) {
+router.get('/:id', ensureLoggedIn('/'), function (req, res) {
 	Seed.findById(req.params.id).populate("comments").exec(function (err, foundSeed) {
 		if (err) {
 			console.log(err);
@@ -132,7 +133,7 @@ router.delete('/:id/delete', function (req, res) {
 });
 
 // Edit Route
-router.get('/:id/edit', function (req, res) {
+router.get('/:id/edit', ensureLoggedIn('/'), function (req, res) {
 	Seed.findById(req.params.id, function (err, foundSeed) {
 		if (err) {
 			console.log(err);

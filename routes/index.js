@@ -3,6 +3,7 @@ var express = require('express'),
 	passport = require('passport'),
 	path = require('path'),
 	sanitizeHtml = require('sanitize-html'),
+	ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
 	multer  = require('multer'),
 	Seed	= require('../models/seed'),
 	User	= require('../models/user'),
@@ -35,7 +36,7 @@ router.get('/', function (req, res) {
 });
 
 //Dasboard Route 
-router.get('/settings',function (req, res){
+router.get('/settings', ensureLoggedIn('/'), function (req, res){
 	res.render("settings");
 });
 
@@ -71,7 +72,7 @@ router.post('/settings', upload.single('avatar'), function(req, res) {
 });
 
 // User Profile route
-router.get('/stream', function(req, res) {
+router.get('/stream', ensureLoggedIn('/'), function(req, res) {
 	Seed.find({}).populate("comments").exec(function(err, seeds) {
 		if (err) {
 			console.log(err);
@@ -106,7 +107,7 @@ router.post('/register', function(req, res) {
 
 router.post('/login', passport.authenticate('local', {
 	successReturnToOrRedirect: '/seeds',
-	failureRedirect: '/login'
+	failureRedirect: '/'
 }), function(req, res) {
 });
 
