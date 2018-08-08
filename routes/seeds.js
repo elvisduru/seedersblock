@@ -5,6 +5,7 @@ var express = require('express'),
 	ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
 	path = require('path'),
 	faker = require('faker'),
+	middleware = require('../middleware');
 	sanitizeHtml = require('sanitize-html');
 
 
@@ -122,7 +123,7 @@ router.get('/:id', ensureLoggedIn('/'), function (req, res) {
 });
 
 // Delete Route
-router.delete('/:id/delete', function (req, res) {
+router.delete('/:id/delete', middleware.checkSeedOwnership, function (req, res) {
 	Seed.findByIdAndRemove(req.params.id, function (err, removedSeed) {
 		if (err) {
 			console.log(err);
@@ -133,7 +134,7 @@ router.delete('/:id/delete', function (req, res) {
 });
 
 // Edit Route
-router.get('/:id/edit', ensureLoggedIn('/'), function (req, res) {
+router.get('/:id/edit', middleware.checkSeedOwnership, function (req, res) {
 	Seed.findById(req.params.id, function (err, foundSeed) {
 		if (err) {
 			console.log(err);
@@ -146,7 +147,7 @@ router.get('/:id/edit', ensureLoggedIn('/'), function (req, res) {
 });
 
 
-router.put('/:id', function (req, res) {
+router.put('/:id', middleware.checkSeedOwnership, function (req, res) {
 	res.set('X-XSS-Protection', 0);
 
 	// xss validation

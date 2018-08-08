@@ -18,19 +18,22 @@
 						</span>
 					</div>
 				</div>
+				<h3><%= seed.title %></h3>
 				<div class="row featured-img" style="background: url(<%= seed.image %>); background-size: cover;">
 				</div>
 				<div class="row content-box">
 					<%- seed.body %>
 				</div>
-				<div class="row valign-wrapper">
-					<div>
-						<a class="waves-effect waves-light btn" href="/seeds/<%= seed._id %>/edit"><i class="material-icons left">edit</i>Edit Seed</a>
+				<% if (currentUser && seed.author.id.equals(currentUser._id)) { %>
+					<div class="row valign-wrapper">
+						<div>
+							<a class="waves-effect waves-light btn" href="/seeds/<%= seed._id %>/edit"><i class="material-icons left">edit</i>Edit Seed</a>
+						</div>
+						<form class="delete-seed-btn" action="/seeds/<%= seed._id %>/delete?_method=DELETE" method="POST">
+							<button class="waves-effect waves-light btn red" href=""><i class="material-icons left">delete</i>Delete Seed</button>
+						</form>
 					</div>
-					<form class="delete-seed-btn" action="/seeds/<%= seed._id %>/delete?_method=DELETE" method="POST">
-						<button class="waves-effect waves-light btn red" href=""><i class="material-icons left">delete</i>Delete Seed</button>
-					</form>
-				</div>
+				<% } %>
 				<div class="row">
 					<div class="col s12">
 						<p><strong>Responses</strong></p>
@@ -40,7 +43,7 @@
 							      	<div class="row">
 							      		<div class="col s2">
 							      			<div class="user-avatar text-center">
-							      				<img class="circle responsive-img" src="<%= seed.author.avatar %>" alt="">
+							      				<img class="circle responsive-img" src="<%= currentUser.avatar %>" alt="">
 							      			</div>
 							      		</div>
 							        	<div class="col s10">

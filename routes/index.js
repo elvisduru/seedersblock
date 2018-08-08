@@ -95,7 +95,6 @@ router.post('/register', function(req, res) {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log(updatedUser);
 				// log user in
 				passport.authenticate("local")(req, res, function() {
 					res.redirect('/seeds');
