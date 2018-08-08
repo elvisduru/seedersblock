@@ -23,7 +23,9 @@
                                 </div>
                             </div>
                             <div class="user-details">
-                                <h5>Elvis</h5>
+                                    <% if (currentUser) { %>
+                                        <h5><%= currentUser.username %></h5>
+                                    <%}%>
                                 <div class="input-field">
                                     <i class="material-icons prefix">mode_edit</i>
                                     <textarea class="materialize-textarea" name="status" placeholder="Your personal seeder network status"><%= currentUser.status %></textarea>
