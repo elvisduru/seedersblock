@@ -35,7 +35,6 @@ var upload = multer({
 
 // Index Route
 router.get('/', ensureLoggedIn('/'), function (req, res) {
-	console.log(req.user);
 	Seed.find({}, function (err, seeds) {
 		if (err) {
 			console.log(err);
@@ -177,5 +176,51 @@ router.put('/:id', middleware.checkSeedOwnership, function (req, res) {
 	});
 });
 
+router.get('/:id/votes', function(req, res) {
+	Seed.findById(req.params.id, function(err, foundSeed) {
+		if (err) {
+			console.log(err);
+		} else {
+			var score = foundSeed.upvotes() - foundSeed.downvotes();
+			res.json(score);
+		}
+		
+
+	});
+});
+
+router.put('/:id/upvote', function(req, res) {
+	Seed.findById(req.params.id, function(err, foundSeed) {
+		if (err) {
+			console.log(err);
+		} else {
+			foundSeed.upvote(req.user._id, function(err, upvotedSeed) {
+				if (err) {
+					console.log(err);
+				}
+				upvotedSeed.upvoteCount = upvotedSeed.upvotes();
+				upvotedSeed.save();
+				res.json(upvotedSeed);
+			});
+		}
+	});
+});
+
+router.put('/:id/downvote', function(req, res) {
+	Seed.findById(req.params.id, function(err, foundSeed) {
+		if (err) {
+			console.log(err);
+		} else {
+			foundSeed.downvote(req.user._id, function(err, downvotedSeed) {
+				if (err) {
+					console.log(err);
+				}
+				downvotedSeed.downvoteCount = downvotedSeed.downvotes();
+				downvotedSeed.save();
+				res.json(downvotedSeed);
+			});	
+		}	
+	});
+});
 
 module.exports = router;

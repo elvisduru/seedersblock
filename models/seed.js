@@ -1,4 +1,5 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+	voting = require('mongoose-voting');
 
 var seedSchema = new mongoose.Schema({
 	author: {
@@ -28,5 +29,7 @@ var seedSchema = new mongoose.Schema({
 		}
 	]
 });
+
+seedSchema.plugin(voting);
 
 module.exports = mongoose.model('Seed', seedSchema);
