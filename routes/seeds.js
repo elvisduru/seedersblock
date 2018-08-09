@@ -83,8 +83,6 @@ router.post('/', upload.single('featuredImg'), function (req, res) {
 		category: req.body.seed.category,
 		views: faker.random.number(),
 		commentCount: faker.random.number(),
-		upvoteCount: faker.random.number(),
-		downvoteCount: faker.random.number(),
 		earnings: faker.random.number()
 	};
 
@@ -184,8 +182,6 @@ router.get('/:id/votes', function(req, res) {
 			var score = foundSeed.upvotes() - foundSeed.downvotes();
 			res.json(score);
 		}
-		
-
 	});
 });
 
