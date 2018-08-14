@@ -9,20 +9,59 @@
 	<div class="section content-display">
 		<div class="row">
 			<div class="col s12">
-				<div class="row author-meta valign-wrapper">
-					<div class="user-avatar">
-						<img src="<%= seed.author.avatar %>" alt="" class="circle responsive-img">
+				<% if ( currentUser && (currentUser.following.indexOf(seed.author.id)) !== -1 && !(seed.author.id.equals(currentUser._id)) ) { %>
+					<form action="/unfollow-user" method="POST">
+						<div class="row author-meta valign-wrapper">
+							<div class="user-avatar">
+								<img src="<%= seed.author.avatar %>" alt="" class="circle responsive-img">
+							</div>
+							<div>
+								<span class="black-text">
+									<input type="text" name="username" readonly value="<%= seed.author.username %>">
+								</span>
+								<br>
+								<span class="grey-text">
+									<%= seed.created.toDateString() %>
+								</span>
+							</div>
+							<button type="submit" class="btn waves-effect waves-light right">Unfollow<i class="material-icons right">remove_circle_outline</i></button>
+						</div>
+					</form>
+				<% } else if (currentUser && (currentUser.following.indexOf(seed.author.id)) === -1 && !(seed.author.id.equals(currentUser._id)))  { %>
+					<form action="/follow-user" method="POST">
+						<div class="row author-meta valign-wrapper">
+							<div class="user-avatar">
+								<img src="<%= seed.author.avatar %>" alt="" class="circle responsive-img">
+							</div>
+							<div>
+								<span class="black-text">
+									<input type="text" name="username" readonly value="<%= seed.author.username %>">
+								</span>
+								<br>
+								<span class="grey-text">
+									<%= seed.created.toDateString() %>
+								</span>
+							</div>
+							<button type="submit" class="btn waves-effect waves-light right">Follow<i class="material-icons right">add_circle_outline</i></button>
+						</div>
+					</form>
+				<% } else { %>
+					<div class="row author-meta valign-wrapper">
+						<div class="user-avatar">
+							<img src="<%= seed.author.avatar %>" alt="" class="circle responsive-img">
+						</div>
+						<div>
+							<span class="black-text">
+								<%= seed.author.username %>
+							</span>
+							<br>
+							<span class="grey-text">
+								<%= seed.created.toDateString() %>
+							</span>
+						</div>
 					</div>
-					<div>
-						<span class="black-text">
-							<%= seed.author.username %>
-						</span>
-						<br>
-						<span class="grey-text">
-							<%= seed.created.toDateString() %>
-						</span>
-					</div>
-				</div>
+				<% } %>
+				
 				<h3><%= seed.title %></h3>
 				<div class="row featured-img" style="background: url(<%= seed.image %>); background-size: cover;">
 				</div>

@@ -246,3 +246,8 @@ nav i.material-icons {
 	background-color: #8d6dc4;
 	margin-left: 5px;
 }
+
+input[type=text]:not(.browser-default):disabled {
+	color: unset !important;
+	border-bottom: none !important;
+}

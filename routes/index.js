@@ -115,4 +115,64 @@ router.get('/logout', function(req, res) {
 	res.redirect("/");
 });
 
+router.post('/follow-user', function(req, res) {
+	User.findOne({ username: req.body.username }, function(err, user) {
+		user.followers.push(req.user._id);
+		var followedUser = user._id;
+		user.save(function (err) {
+			if (err) {
+				console.log(err);
+			} else {
+				User.findOne({ username: req.user.username }, function(err, user) {
+					user.following.push(followedUser);
+					user.save(function(err) {
+						if (err) {
+							console.log(err);
+						} else {
+							console.log("User successfully followed");
+							res.redirect('back');
+						}
+					});
+				});
+			}
+		});
+	});
+});
+
+router.post('/unfollow-user', function(req, res) {
+	User.findOne({ username: req.body.username }, function(err, user) {
+		user.followers.remove(req.user._id);
+		var followedUser = user._id;
+		user.save(function (err) {
+			if (err) {
+				console.log(err);
+			} else {
+				User.findOne({ username: req.user.username }, function(err, user) {
+					user.following.remove(followedUser);
+					user.save(function(err) {
+						if (err) {
+							console.log(err);
+						} else {
+							console.log("User successfully unfollowed");
+							res.redirect('back');
+						}
+					});
+				});
+			}
+		});
+	});
+});
+
+// router.get('/following', function(req, res) {
+// 	User.findOne({'_id': req.user._id}, (err, user) => {
+// 		if (err) {
+// 			return res.json(err);
+// 		}
+// 		return res.json(user);
+// 	}).populate([
+// 		{ path: 'following' },
+// 		{ path: 'followers'}
+// 	]);
+// });
+
 module.exports = router;

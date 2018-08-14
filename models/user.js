@@ -15,6 +15,12 @@ var userSchema = new mongoose.Schema({
 	state: String,
 	language: String,
 	occupation: String,
+	following: [{
+		type: mongoose.Schema.Types.ObjectId, ref: 'User'
+	}],
+	followers: [{
+		type: mongoose.Schema.Types.ObjectId, ref: 'User'
+	}],
 	status: String,
 });
 

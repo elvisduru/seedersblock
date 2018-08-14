@@ -1,11 +1,12 @@
 var express = require('express'),
 	router = express.Router(),
 	multer = require('multer'),
-	Seed = require('../models/seed.js'),
+	Seed = require('../models/seed'),
+	User = require('../models/user'),
 	ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
 	path = require('path'),
 	faker = require('faker'),
-	middleware = require('../middleware');
+	middleware = require('../middleware'),
 	sanitizeHtml = require('sanitize-html');
 
 

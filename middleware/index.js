@@ -23,6 +23,25 @@ middlewareObj.checkSeedOwnership = function (req, res, next) {
 	}
 };
 
+middlewareObj.checkFollowable = function (req, res, next) {
+	if (req.isAuthenticated()) {
+		Seed.findById(req.params.id, function(err, foundSeed) {
+			if (err) {
+				console.log(err);
+			} else {
+				// does user own seed
+				if (foundSeed.author.id.equals(req.user._id)) {
+					res.redirect("back");
+				} else {
+					next();
+				}
+			}
+		});
+	} else {
+		res.redirect("back");
+	}
+};
+
 // middlewareObj.checkCommentOwnership = function(req, res, next) {
 // 	if (req.isAuthenticated()) {
 // 		Comment.findById(req.params.comment_id, function(err, foundComment) {
