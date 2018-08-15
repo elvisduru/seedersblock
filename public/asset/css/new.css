@@ -120,61 +120,73 @@ input[type=text]:not(.browser-default), input[type=date]:not(.browser-default) {
 /*******************************************************************
 STREAM STYLES
 ********************************************************************/
+.posts .card-panel {
+  position: relative;
+}
+
 .stream {
-  width: 500px;
-  float: left;
-  margin-left: 100px;
+  width: 550px;
+  margin-left: 100px !important;
 }
 
-.stream .card-action {
-  padding-left: 60px;
-  padding-right: 60px;
+.likes-comments {
+  font-size: 13px;
+  margin-top: 10px;
 }
 
-.comment .valign-wrapper {
+.actions {
+  display: flex;
   justify-content: space-between;
+}
+
+.comments {  
+  margin-top: 20px;
+}
+
+.comments .comment-meta {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.new-comment {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.new-comment input {
+  border: 1px solid rgba(0,0,0,0.1) !important;
+  padding: 10px !important;
+  margin-bottom: 0 !important;
+  border-radius: 20px !important;
+  background-color: rgba(0,0,0,0.05) !important;
+}
+
+.new-comment input:focus {
+  box-shadow: none !important;
+}
+
+.new-comment .user-avatar, .comments .user-avatar {
+  width: 35px !important;
+  height: 35px !important;
+}
+
+hr {
+  border: 0;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.full-divider {
+  position: absolute;
   width: 100%;
-}
-
-.comment-meta {
-  flex: 1 1 auto;
-}
-
-.comment .user-avatar {
-  width: 35px;
-  margin-left: 0;
-}
-
-.comment p {
-  margin: 0;
-}
-
-.comment {
-  margin-bottom: .5rem;
-}
-
-.comments-section .card-panel {
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.comments-section {
-  margin-bottom: 2rem;
+  left: 0;
 }
 
 @media only screen and (max-width: 992px) {
   .stream {
     margin: 0;
     width: 100%;
-  }
-
-  .comment-meta {
-    flex-direction: column;
-  }
-
-  .stream .card-action {
-    padding-left: 20px;
-    padding-right: 20px;
   }
 }
 
@@ -253,4 +265,8 @@ STREAM STYLES
   100% {
     transform: scale(1);
   }
+}
+
+.trumbowyg-editor {
+  min-height: 100px;
 }

@@ -13,7 +13,9 @@ mongoose.connect("mongodb://localhost/seedersblock");
 
 // Configure Routes
 var seedRoutes = require("./routes/seeds");
+var streamRoutes = require("./routes/stream");
 var commentRoutes = require("./routes/comments");
+var streamCommentRoutes = require("./routes/streamComments");
 var indexRoutes = require("./routes/index");
 
 // configure session middleware
@@ -56,7 +58,9 @@ app.set("view engine", "ejs");
 
 // requiring routes
 app.use("/seeds", seedRoutes);
+app.use("/stream", streamRoutes);
 app.use("/seeds/:id/comments", commentRoutes);
+app.use("/stream/:id/comments", streamCommentRoutes);
 app.use("/", indexRoutes);
 
 app.listen(3000, function () {

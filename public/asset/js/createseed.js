@@ -29,7 +29,7 @@ $('#editor').trumbowyg({
 			fileFieldName: 'image',
 			urlPropertyName: 'data.link',
 			headers: {
-	        	'Authorization': 'Client-ID 82ba68ef5d815bb'
+				'Authorization': 'Client-ID 82ba68ef5d815bb'
 			}
 		}
 	},

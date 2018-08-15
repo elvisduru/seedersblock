@@ -71,18 +71,6 @@ router.post('/settings', upload.single('avatar'), function(req, res) {
 
 });
 
-// User Profile route
-router.get('/stream', ensureLoggedIn('/'), function(req, res) {
-	Seed.find({}).populate("comments").exec(function(err, seeds) {
-		if (err) {
-			console.log(err);
-		} else {
-			res.render("stream", {seeds: seeds});
-		}
-	});
-	
-});
-
 router.post('/register', function(req, res) {
 	var newUser = new User({username: req.body.username});
 	User.register(newUser, req.body.password, function(err, user) {

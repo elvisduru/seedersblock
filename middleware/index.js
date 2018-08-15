@@ -1,4 +1,5 @@
 var Seed = require('../models/seed'),
+	Stream = require('../models/stream'),
 	Comment = require('../models/comment');
 
 // all the middleware goes here
@@ -12,6 +13,26 @@ middlewareObj.checkSeedOwnership = function (req, res, next) {
 			} else {
 				// does user own seed
 				if (foundSeed.author.id.equals(req.user._id)) {
+					next();
+				} else {
+					res.redirect("back");
+				}
+			}
+		});
+	} else {
+		res.redirect("back");
+	}
+};
+
+middlewareObj.checkStreamOwnership = function (req, res, next) {
+	if (req.isAuthenticated()) {
+		Stream.findById(req.params.id, function(err, foundStream) {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log(foundStream);
+				// does user own stream
+				if (foundStream.author.id.equals(req.user._id)) {
 					next();
 				} else {
 					res.redirect("back");

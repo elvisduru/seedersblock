@@ -94,22 +94,26 @@
 		</li>
 		<li>
 			<a href="/stream">
-				<i class="material-icons">art_track</i>StreamSeeds</a>
+				<i class="material-icons">art_track</i>My Stream</a>
 		</li>
 		<li>
-			<a href="mobile.html">
+			<!-- Add a url dat contains username e.g /loggedinuser/seeds, same with get route-->
+			<a href="#">
+				<i class="material-icons">folder_special</i>My Seeds
+			</a>
+		</li>
+		<li>
+			<a href="#">
 				<i class="material-icons">person_add</i>Following
 				<span class="badge"><%= currentUser.following.length %></span>
 			</a>
 		</li>
 		<li>
-			<a href="mobile.html">
+			<a href="#">
 				<i class="material-icons">people</i>Followers
 				<span class="badge"><%= currentUser.followers.length %></span>
 			</a>
 		</li>
-
-
 		<li>
 			<div class="divider"></div>
 		</li>
