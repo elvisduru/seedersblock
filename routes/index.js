@@ -151,16 +151,14 @@ router.post('/unfollow-user', function(req, res) {
 	});
 });
 
-// router.get('/following', function(req, res) {
-// 	User.findOne({'_id': req.user._id}, (err, user) => {
-// 		if (err) {
-// 			return res.json(err);
-// 		}
-// 		return res.json(user);
-// 	}).populate([
-// 		{ path: 'following' },
-// 		{ path: 'followers'}
-// 	]);
-// });
+router.get('/following', ensureLoggedIn('/'), function(req, res) {
+	User.findById(req.user._id).populate("following").exec(function(err, foundUser) {
+		if (err) {
+			console.log(err);
+		} else {
+			res.render('users/index', {users: foundUser.following});
+		}
+	});
+});
 
 module.exports = router;

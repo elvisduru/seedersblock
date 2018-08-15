@@ -9,7 +9,7 @@ var express = require('express'),
 	seedDB = require('./seed');
 
 // create database
-mongoose.connect("mongodb://localhost/seedersblock");
+mongoose.connect("mongodb://elvisduru:buildthefuture123@ds123372.mlab.com:23372/seeders");
 
 // Configure Routes
 var seedRoutes = require("./routes/seeds");
@@ -63,6 +63,7 @@ app.use("/seeds/:id/comments", commentRoutes);
 app.use("/stream/:id/comments", streamCommentRoutes);
 app.use("/", indexRoutes);
 
-app.listen(3000, function () {
+const PORT = process.env.PORT || 3000
+app.listen(PORT, function () {
 	console.log("Started Seedersblock app...");
 });
