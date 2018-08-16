@@ -19,6 +19,7 @@
   "homepage": "https://github.com/elvisduru/seedersblock#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cloudinary": "^1.11.0",
     "connect-ensure-login": "^0.1.1",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
@@ -28,6 +29,7 @@
     "mongoose": "^5.2.4",
     "mongoose-voting": "^0.3.0",
     "multer": "^1.3.1",
+    "multer-storage-cloudinary": "^2.2.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^5.0.1",

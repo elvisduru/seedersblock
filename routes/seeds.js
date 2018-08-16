@@ -5,30 +5,33 @@ var express = require('express'),
 	User = require('../models/user'),
 	ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
 	path = require('path'),
+	cloudinary = require('cloudinary'),
+	cloudinaryStorage = require('multer-storage-cloudinary'),
 	faker = require('faker'),
 	middleware = require('../middleware'),
 	sanitizeHtml = require('sanitize-html');
 
 
-// Configure multer
-var storage = multer.diskStorage({
-	destination: function (req, file, cb) {
-		cb(null, path.join(__dirname, '../public/file/uploads/'));
-	},
-	filename: function (req, file, cb) {
-		cb(null, file.fieldname + '-' + Date.now());
-	}
+// config cloudinary
+cloudinary.config({ 
+  cloud_name: 'techspark', 
+  api_key: '498576454111458', 
+  api_secret: 'MKfoudAN2D_1k9ZYcOBqwq9iu10' 
 });
 
-var upload = multer({
-	storage: storage,
-	fileFilter: function (req, file, cb) {
-		if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-			return cb(new Error('Only image files are allowed!'));
-		}
-		cb(null, true);
-	}
+
+
+// Configure multer
+var storage = cloudinaryStorage({
+  cloudinary: cloudinary,
+  folder: 'uploads',
+  allowedFormats: ['jpg', 'png'],
+  filename: function (req, file, cb) {
+    cb(undefined, 'image');
+  }
 });
+
+var upload = multer({storage: storage});
 
 // ****************
 // Seed Route
@@ -57,9 +60,7 @@ router.get('/new', ensureLoggedIn('/'), function (req, res) {
 // CREATE ROUTE
 router.post('/', upload.single('featuredImg'), function (req, res) {
 	res.set('X-XSS-Protection', 0);
-	var host = req.headers.host;
-	var prefix = 'file/uploads/';
-
+	
 	// xss validation
 	req.body.seed.title = sanitizeHtml(req.body.seed.title);
 	req.body.seed.content = sanitizeHtml(req.body.seed.content, {
@@ -94,8 +95,7 @@ router.post('/', upload.single('featuredImg'), function (req, res) {
 		});
 	} else {
 		console.log('file received');
-		var filePath = req.protocol + "://" + host + '/' + prefix + req.file.filename;
-		seed.image = filePath;
+		seed.image = req.file.secure_url;
 		Seed.create(seed, function (err, createdSeed) {
 			if (err) {
 				console.log(err);

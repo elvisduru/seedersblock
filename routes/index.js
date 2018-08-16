@@ -5,29 +5,33 @@ var express = require('express'),
 	sanitizeHtml = require('sanitize-html'),
 	ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
 	multer  = require('multer'),
+	cloudinary = require('cloudinary'),
+	cloudinaryStorage = require('multer-storage-cloudinary'),
 	Seed	= require('../models/seed'),
 	User	= require('../models/user'),
 	Comment	= require('../models/comment');
 
-// Configure multer
-var storage = multer.diskStorage({
-	destination: function (req, file, cb) {
-		cb(null, path.join(__dirname, '../public/file/uploads/'));
-	},
-	filename: function (req, file, cb) {
-		cb(null, file.fieldname + '-' + Date.now());
-	}
+
+// config cloudinary
+cloudinary.config({ 
+  cloud_name: 'techspark', 
+  api_key: '498576454111458', 
+  api_secret: 'MKfoudAN2D_1k9ZYcOBqwq9iu10' 
 });
 
-var upload = multer({
-	storage: storage,
-	fileFilter: function (req, file, cb) {
-		if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-			return cb(new Error('Only image files are allowed!'));
-		}
-		cb(null, true);
-	}
+
+
+// Configure multer
+var storage = cloudinaryStorage({
+  cloudinary: cloudinary,
+  folder: 'uploads',
+  allowedFormats: ['jpg', 'png'],
+  filename: function (req, file, cb) {
+    cb(undefined, 'image');
+  }
 });
+
+var upload = multer({storage: storage});
 
 
 // Index route
@@ -41,9 +45,6 @@ router.get('/settings', ensureLoggedIn('/'), function (req, res){
 });
 
 router.post('/settings', upload.single('avatar'), function(req, res) {
-	var host = req.headers.host;
-	var prefix = 'file/uploads/';
-
 	// xss validation
 	req.body.status = sanitizeHtml(req.body.status);
 	req.body.state = sanitizeHtml(req.body.state);
@@ -56,10 +57,8 @@ router.post('/settings', upload.single('avatar'), function(req, res) {
 		dateOfBirth: req.body.dateOfBirth,
 	};
 	
-	var filePath = req.protocol + "://" + host + '/' + prefix + req.file.filename;
 	if (req.file) {
-		console.log('file received');
-		newProfile.avatar = filePath;
+		newProfile.avatar = req.file.secure_url;
 	}
 	User.findByIdAndUpdate(req.user._id, newProfile, function(err, updatedProfile) {
 		if (err) {
@@ -68,7 +67,6 @@ router.post('/settings', upload.single('avatar'), function(req, res) {
 			res.redirect('/settings');
 		}
 	});
-
 });
 
 router.post('/register', function(req, res) {
