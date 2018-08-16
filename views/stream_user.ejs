@@ -1,0 +1,130 @@
+<% include ./partials/header %>
+
+<div class="row">
+	<div class="col s12 m8">
+		<% if ( currentUser && (currentUser.following.indexOf(obj.returnedUser._id)) !== -1 && !(obj.returnedUser._id.equals(currentUser._id)) ) { %>
+			<form action="/unfollow-user" method="POST">
+				<div class="row user-info stream valign-wrapper">
+					<div class="user-avatar">
+						<img src="<%= obj.returnedUser.avatar %>" alt="" class="circle responsive-img">
+					</div>
+					<h4><%= obj.returnedUser.firstname %> <%= obj.returnedUser.lastname %></h4>
+					<input type="hidden" name="username" value="<%= obj.returnedUser.username %>">
+					<button type="submit" class="btn waves-effect waves-light right">Unfollow<i class="material-icons right">remove_circle_outline</i></button>
+				</div>
+			</form>
+		<% } else if (currentUser && (currentUser.following.indexOf(obj.returnedUser._id)) === -1 && !(obj.returnedUser._id.equals(currentUser._id)))  { %>
+			<form action="/follow-user" method="POST">
+				<div class="row user-info stream valign-wrapper">
+					<div class="user-avatar">
+						<img src="<%= obj.returnedUser.avatar %>" alt="" class="circle responsive-img">
+					</div>
+					<h4><%= obj.returnedUser.firstname %> <%= obj.returnedUser.lastname %></h4>
+					<input type="hidden" name="username" value="<%= obj.returnedUser.username %>">
+					<button type="submit" class="btn waves-effect waves-light right">Follow<i class="material-icons right">add_circle_outline</i></button>
+				</div>
+			</form>
+		<% } else { %>
+			<div class="row user-info stream valign-wrapper">
+				<div class="user-avatar">
+					<img src="<%= obj.returnedUser.avatar %>" alt="" class="circle responsive-img">
+				</div>
+				<h4><%= obj.returnedUser.firstname %> <%= obj.returnedUser.lastname %></h4>
+			</div>
+		<% } %>
+
+		<div class="row stream large">
+		    <div class="col s12 posts">
+		    	<h6><strong>Posts</strong></h6>
+		    	<% obj.streams.forEach(function(stream) { %>
+					<div class="card-panel">
+						<div class="right remove-stream">
+							<% if ( currentUser && stream.author.id.equals(currentUser._id) ) { %>
+								<form action="/stream/<%= stream._id %>/delete?_method=DELETE" method="POST">
+									<button class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></button>
+								</form>
+							<% } %>
+						</div>
+						<div class="author-meta valign-wrapper">
+							<div class="user-avatar">
+								<img src="<%= stream.author.avatar %>" alt="" class="circle responsive-img">
+							</div>
+							<div>
+								<span class="black-text">
+									<%= stream.author.username %>
+								</span>
+								<br>
+								<span class="grey-text">
+									<%= stream.created.toDateString() %>
+								</span>
+							</div>
+						</div>
+						<div class="content-body">
+							<%- stream.body %>
+						</div>
+						<div class="likes-comments">
+							<span><strong>Likes</strong></span>
+							<span class="right"><strong>Comments</strong></span>
+						</div>
+						<hr>
+						<div class="actions">
+							<div class="like-button">
+								<form>
+									<button class="btn btn-flat btn-small waves-effect waves-light" type="submit">
+										<i class="material-icons left">thumb_up</i>Like
+									</button>
+								</form>
+							</div>
+							<div class="comment-button">
+								<a class="btn btn-flat btn-small waves-effect waves-light">
+									<i class="material-icons left">comment</i>Comment
+								</a>
+							</div>
+						</div>
+						<hr class="full-divider">
+						<div id="comments_<%= stream._id %>" class="comments">
+							<% stream.comments.forEach(function(comment) { %>
+								<div id="comment_<%= comment._id %>">
+									<div class="right remove-comment">
+										<% if ( currentUser && (stream.author.id.equals(currentUser._id) || comment.author.id.equals(currentUser._id)) ) { %>
+											
+												<button id="<%= comment._id %>" class="btn-floating btn-small waves-effect waves-light light-teal comment-delete"><i class="material-icons">delete</i></button>
+											
+										<% } %>
+									</div>
+									<div class="valign-wrapper">
+										<div class="user-avatar">
+											<img src="<%= comment.author.avatar %>" alt="" class="circle responsive-img">
+										</div>
+										<div class="comment-meta">
+											<span class="black-text">
+												<%= comment.author.username %>
+											</span>
+											<br>
+											<span class="grey-text">
+												<%= comment.created.toDateString() %> <%= comment.created.toLocaleTimeString() %>
+											</span>
+										</div>
+									</div>
+									<p><%= comment.text %></p>
+								</div>
+							<% }); %>
+						</div>
+						<div id="comment_<%= stream._id %>" class="new-comment">
+							<div class="user-avatar">
+								<img src="<%= currentUser.avatar %>" alt="" class="circle responsive-img">
+							</div>
+							<input id="<%= stream._id %>" class="comment-input" type="text" name="comment" placeholder="Write a comment..." autocomplete="off">
+						</div>
+					</div>
+		    	<% }); %>
+		    </div>
+		</div>
+	</div>
+	<div class="col s12 m4">
+		<!-- fetured posts go here -->
+	</div>
+</div>
+
+<% include ./partials/footer %>
+<% include  ./partials/footerStream %>

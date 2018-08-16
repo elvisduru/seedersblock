@@ -8,6 +8,7 @@ var express = require('express'),
 	cloudinary = require('cloudinary'),
 	cloudinaryStorage = require('multer-storage-cloudinary'),
 	Seed	= require('../models/seed'),
+	Stream = require('../models/stream'),
 	User	= require('../models/user'),
 	Comment	= require('../models/comment');
 
@@ -64,7 +65,7 @@ router.post('/settings', upload.single('avatar'), function(req, res) {
 		if (err) {
 			console.log(err);
 		} else {
-			res.redirect('/settings');
+			res.redirect('/seeds');
 		}
 	});
 });
@@ -76,14 +77,13 @@ router.post('/register', function(req, res) {
 			console.log(err);
 			return res.redirect('back');
 		}
-
 		User.findByIdAndUpdate(user._id, req.body.user, function(err, updatedUser) {
 			if (err) {
 				console.log(err);
 			} else {
 				// log user in
 				passport.authenticate("local")(req, res, function() {
-					res.redirect('/seeds');
+					res.redirect('/settings');
 				});
 			}
 		});
@@ -154,7 +154,37 @@ router.get('/following', ensureLoggedIn('/'), function(req, res) {
 		if (err) {
 			console.log(err);
 		} else {
-			res.render('users/index', {users: foundUser.following});
+			res.render('users/following', {users: foundUser.following});
+		}
+	});
+});
+
+router.get('/followers', ensureLoggedIn('/'), function(req, res) {
+	User.findById(req.user._id).populate("followers").exec(function(err, foundUser) {
+		if (err) {
+			console.log(err);
+		} else {
+			res.render('users/followers', {users: foundUser.followers});
+		}
+	});
+});
+
+// User Show Route
+router.get('/:username', ensureLoggedIn('/'), function(req, res) {
+	Stream.find({$or:[{'author.username': req.params.username}, {'author.id': {$in: req.user.following}}]}).sort({created: -1}).populate('comments').exec(function(err, streams) {
+		if (err) {
+			console.log(err);
+		} else {
+			User.findOne({ username: req.params.username }, function(err, foundUser) {
+				if (err) {
+					console.log(err);
+				} else {
+					var obj = {};
+					obj.returnedUser = foundUser;
+					obj.streams = streams;
+					res.render("stream_user", {obj: obj});
+				}
+			});
 		}
 	});
 });

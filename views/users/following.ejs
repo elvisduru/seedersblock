@@ -1,0 +1,50 @@
+<% include ../partials/header %>
+
+<div class="row">
+	<div class="col s12 m9">
+		<div class="row">
+			<!-- header -->
+			<div class="col s12 friends">
+				<div class="top-header">
+					<div class="title">
+						<h5><i class="material-icons">person_add</i>Following</h5>
+					</div>
+					<div class="find-friends">
+						<!-- find friends button goes here -->
+					</div>
+				</div>
+			</div>
+			<!-- friends container -->
+			<div class="col s12 friends">
+				<% users.forEach(function (user) { %>
+				<div class="col s5">
+					<div class="card horizontal">
+				      	<div class="card-image">
+				        	<img src="<%= user.avatar %>">
+				      	</div>
+				      	<div class="card-stacked">
+				      		<form action="/unfollow-user" method="POST">
+						        <div class="card-content">
+						          	<p><strong><%= user.firstname %> <%= user.lastname %></strong></p>
+						          	<input type="hidden" name="username" readonly value="<%= user.username %>">
+						        </div>
+						        <div class="card-action">
+						          	<button type="submit" class="btn-over btn btn-small waves-effect waves-light right">Unfollow<i class="material-icons right">remove_circle_outline</i></button>
+						        </div>
+					        </form>
+				      	</div>
+				      	<a class="link" href="/<%= user.username %>">View User</a>
+				    </div>
+				</div>
+				<% }); %>
+			</div>
+		</div>
+	</div>
+	<div class="col s12 m4">
+		<!-- fetured posts go here -->
+	</div>
+</div>
+
+<% include ../partials/footer %>
+</body>
+</html> 

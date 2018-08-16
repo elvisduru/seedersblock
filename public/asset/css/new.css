@@ -270,3 +270,29 @@ hr {
 .trumbowyg-editor {
   min-height: 100px;
 }
+
+/*Following Styles*/
+
+.card.horizontal .card-image {
+  max-width: 130px;
+}
+
+.card.horizontal .card-action {
+  padding: 8px 24px;
+}
+
+.btn-over {
+  z-index: 100;
+}
+
+/**** User handle view ***/
+
+.user-info {
+  margin-top: 30px;
+}
+
+.user-info h4 {
+  margin: 0;
+  margin-left: 20px;
+  margin-right: 20px;
+}
