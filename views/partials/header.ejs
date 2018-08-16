@@ -41,7 +41,8 @@
 					</form>
 				</div>
 				<div class="stream-btn">
-					<a href="/seeds/new" class="waves-effect waves-light btn">Create A Seed</a>
+					<!-- <a href="/seeds/new" class="waves-effect waves-light btn">Create A Seed</a> -->
+					<a href="/stream" class="waves-effect waves-light btn">My Stream</a>
 				</div>
 				<div class="right-section">
 					<div class="notifications">
@@ -56,30 +57,32 @@
 					</div>
 					<div class="user-holder">
 						<% if (currentUser) { %>
-							<span><%= currentUser.username %></span>
-						<%}%>
-						<% if (currentUser.avatar) {%>
-							<img src="<%= currentUser.avatar %>" class="header-avatar">
-						<% } else { %>
-							<i class="material-icons">person</i>
-						<% } %>
-						<a href="#" data-target="user-dropdown" class="dropdown-trigger">
-							<i class="material-icons">arrow_drop_down</i>
-						</a>
-						<ul class="dropdown-content" id="user-dropdown">
-							<li>
-								<a href="/stream">
-									<i class="material-icons">art_track</i> Stream</a>
-							</li>
-							<li>
-								<a href="/settings">
-									<i class="material-icons">settings</i> Settings</a>
-							</li>
-							<li>
-								<a href="/logout">
-									<i class="material-icons">power_settings_new</i> Log out</a>
-							</li>
-						</ul>
+							<span>
+								<%= currentUser.username %>
+							</span>
+							<%}%>
+								<% if (currentUser.avatar) {%>
+									<img src="<%= currentUser.avatar %>" class="header-avatar">
+									<% } else { %>
+										<i class="material-icons">person</i>
+										<% } %>
+											<a href="#" data-target="user-dropdown" class="dropdown-trigger">
+												<i class="material-icons">arrow_drop_down</i>
+											</a>
+											<ul class="dropdown-content" id="user-dropdown">
+												<li>
+													<a href="/stream">
+														<i class="material-icons">art_track</i> Stream</a>
+												</li>
+												<li>
+													<a href="/settings">
+														<i class="material-icons">settings</i> Settings</a>
+												</li>
+												<li>
+													<a href="/logout">
+														<i class="material-icons">power_settings_new</i> Log out</a>
+												</li>
+											</ul>
 					</div>
 				</div>
 			</div>
@@ -105,13 +108,17 @@
 		<li>
 			<a href="/following">
 				<i class="material-icons">person_add</i>Following
-				<span class="badge"><%= currentUser.following.length %></span>
+				<span class="badge">
+					<%= currentUser.following.length %>
+				</span>
 			</a>
 		</li>
 		<li>
 			<a href="/followers">
 				<i class="material-icons">people</i>Followers
-				<span class="badge"><%= currentUser.followers.length %></span>
+				<span class="badge">
+					<%= currentUser.followers.length %>
+				</span>
 			</a>
 		</li>
 		<li>
