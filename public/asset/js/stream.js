@@ -91,5 +91,5 @@ function deleteComment() {
 }
 
 $('.comment-button a').click(function() { 
-    $(this).closest('.card-panel').find('.comment-input').focus()
+	$(this).closest('.card-panel').find('.comment-input').focus();
 })
