@@ -189,4 +189,14 @@ router.get('/:username', ensureLoggedIn('/'), function(req, res) {
 	});
 });
 
+router.get('/:username/seeds', ensureLoggedIn('/'), function(req, res) {
+	Seed.find({ 'author.username': req.params.username }, function(err, seeds) {
+		if (err) {
+			console.log(err);
+		} else {
+			res.render('seed_user', {seeds: seeds});
+		}
+	})
+})
+
 module.exports = router;

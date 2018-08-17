@@ -274,6 +274,7 @@ hr {
 /*Following Styles*/
 
 .card.horizontal .card-image {
+  min-width: 130px;
   max-width: 130px;
 }
 
@@ -283,6 +284,7 @@ hr {
 
 .btn-over {
   z-index: 100;
+  padding: 0 8px !important;
 }
 
 /**** User handle view ***/
@@ -295,4 +297,11 @@ hr {
   margin: 0;
   margin-left: 20px;
   margin-right: 20px;
+}
+
+/* User seeds view */
+@media (min-width: 800px) {
+  .user-seeds {
+    padding-left: 40px !important;
+  }
 }

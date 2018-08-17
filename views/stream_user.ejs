@@ -10,7 +10,8 @@
 					</div>
 					<h4><%= obj.returnedUser.firstname %> <%= obj.returnedUser.lastname %></h4>
 					<input type="hidden" name="username" value="<%= obj.returnedUser.username %>">
-					<button type="submit" class="btn waves-effect waves-light right">Unfollow<i class="material-icons right">remove_circle_outline</i></button>
+					<button type="submit" class="btn btn-small waves-effect waves-light right">Unfollow<i class="material-icons right">remove_circle_outline</i></button>
+					<a class="btn btn-small waves-effect waves-light right" href="/<%= obj.returnedUser.username %>/seeds ">Seeds</a>
 				</div>
 			</form>
 		<% } else if (currentUser && (currentUser.following.indexOf(obj.returnedUser._id)) === -1 && !(obj.returnedUser._id.equals(currentUser._id)))  { %>
@@ -21,7 +22,8 @@
 					</div>
 					<h4><%= obj.returnedUser.firstname %> <%= obj.returnedUser.lastname %></h4>
 					<input type="hidden" name="username" value="<%= obj.returnedUser.username %>">
-					<button type="submit" class="btn waves-effect waves-light right">Follow<i class="material-icons right">add_circle_outline</i></button>
+					<button type="submit" class="btn btn-small waves-effect waves-light right">Follow<i class="material-icons right">add_circle_outline</i></button>
+					<a class="btn btn-small waves-effect waves-light right" href="/<%= obj.returnedUser.username %>/seeds ">Seeds</a>
 				</div>
 			</form>
 		<% } else { %>
@@ -30,6 +32,7 @@
 					<img src="<%= obj.returnedUser.avatar %>" alt="" class="circle responsive-img">
 				</div>
 				<h4><%= obj.returnedUser.firstname %> <%= obj.returnedUser.lastname %></h4>
+				<a class="btn btn-small waves-effect waves-light right" href="/<%= obj.returnedUser.username %>/seeds ">Seeds</a>
 			</div>
 		<% } %>
 

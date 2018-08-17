@@ -52,6 +52,14 @@ app.use(function(req, res, next) {
 	next();
 });
 
+// prevent favicon redirect
+app.use( function(req, res, next) {
+  if (req.originalUrl && req.originalUrl.split("/").pop() === 'favicon.ico') {
+    return res.sendStatus(204);
+  }
+  return next();
+});
+
 // Set EJS as default view engine
 app.set("view engine", "ejs");
 
