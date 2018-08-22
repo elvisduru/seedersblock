@@ -6,8 +6,7 @@
 
 	<div class="section">
 		<div class="container">
-			<div class="row">
-				<div class="col s12">
+			
 					<div class="row">
 						<% seeds.forEach(function(seed) { %>
 							<div class="col s12 m3">
@@ -49,7 +48,7 @@
 											<i class="material-icons">comment</i>
 											&nbsp;
 											<span class="formatcount">
-												<%= seed.commentCount %>
+												<%= seed.comments.length %>
 											</span>
 										</span>
 										<span class="valign-wrapper">
@@ -68,12 +67,12 @@
 										</span>
 									</div>
 									<a class="link" href="/seeds/<%= seed._id %>">Read more</a>
+									<span class="earnings"><img width="20" src="/asset/img/coins.svg"> <%= seed.earnings %> <small>GSD</small></span>
 								</div>
 							</div>
 							<% }); %>
 					</div>
-				</div>
-			</div>
+			
 		</div>
 	</div>
 

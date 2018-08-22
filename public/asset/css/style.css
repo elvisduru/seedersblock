@@ -50,6 +50,91 @@
 	text-decoration: none;
 }
 
+.earnings {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 10px;
+	color: gold;
+	font-weight: bolder;
+	background-color: rgba(0,0,0,0.3);
+}
+
+.earning span {
+	color: gold;
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.earning .sow {
+	position: absolute;
+	width: 210px;
+	flex-direction: column;
+	background: rgba(0,0,0,0.7);
+	align-items: center;
+	border-radius: 5px;
+	right: -50%;
+	display: none;
+	opacity: 0;
+}
+
+.actions .earning .sow {
+	right: 33%;
+	top: 25%;
+}
+
+.earning .sow p {
+	color: white;
+	margin-top: 7px;
+}
+
+.earning .sow div {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	margin-bottom: 7px;
+}
+
+.earning .sow div input, .earning .sow div button {
+	border-bottom: unset;
+	margin: unset;
+	padding: 5px;
+	outline: none;
+	border-radius: 20px;
+}
+
+.earning .sow div input[type=number] {
+	background: #ecf0f1;
+	height: unset;
+	color: #055458;
+	flex: 0 1 60px;
+	text-align: center;
+}
+
+.earning .sow div button {
+	background: none;
+	background: #0596EFFF;
+	border: 0;
+	border-radius: 20px;
+	cursor: pointer;
+	flex: 0 1 80px;
+}
+
+.earning:hover .sow {
+	display: flex;
+	opacity: 1;
+}
+
+input[type=number]:not(.browser-default):focus:not([readonly]) {
+	border-bottom: unset;
+	-webkit-box-shadow: unset;
+    box-shadow: unset;
+}
+
+.card-content p {
+	height: 44px;
+}
+
 .card-title {
 	text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
 }

@@ -38,3 +38,19 @@ function updateScore() {
 		console.log(err);
 	});
 }
+
+// sowing logic
+$('.earning .sow div button').click(function() {
+	var amt = $('.amount').val();
+	$.ajax({
+		method: "PUT",
+		url: url + 'sow',
+		data: {amount: amt}
+	}).done(function(data) {
+		$('.seedEarnings').text(data.seedEarnings);
+		$('.currentUserEarnings').text(data.userEarnings);
+	})
+	.fail(function(err) {
+		console.log("Couldn't sow: " + err);
+	})
+})

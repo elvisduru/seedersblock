@@ -1,9 +1,21 @@
 <% include ../partials/header %>
-
-<div class="voting-widget">
-	<i id="upvote" class="material-icons">thumb_up</i>
-	<span id="voteCount">0</span>
-	<i id="downvote" class="material-icons">thumb_down</i>
+<div class="widget">
+	<div class="voting-widget">
+		<i id="upvote" class="material-icons">thumb_up</i>
+		<span id="voteCount">0</span>
+		<i id="downvote" class="material-icons">thumb_down</i>
+	</div>
+	<div class="earning">
+		<span><img width="20" src="/asset/img/coins.svg"> <span class="seedEarnings"><%= seed.earnings %></span> <small>GSD</small></span>
+		<div class="sow">
+			<p>Sow a seed</p>
+			<div>
+				<img width="26" src="/asset/img/coins.svg">
+				<input class="amount" type="number" min="0" placeholder="1">
+				<button>Send</button>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="container">
 	<div class="section content-display">

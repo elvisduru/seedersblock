@@ -60,6 +60,8 @@ $('.comment-input').keypress(function (e) {
 			$('#comments_' + id).append('<div id="comment_' + data._id + '"><div class="right remove-comment"><button id="' + data._id + '" class="btn-floating btn-small waves-effect waves-light light-teal comment-delete"><i class="material-icons">delete</i></button></div><div class="valign-wrapper"><div class="user-avatar"><img src="'+ data.author.avatar + '" alt="" class="circle responsive-img"></div><div class="comment-meta"><span class="black-text">' + data.author.username + '</span><br><span class="grey-text">' + currentDate.toLocaleTimeString() + '</span></div></div><p>' + data.text + '</p></div>'
 			);
 			$('.comment-input').val("");
+			var commentCount = Number($('.commentCount-' + id).text()) + 1;
+			$('.commentCount-' + id).text(commentCount);
 		}).fail(function(err) {
 			console.log(err);
 		});
@@ -71,7 +73,6 @@ var commentId;
 $(document).on('click', '.comment-delete', function() {
 	var elem = $(this);
 	commentId = elem.attr('id');
-	console.log($('#comments_' + commentId));
 	
 	deleteComment();
 });
@@ -92,4 +93,21 @@ function deleteComment() {
 
 $('.comment-button a').click(function() { 
 	$(this).closest('.card-panel').find('.comment-input').focus();
+})
+
+// sowing logic
+$('.earning .sow div button').click(function(e) {
+	id = e.target.id;
+	var amt = $(this).siblings('input').val();
+	$.ajax({
+		method: "PUT",
+		url: '/stream/' + id + '/sow',
+		data: {amount: amt}
+	}).done(function(data) {
+		$('.seedEarnings-' + id).text(data.seedEarnings);
+		$('.currentUserEarnings').text(data.userEarnings);
+	})
+	.fail(function(err) {
+		console.log("Couldn't sow: " + err);
+	})
 })

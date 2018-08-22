@@ -82,10 +82,7 @@ router.post('/', upload.single('featuredImg'), function (req, res) {
 		title: req.body.seed.title,
 		body: req.body.seed.content,
 		excerpt: req.body.seed.excerpt,
-		category: req.body.seed.category,
-		views: faker.random.number(),
-		commentCount: faker.random.number(),
-		earnings: faker.random.number()
+		category: req.body.seed.category
 	};
 
 	if (!req.file) {
@@ -108,7 +105,7 @@ router.post('/', upload.single('featuredImg'), function (req, res) {
 
 // Show Route
 router.get('/:id', ensureLoggedIn('/'), function (req, res) {
-	Seed.findById(req.params.id).populate("comments").exec(function (err, foundSeed) {
+	Seed.findByIdAndUpdate(req.params.id, { $inc: { views: 1 } }, {new: true }).populate("comments").exec(function (err, foundSeed) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -190,14 +187,28 @@ router.put('/:id/upvote', function (req, res) {
 		if (err) {
 			console.log(err);
 		} else {
-			foundSeed.upvote(req.user._id, function (err, upvotedSeed) {
-				if (err) {
-					console.log(err);
-				}
-				upvotedSeed.upvoteCount = upvotedSeed.upvotes();
-				upvotedSeed.save();
-				res.json(upvotedSeed);
+			var isInArray = foundSeed.vote.positive.some(function (vote) {
+			    return vote.equals(req.user._id);
 			});
+			if (!isInArray) {
+				foundSeed.upvote(req.user._id, function (err, upvotedSeed) {
+					if (err) {
+						console.log(err);
+					} else {
+						if (upvotedSeed.upvotes() && upvotedSeed.upvotes() % 5 === 0) {
+							upvotedSeed.earnings += 10;
+							User.findOneAndUpdate({username: upvotedSeed.author.username}, { $inc: { earnings: 10 } }, {new: true }, function(err, user) {
+								if (err) {
+									console.log(err);
+								}
+							});
+						}
+						upvotedSeed.upvoteCount = upvotedSeed.upvotes();
+						upvotedSeed.save();
+						res.json(upvotedSeed);
+					}
+				});
+			} 
 		}
 	});
 });
@@ -207,16 +218,51 @@ router.put('/:id/downvote', function (req, res) {
 		if (err) {
 			console.log(err);
 		} else {
-			foundSeed.downvote(req.user._id, function (err, downvotedSeed) {
-				if (err) {
-					console.log(err);
-				}
-				downvotedSeed.downvoteCount = downvotedSeed.downvotes();
-				downvotedSeed.save();
-				res.json(downvotedSeed);
+			var isInArray = foundSeed.vote.negative.some(function (vote) {
+			    return vote.equals(req.user._id);
 			});
+			if (!isInArray) {
+				foundSeed.downvote(req.user._id, function (err, downvotedSeed) {
+					if (err) {
+						console.log(err);
+					} else {
+						if (downvotedSeed.downvotes() && downvotedSeed.downvotes() % 5 === 0) {
+							downvotedSeed.earnings -= 5;
+							User.findOneAndUpdate({username: downvotedSeed.author.username}, { $inc: { earnings: -5 } }, {new: true }, function(err, user) {
+								if (err) {
+									console.log(err);
+								}
+							});
+						}
+						downvotedSeed.downvoteCount = downvotedSeed.downvotes();
+						downvotedSeed.save();
+						res.json(downvotedSeed);
+					}
+				});
+			}
+			
 		}
 	});
 });
+
+router.put('/:id/sow', function(req, res) {
+	Seed.findById(req.params.id, function(err, foundSeed) {
+		if (err) {
+			console.log(err);
+		} else {
+			req.body.amount = Number(req.body.amount);
+			req.user.earnings -= req.body.amount;
+			foundSeed.earnings += req.body.amount;
+			User.findOneAndUpdate({username: foundSeed.author.username}, { $inc: { earnings: +req.body.amount } }, {new: true }, function(err, user) {
+					if (err) {
+						console.log(err);
+					}
+				})
+			foundSeed.save();
+			req.user.save();
+			res.json({seedEarnings: foundSeed.earnings, userEarnings: req.user.earnings});
+		}
+	})
+})
 
 module.exports = router;

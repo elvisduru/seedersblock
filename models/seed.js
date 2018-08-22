@@ -17,11 +17,11 @@ var seedSchema = new mongoose.Schema({
 	category: [String],
 	excerpt: String,
 	paid: {type: Boolean, default: false},
-	views: Number,
-	commentCount: Number,
+	views: {type: Number, default: 0},
+	commentCount: {type: Number, default: 0},
 	upvoteCount: Number,
 	downvoteCount: Number,
-	earnings: Number,
+	earnings: {type: Number, default: 0},
 	comments: [
 		{
 			type: mongoose.Schema.Types.ObjectId,

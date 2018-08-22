@@ -11,6 +11,7 @@ var streamSchema = new mongoose.Schema({
 	body: String,
 	commentCount: Number,
 	upvoteCount: Number,
+	earnings: {type: Number, default: 0},
 	downvoteCount: Number,
 	comments: [
 		{

@@ -78,6 +78,17 @@
 									</button>
 								</form>
 							</div>
+							<div class="earning">
+								<span><img width="20" src="/asset/img/coins.svg"> <span class="seedEarnings-<%= stream._id %>"><%= stream.earnings %></span> <small>GSD</small></span>
+								<div class="sow">
+									<p>Sow a seed</p>
+									<div>
+										<img width="26" src="/asset/img/coins.svg">
+										<input class="amount" type="number" min="0" placeholder="1">
+										<button id="<%= stream._id %>">Send</button>
+									</div>
+								</div>
+							</div>
 							<div class="comment-button">
 								<a class="btn btn-flat btn-small waves-effect waves-light">
 									<i class="material-icons left">comment</i>Comment

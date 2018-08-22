@@ -22,6 +22,7 @@ var userSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId, ref: 'User'
 	}],
 	status: String,
+	earnings: {type: Number, default: 1000}
 });
 
 userSchema.plugin(passportLocalMongoose);

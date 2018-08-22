@@ -58,4 +58,24 @@ router.delete('/:id/delete', middleware.checkStreamOwnership, function(req, res)
 	});
 });
 
+router.put('/:id/sow', function(req, res) {
+	Stream.findById(req.params.id, function(err, foundStream) {
+		if (err) {
+			res.send(err);
+		} else {
+			req.body.amount = Number(req.body.amount);
+			req.user.earnings -= req.body.amount;
+			foundStream.earnings += req.body.amount;
+			User.findOneAndUpdate({username: foundStream.author.username}, { $inc: { earnings: +req.body.amount } }, {new: true }, function(err, user) {
+					if (err) {
+						console.log(err);
+					}
+				})
+			foundStream.save();
+			req.user.save();
+			res.json({seedEarnings: foundStream.earnings, userEarnings: req.user.earnings});
+		}
+	})
+})
+
 module.exports = router;

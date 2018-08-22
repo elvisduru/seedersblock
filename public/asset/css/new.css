@@ -34,27 +34,30 @@ footer {
   padding: 30px;
   justify-content: center;
   border-radius: 4px;
+  align-items: center;
 }
 
 .balance p {
   font-size: 2rem;
+  color: gold;
   margin: 0;
   line-height: 1.2rem;
 }
 
-.balance span {
+.balance .unit {
   font-size: 0.75rem;
 }
 
-.balance i {
-  font-size: 3rem;
+.balance img {
+  width: 3rem;
+  margin-right: 10px;
 }
 
 .balance>span {
   position: absolute;
   top: -8px;
   background: white;
-  left: 33%;
+  left: 29%;
 }
 
 .sidenav-fixed span.badge {
@@ -226,13 +229,20 @@ hr {
 }
 
 /*Voting Widget*/
+.widget {
+  position: fixed;
+  margin-top: 200px;
+  margin-left: 90px;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .voting-widget {
   width: 90px;
   height: 100px;
-  position: fixed;
-  margin-top: 200px;
-  margin-left: 90px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
