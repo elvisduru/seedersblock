@@ -25,7 +25,11 @@
 					      	</div>
 					      	<div class="card-stacked">
 						        <div class="card-content">
-						          	<p><strong><%= user.firstname %> <%= user.lastname %></strong></p>
+						          	<p>
+						          		<strong><%= user.firstname %> <%= user.lastname %></strong>
+										<br>
+										<span><%=user.occupation %></span>
+						          	</p>
 						          	<input type="hidden" name="username" readonly value="<%= user.username %>">
 						        </div>
 						        <div class="card-action">
@@ -48,6 +52,9 @@
 <% include ../partials/footer %>
 <script type="text/javascript">
 	$('.dropdown-trigger').dropdown();
+	$(document).ready(function(){
+		$('.sidenav').sidenav();
+	});
 </script>
 </body>
 </html> 

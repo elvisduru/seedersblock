@@ -17,7 +17,7 @@
 			<!-- friends container -->
 			<div class="col s12 friends">
 				<% users.forEach(function (user) { %>
-				<div class="col s5">
+				<div class="col s12 m5">
 					<div class="card horizontal">
 				      	<div class="card-image">
 				        	<img src="<%= user.avatar %>">
@@ -25,7 +25,11 @@
 				      	<div class="card-stacked">
 				      		<form action="/unfollow-user" method="POST">
 						        <div class="card-content">
-						          	<p><strong><%= user.firstname %> <%= user.lastname %></strong></p>
+						          	<p>
+						          		<strong><%= user.firstname %> <%= user.lastname %></strong>
+										<br>
+										<span><%=user.occupation %></span>
+						          	</p>
 						          	<input type="hidden" name="username" readonly value="<%= user.username %>">
 						        </div>
 						        <div class="card-action">
@@ -48,6 +52,9 @@
 <% include ../partials/footer %>
 <script type="text/javascript">
 	$('.dropdown-trigger').dropdown();
+	$(document).ready(function(){
+		$('.sidenav').sidenav();
+	});
 </script>
 </body>
 </html> 

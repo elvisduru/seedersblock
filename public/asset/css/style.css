@@ -1,15 +1,3 @@
-.mv {
-	margin-left: -100px;
-}
-
-.lbtn {
-	right: -90px;
-	background-color: #f65457;
-	border-radius: 20px;
-	border: 50px;
-	padding: 1px 30px;
-}
-
 .foot {
 	background-color: #0a64d3;
 }
@@ -169,7 +157,7 @@ input[type=number]:not(.browser-default):focus:not([readonly]) {
 	position: absolute;
 	left: 0;
 	top: 0;
-	background-image: url(/public/asset/img/headers.jpg);
+	background-image: url(/asset/img/headers.jpg);
 	height: 100%;
 	width: 100%;
 	background-size: cover;
@@ -196,13 +184,14 @@ input[type=number]:not(.browser-default):focus:not([readonly]) {
 }
 
 .featured-img {
-	width: 100%;
 	height: 400px;
 }
 
-/*******************************************************************************************
-	Show route styles
-*******************************************************************************************/
+.show {
+	display: flex !important;
+	opacity: 1 !important;
+	transition: all 0.4s ease-out;
+}
 
 .delete-seed-btn {
 	margin-left: 20px;
@@ -248,7 +237,7 @@ nav .search .label-icon {
 }
 
 nav .dropdown-content {
-	width: 120px !important;
+	width: 140px !important;
 }
 
 .dropdown-content i.material-icons {
@@ -338,4 +327,103 @@ nav i.material-icons {
 input[type=text]:not(.browser-default):disabled {
 	color: unset !important;
 	border-bottom: none !important;
+}
+
+/****************************************************************************
+	SIDENAV STYLES
+*********************************************************************************/
+
+.sidenav {
+  width: 250px;
+  padding-top: 30px;
+  margin-top: 66px;
+}
+
+.extra {
+  margin: 30px auto;
+  width: 75%;
+  text-align: center;
+}
+
+.extra a {
+  margin-bottom: 30px;
+}
+
+.balance {
+  border: 1px solid #e0e0e0;
+  position: relative;
+  display: flex;
+  padding: 30px;
+  justify-content: center;
+  border-radius: 4px;
+  align-items: center;
+}
+
+.balance p {
+  font-size: 2rem;
+  color: gold;
+  margin: 0;
+  line-height: 1.2rem;
+}
+
+.balance .unit {
+  font-size: 0.75rem;
+}
+
+.balance img {
+  width: 3rem;
+  margin-right: 10px;
+}
+
+.balance>span {
+  position: absolute;
+  top: -8px;
+  background: white;
+  left: 29%;
+}
+
+span.badge {
+  margin-left: 0px;
+  font-weight: 300;
+  font-size: 0.8rem;
+  color: #fff;
+  background-color: #26a69a;
+  border-radius: 2px;
+}
+
+.close {
+	position: absolute;
+	right: 0;
+	margin-top: 7px;
+	margin-right: 7px;
+	cursor: pointer;
+	color: #F44336FF !important;
+}
+
+/******************************************************************************
+	MOBILE STYLES
+******************************************************************************/
+
+@media (max-width: 400px) {
+	div.brand {
+		display: flex;
+		align-items: center;
+		margin-right: 30px;
+	}
+
+	.brand .sidenav-trigger {
+		order: 0;
+		margin: 0;
+		margin-right: 5px;
+		height: unset;
+	}
+
+	.brand .logo {
+		order: 1;
+	}
+
+	.head-bg {
+		height: 200px;
+		margin-bottom: 0;
+	}
 }

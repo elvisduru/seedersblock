@@ -14,3 +14,7 @@ $(".formatcount").each(function (i) {
 
 $('.sidenav').removeClass("sidenav-fixed");
 $('.dropdown-trigger').dropdown();
+
+$(document).ready(function(){
+	$('.sidenav').sidenav();
+});

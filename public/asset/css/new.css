@@ -3,70 +3,12 @@ footer {
   padding-left: 250px;
 }
 
-.sidenav {
-  width: 250px;
-  padding-top: 30px;
-  margin-top: 66px;
-}
-
 @media only screen and (max-width: 992px) {
   main,
   footer {
     padding-left: 0;
   }
   
-}
-
-.extra {
-  margin: 30px auto;
-  width: 75%;
-  text-align: center;
-}
-
-.extra a {
-  margin-bottom: 30px;
-}
-
-.balance {
-  border: 1px solid #e0e0e0;
-  position: relative;
-  display: flex;
-  padding: 30px;
-  justify-content: center;
-  border-radius: 4px;
-  align-items: center;
-}
-
-.balance p {
-  font-size: 2rem;
-  color: gold;
-  margin: 0;
-  line-height: 1.2rem;
-}
-
-.balance .unit {
-  font-size: 0.75rem;
-}
-
-.balance img {
-  width: 3rem;
-  margin-right: 10px;
-}
-
-.balance>span {
-  position: absolute;
-  top: -8px;
-  background: white;
-  left: 29%;
-}
-
-.sidenav-fixed span.badge {
-  margin-left: 0px;
-  font-weight: 300;
-  font-size: 0.8rem;
-  color: #fff;
-  background-color: #26a69a;
-  border-radius: 2px;
 }
 
 .card-panel > .card-content form {
@@ -188,7 +130,7 @@ hr {
 
 @media only screen and (max-width: 992px) {
   .stream {
-    margin: 0;
+    margin: 0 !important;
     width: 100%;
   }
 }
@@ -209,8 +151,11 @@ hr {
   height: 140px;
   overflow: hidden;
   border-radius: 50%;
-  margin-bottom: 20px;
   position: relative;
+}
+
+.user-acc > div:first-child {
+  margin-bottom: 20px;
 }
 
 #profile-container img {
@@ -284,8 +229,8 @@ hr {
 /*Following Styles*/
 
 .card.horizontal .card-image {
-  min-width: 130px;
-  max-width: 130px;
+  min-width: 140px;
+  max-width: 140px;
 }
 
 .card.horizontal .card-action {
@@ -309,9 +254,128 @@ hr {
   margin-right: 20px;
 }
 
+/********************************************************************************************
+  MOBILE STYLES
+*********************************************************************************************/
+
 /* User seeds view */
 @media (min-width: 800px) {
   .user-seeds {
     padding-left: 40px !important;
+  }
+}
+
+@media (max-width: 700px) {
+  /*settings*/
+  .card-panel > .card-content form {
+    flex-direction: column;
+  }
+
+  .user-acc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .buy-gsd a, .gsd-btn a {
+    width: 115px;
+  }
+
+  #profile-container, #profile-container img {
+    width: 115px;
+    height: 115px;
+  }
+
+  #profile-container {
+    margin-bottom: 0;
+  }
+
+  .user-details {
+    width: 100%;
+  }
+
+  tbody {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  .input-field {
+    margin: 0;
+  }
+
+  /*Stream page*/
+  .card-panel {
+    padding: 10px;
+  }
+
+  .btn-floating.btn-small {
+    width: 25px;
+    height: 25px;
+  }
+
+  .btn-floating.btn-small i {
+    line-height: 25px;
+    font-size: 1.1em;
+  }
+
+  .new-comment input {
+    padding: 7px !important;
+  }
+
+  .earning span {
+    font-size: 15px;
+  }
+
+  /*Seed Show route*/
+  iframe {
+    width: 100%;
+    height: 185px;
+  }
+
+  .featured-img {
+    height: 200px;
+  }
+
+  .content-display {
+    padding-left: unset;
+    padding-right: unset;
+  }
+  
+  .add-comment .s10 {
+    width: 75% !important;
+    margin-left: 20px !important;
+    margin-top: 10px !important;
+  }
+
+  .widget {
+    margin-top: 100px;
+    margin-left: 0;
+    right: 0;
+    height: 100px;
+  }
+
+  .voting-widget {
+    height: 80px;
+  }
+
+  .earning .sow {
+    right: 0;
+  }
+
+  .user-seeds {
+    padding: 0 20px !important;
+  }
+
+  /*Follow page*/ 
+  /*.card.horizontal .card-image {
+    min-width: 100px;
+    max-width: 100px;
+  }*/
+}
+
+@media (min-width: 810px) and (max-width: 1024px) {
+  .featured-img {
+    height: 260px;
   }
 }

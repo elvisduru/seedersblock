@@ -84,7 +84,6 @@ function deleteComment() {
 			url: '/stream/:id/comments/' + commentId,
 		}).done(function() {
 			console.log("deleted comment");
-
 		}).fail(function(err) {
 			console.log(err);
 		});
@@ -148,3 +147,19 @@ function unlikeStream(id) {
 		console.log(`unsuccessfull ${err}`);
 	})
 }
+
+// sow button
+$('.earning span').click(function() {
+    $(this).siblings('.sow').addClass('show');
+    $(this).siblings('.sow').show();
+})
+
+$('.earning span').mouseenter(function() {
+    $(this).siblings('.sow').addClass('show');
+    $(this).siblings('.sow').show();
+})
+
+$('.close').click(function() {
+	$(this).parent().removeClass('show');
+	$(this).parent().hide();
+})

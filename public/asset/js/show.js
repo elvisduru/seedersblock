@@ -1,5 +1,9 @@
 $('.dropdown-trigger').dropdown();
 
+$(document).ready(function(){
+	$('.sidenav').sidenav();
+});
+
 var url = $('span.url').text();
 
 updateScore();
@@ -53,4 +57,20 @@ $('.earning .sow div button').click(function() {
 	.fail(function(err) {
 		console.log("Couldn't sow: " + err);
 	})
+})
+
+// sow button
+$('.earning span').click(function() {
+    $('.sow').addClass('show');
+    $('.sow').show();
+})
+
+$('.earning span').mouseenter(function() {
+    $('.sow').addClass('show');
+    $('.sow').show();
+})
+
+$('.close').click(function() {
+	$('.sow').removeClass('show');
+	$('.sow').hide();
 })

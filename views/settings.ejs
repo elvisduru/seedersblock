@@ -1,7 +1,7 @@
 <% include ./partials/header %>
 
     <div class="container">
-        <h2>Edit Profile</h2>
+        <h4>Edit Profile</h4>
         <div class="row">
             <div class="col s12 m10">
                 <div class="card-panel">
@@ -14,12 +14,15 @@
                                         <span>Change Avatar</span>
                                     </div>
                                     <input id="imageUpload" type="file" name="avatar" placeholder="Photo" capture>
+                                    <small>*square size(e.g 100x100)</small>
                                 </div>
-                                <div class="gsd-btn">
-                                    <a class="btn-flat disabled"><%= currentUser.earnings %> GSDs</a>
-                                </div>
-                                <div class="buy-gsd">
-                                    <a class="waves-effect waves-light btn blue" href="#">Buy GSDs</a>
+                                <div class="buttons">
+                                    <div class="gsd-btn">
+                                        <a class="btn-flat disabled"><%= currentUser.earnings %> GSDs</a>
+                                    </div>
+                                    <div class="buy-gsd">
+                                        <a class="waves-effect waves-light btn blue" href="#">Buy GSDs</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="user-details">
@@ -28,7 +31,7 @@
                                     <%}%>
                                 <div class="input-field">
                                     <i class="material-icons prefix">mode_edit</i>
-                                    <textarea class="materialize-textarea" name="status" placeholder="Your personal seeder network status"><%= currentUser.status %></textarea>
+                                    <textarea class="materialize-textarea" name="status" placeholder="What's your status?"><%= currentUser.status %></textarea>
                                 </div>
                                 <div class="user-info">
                                     <table class="responsive-table">
