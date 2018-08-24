@@ -18,7 +18,10 @@ var streamSchema = new mongoose.Schema({
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Comment'
 		}
-	]
+	],
+	likes: [{
+		type: mongoose.Schema.Types.ObjectId, ref: 'User'
+	}]
 });
 
 streamSchema.plugin(voting);

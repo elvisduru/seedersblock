@@ -111,3 +111,40 @@ $('.earning .sow div button').click(function(e) {
 		console.log("Couldn't sow: " + err);
 	})
 })
+
+$('.like-button button').click(function(e) {
+	id = e.target.id;
+	var postUrl = '/stream/' + id + '/like';
+	$.post(postUrl)
+	.done(function(data) {
+		if(data.message === "success") {
+			likeStream(id);
+		} else {
+			unlikeStream(id);
+		}
+	})
+	.fail(function(err) {
+		console.log(`unsuccessfull ${err}`);
+	})
+})
+
+function likeStream(id) {
+	$('button#' + id).addClass('voted');
+	var likeCount = Number($('.likeCount-' + id).text()) + 1;
+	$('.likeCount-' + id).text(likeCount);
+	console.log("like successful");
+}
+
+function unlikeStream(id) {
+	var postUrl = '/stream/' + id + '/unlike';
+	$.post(postUrl)
+	.done(function(data) {
+		$('button#' + id).removeClass('voted');
+		var likeCount = Number($('.likeCount-' + id).text()) - 1;
+		$('.likeCount-' + id).text(likeCount);
+		console.log("unlike successful");
+	})
+	.fail(function(err) {
+		console.log(`unsuccessfull ${err}`);
+	})
+}

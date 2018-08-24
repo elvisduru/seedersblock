@@ -76,6 +76,38 @@ router.put('/:id/sow', function(req, res) {
 			res.json({seedEarnings: foundStream.earnings, userEarnings: req.user.earnings});
 		}
 	})
+});
+
+router.post('/:id/like', function(req, res) {
+	Stream.findById(req.params.id, function(err, foundStream) {
+		if (err) {
+			res.send(err);
+		} else {
+			var isInArray = foundStream.likes.some(function (user) {
+			    return user.equals(req.user._id);
+			});
+			console.log(isInArray);
+			if (!isInArray) {
+				foundStream.likes.push(req.user._id);
+				foundStream.save();
+				res.json({message: "success"});
+			} else {
+				res.json({message: "already liked by you"});
+			}
+		}
+	})
+});
+
+router.post('/:id/unlike', function(req, res) {
+	Stream.findById(req.params.id, function(err, foundStream) {
+		if (err) {
+			res.send(err);
+		} else {
+			foundStream.likes.remove(req.user._id);
+			foundStream.save();
+			res.json({message: "unliked"});
+		}
+	})
 })
 
 module.exports = router;
