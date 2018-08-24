@@ -724,4 +724,8 @@ MOBILE STYLES
 	.form-modal input[type=text], .form-modal input[type=date], .form-modal input[type=password], .form-modal select {
 		width: 100%;	
 	}
+
+	.form-modal {
+		overflow-y: scroll;
+	}
 }

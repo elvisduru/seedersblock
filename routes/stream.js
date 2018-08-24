@@ -86,7 +86,6 @@ router.post('/:id/like', function(req, res) {
 			var isInArray = foundStream.likes.some(function (user) {
 			    return user.equals(req.user._id);
 			});
-			console.log(isInArray);
 			if (!isInArray) {
 				foundStream.likes.push(req.user._id);
 				foundStream.save();
