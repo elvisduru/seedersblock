@@ -662,3 +662,66 @@ hr {
 .forgot-pwd {
 	font-size: 0.9em;
 }
+
+/*********************************************************************************************
+MOBILE STYLES
+*********************************************************************************************/
+
+@media (max-width: 800px) {
+	.wrapper {
+		padding: 20px;
+	}
+
+	.nav-bar {
+		margin-bottom: 0;
+	}
+
+	.button {
+		padding: 5px 10px;
+		border-radius: 12px;
+	}
+
+	.hero-vector {
+		margin-top: 10px;
+		width: 300px;
+	}
+	
+	.hero-text {
+		width: unset;
+		text-align: center;
+		line-height: 1;
+	}
+
+	.hero-text h1 {
+		font-size: 1.5em;
+	}
+
+	#intro, #features, #calloutbtn, #testimonials, #posts, footer {
+		display: none;
+	}
+
+	.hero-wrapper {
+		flex-direction: column-reverse;
+	}
+
+	.form-modal {
+		width: unset;
+		padding: 20px;
+	}
+
+	.step-one, .step-two {
+		position: relative;
+	}
+
+	.names > div:first-child {
+		margin-right: 10px;
+	}
+
+	.form-modal h1 {
+		margin-bottom: 30px;
+	}
+
+	.form-modal input[type=text], .form-modal input[type=date], .form-modal input[type=password], .form-modal select {
+		width: 100%;	
+	}
+}
