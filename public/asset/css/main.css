@@ -725,7 +725,7 @@ MOBILE STYLES
 		width: 100%;	
 	}
 
-	.form-modal {
-		overflow-y: scroll;
+	.modal {
+		overflow-y: scroll;	
 	}
 }
