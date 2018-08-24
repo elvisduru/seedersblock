@@ -333,6 +333,10 @@ hr {
     height: 185px;
   }
 
+  .content-display img, .content-body img {
+    width: 100%;
+  }
+
   .featured-img {
     height: 200px;
   }
