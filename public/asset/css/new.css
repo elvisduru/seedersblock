@@ -254,6 +254,10 @@ hr {
   margin-right: 20px;
 }
 
+.content-display img, .content-body img {
+  width: 100%;
+}
+
 /********************************************************************************************
   MOBILE STYLES
 *********************************************************************************************/
@@ -331,10 +335,6 @@ hr {
   iframe {
     width: 100%;
     height: 185px;
-  }
-
-  .content-display img, .content-body img {
-    width: 100%;
   }
 
   .featured-img {
