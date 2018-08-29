@@ -45,7 +45,7 @@
 	padding: 10px;
 	color: gold;
 	font-weight: bolder;
-	background-color: rgba(0,0,0,0.3);
+	background-color: rgba(0, 0, 0, 0.3);
 }
 
 .earning span {
@@ -58,7 +58,7 @@
 	position: absolute;
 	width: 210px;
 	flex-direction: column;
-	background: rgba(0,0,0,0.7);
+	background: rgba(0, 0, 0, 0.7);
 	align-items: center;
 	border-radius: 5px;
 	right: -50%;
@@ -83,7 +83,8 @@
 	margin-bottom: 7px;
 }
 
-.earning .sow div input, .earning .sow div button {
+.earning .sow div input,
+.earning .sow div button {
 	border-bottom: unset;
 	margin: unset;
 	padding: 5px;
@@ -116,7 +117,7 @@
 input[type=number]:not(.browser-default):focus:not([readonly]) {
 	border-bottom: unset;
 	-webkit-box-shadow: unset;
-    box-shadow: unset;
+	box-shadow: unset;
 }
 
 .card-content p {
@@ -172,7 +173,6 @@ input[type=number]:not(.browser-default):focus:not([readonly]) {
 /*******************************************************************************************
 	Show route styles
 *******************************************************************************************/
-
 .content-display {
 	padding-left: 10%;
 	padding-right: 10%;
@@ -200,7 +200,6 @@ input[type=number]:not(.browser-default):focus:not([readonly]) {
 /*******************************************************************************************
 	Comment styles
 *******************************************************************************************/
-
 .card-panel .user-avatar {
 	margin-right: 10px;
 	margin-left: 5px;
@@ -317,7 +316,6 @@ nav i.material-icons {
 }
 
 /* create stream btn */
-
 .stream-btn .btn {
 	border-radius: 70px;
 	background-color: #8d6dc4;
@@ -332,63 +330,62 @@ input[type=text]:not(.browser-default):disabled {
 /****************************************************************************
 	SIDENAV STYLES
 *********************************************************************************/
-
 .sidenav {
-  width: 250px;
-  padding-top: 30px;
-  margin-top: 66px;
+	width: 250px;
+	padding-top: 30px;
+	margin-top: 66px;
 }
 
 .extra {
-  margin: 30px auto;
-  width: 75%;
-  text-align: center;
+	margin: 30px auto;
+	width: 75%;
+	text-align: center;
 }
 
 .extra a {
-  margin-bottom: 30px;
+	margin-bottom: 30px;
 }
 
 .balance {
-  border: 1px solid #e0e0e0;
-  position: relative;
-  display: flex;
-  padding: 30px;
-  justify-content: center;
-  border-radius: 4px;
-  align-items: center;
+	border: 1px solid #e0e0e0;
+	position: relative;
+	display: flex;
+	padding: 30px;
+	justify-content: center;
+	border-radius: 4px;
+	align-items: center;
 }
 
 .balance p {
-  font-size: 2rem;
-  color: gold;
-  margin: 0;
-  line-height: 1.2rem;
+	font-size: 2rem;
+	color: gold;
+	margin: 0;
+	line-height: 1.2rem;
 }
 
 .balance .unit {
-  font-size: 0.75rem;
+	font-size: 0.75rem;
 }
 
 .balance img {
-  width: 3rem;
-  margin-right: 10px;
+	width: 3rem;
+	margin-right: 10px;
 }
 
 .balance>span {
-  position: absolute;
-  top: -8px;
-  background: white;
-  left: 29%;
+	position: absolute;
+	top: -8px;
+	background: white;
+	left: 29%;
 }
 
 span.badge {
-  margin-left: 0px;
-  font-weight: 300;
-  font-size: 0.8rem;
-  color: #fff;
-  background-color: #26a69a;
-  border-radius: 2px;
+	margin-left: 0px;
+	font-weight: 300;
+	font-size: 0.8rem;
+	color: #fff;
+	background-color: #26a69a;
+	border-radius: 2px;
 }
 
 .close {
@@ -403,7 +400,6 @@ span.badge {
 /******************************************************************************
 	MOBILE STYLES
 ******************************************************************************/
-
 @media (max-width: 400px) {
 	div.brand {
 		display: flex;
@@ -426,4 +422,30 @@ span.badge {
 		height: 200px;
 		margin-bottom: 0;
 	}
+}
+
+/******************************************************************************
+	Editor styling
+******************************************************************************/
+.trumbowyg-button-pane {
+	background: #0a64d3;
+	color: #e0e0e0;
+}
+
+/******************************************************************************
+	Sidenavs styling
+******************************************************************************/
+.sidenav.sidenav-fixed {
+	background-color: #0e47a1;
+}
+
+.sidenav li>a {
+	color: #fff;
+}
+
+.sidenav li>a>i,
+.sidenav li>a>[class^="mdi-"],
+.sidenav li>a li>a>[class*="mdi-"],
+.sidenav li>a>i.material-icons {
+	color: #fff;
 }
