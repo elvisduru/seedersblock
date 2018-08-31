@@ -1,3 +1,24 @@
+// get all number fields
+var numInputs = document.querySelectorAll('input[type="number"]');
+
+// Loop through the collection and call addListener on each element
+Array.prototype.forEach.call(numInputs, addListener); 
+
+
+function addListener(elm,index){
+  elm.setAttribute('min', 1);  // set the min attribute on each field
+  
+  elm.addEventListener('keypress', function(e){  // add listener to each field 
+     var key = !isNaN(e.charCode) ? e.charCode : e.keyCode;
+     str = String.fromCharCode(key); 
+    if (str.localeCompare('-') === 0){
+       event.preventDefault();
+    }
+    
+  });
+  
+}
+
 $('.dropdown-trigger').dropdown();
 
 $(document).ready(function(){
@@ -60,17 +81,20 @@ $('.earning .sow div button').click(function() {
 })
 
 // sow button
-$('.earning span').click(function() {
-    $('.sow').addClass('show');
-    $('.sow').show();
-})
+$('.earning span').click(show);
 
-$('.earning span').mouseenter(function() {
-    $('.sow').addClass('show');
-    $('.sow').show();
-})
+$('.earning span').mouseenter(show);
 
-$('.close').click(function() {
+$('.close').click(hide);
+
+$('.sow').mouseleave(hide);
+
+function show() {
+	$('.sow').addClass('show');
+    $('.sow').show();
+}
+
+function hide() {
 	$('.sow').removeClass('show');
 	$('.sow').hide();
-})
+}

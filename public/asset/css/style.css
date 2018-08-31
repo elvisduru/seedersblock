@@ -52,6 +52,7 @@
 	color: gold;
 	font-weight: bold;
 	font-size: 18px;
+	position: relative;
 }
 
 .earning .sow {
@@ -67,8 +68,8 @@
 }
 
 .actions .earning .sow {
-	right: 33%;
-	top: 25%;
+	right: -88%;
+	bottom: 145%;
 }
 
 .earning .sow p {
@@ -95,8 +96,11 @@
 	background: #ecf0f1;
 	height: unset;
 	color: #055458;
-	flex: 0 1 60px;
+	flex: 0 1 auto;
 	text-align: center;
+	width: 60px;
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 .earning .sow div button {
@@ -191,6 +195,11 @@ input[type=number]:not(.browser-default):focus:not([readonly]) {
 	display: flex !important;
 	opacity: 1 !important;
 	transition: all 0.4s ease-out;
+}
+
+.hide {
+	display: none !important;
+	opacity: 0 !important;
 }
 
 .delete-seed-btn {
@@ -392,7 +401,7 @@ span.badge {
 }
 
 .close {
-	position: absolute;
+	position: absolute !important;
 	right: 0;
 	margin-top: 7px;
 	margin-right: 7px;
@@ -426,4 +435,7 @@ span.badge {
 		height: 200px;
 		margin-bottom: 0;
 	}
+
+	.actions .earning .sow {
+		right: -115%;
 }
