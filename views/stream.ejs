@@ -75,7 +75,7 @@
 						</div>
 						<hr class="full-divider">
 						<div id="comments_<%= stream._id %>" class="comments">
-							<% stream.comments.forEach(function(comment) { %>
+							<% stream.comments.slice(-4).forEach(function(comment) { %>
 								<div id="comment_<%= comment._id %>">
 									<div class="right remove-comment">
 										<% if ( currentUser && (stream.author.id.equals(currentUser._id) || comment.author.id.equals(currentUser._id)) ) { %>

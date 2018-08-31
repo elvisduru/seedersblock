@@ -14,7 +14,7 @@ var express = require('express'),
 router.get('/', ensureLoggedIn('/'), function(req, res) {
 	Stream.find({$or:[{'author.username': req.user.username}, {'author.id': {$in: req.user.following}}]}).sort({created: -1}).populate('comments').exec(function(err, streams) {
 		if (err) {
-			console.log(err);
+			res.send(err);
 		} else {
 			res.render("stream", {streams: streams});
 		}
@@ -40,7 +40,7 @@ router.post('/', ensureLoggedIn('/'), function(req, res) {
 	};
 	Stream.create(stream, function(err, createdStream) {
 		if (err) {
-			console.log(err);
+			res.send(err);
 		} else {
 			res.redirect('back');
 		}
@@ -51,7 +51,7 @@ router.post('/', ensureLoggedIn('/'), function(req, res) {
 router.delete('/:id/delete', middleware.checkStreamOwnership, function(req, res) {
 	Stream.findByIdAndRemove(req.params.id, function(err) {
 		if (err) {
-			console.log(err);
+			res.send(err);
 		} else {
 			res.redirect('back');
 		}
@@ -68,7 +68,7 @@ router.put('/:id/sow', function(req, res) {
 			foundStream.earnings += req.body.amount;
 			User.findOneAndUpdate({username: foundStream.author.username}, { $inc: { earnings: +req.body.amount } }, {new: true }, function(err, user) {
 					if (err) {
-						console.log(err);
+						res.send(err);
 					}
 				})
 			foundStream.save();
