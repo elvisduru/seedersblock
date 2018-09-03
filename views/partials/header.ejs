@@ -62,33 +62,33 @@
 							<span>
 								<%= currentUser.username %>
 							</span>
-							<%}%>
-								<% if (currentUser.avatar) {%>
-									<img src="<%= currentUser.avatar %>" class="header-avatar">
-									<% } else { %>
-										<i class="material-icons">person</i>
-										<% } %>
-											<a href="#" data-target="user-dropdown" class="dropdown-trigger">
-												<i class="material-icons">arrow_drop_down</i>
-											</a>
-											<ul class="dropdown-content" id="user-dropdown">
-												<li>
-													<a href="/stream">
-														<i class="material-icons">art_track</i> Stream</a>
-												</li>
-												<li>
-													<a href="/seeds/new">
-														<i class="material-icons">fiber_new</i> New Seed</a>
-												</li>
-												<li>
-													<a href="/settings">
-														<i class="material-icons">settings</i> Settings</a>
-												</li>
-												<li>
-													<a href="/logout">
-														<i class="material-icons">power_settings_new</i> Log out</a>
-												</li>
-											</ul>
+						<%}%>
+						<% if (currentUser.avatar) {%>
+							<img src="<%= currentUser.avatar %>" class="header-avatar">
+						<% } else { %>
+							<i class="material-icons">person</i>
+						<% } %>
+						<a href="#" data-target="user-dropdown" class="dropdown-trigger">
+							<i class="material-icons">arrow_drop_down</i>
+						</a>
+						<ul class="dropdown-content" id="user-dropdown">
+							<li>
+								<a href="/stream">
+									<i class="material-icons">art_track</i> Stream</a>
+							</li>
+							<li>
+								<a href="/seeds/new">
+									<i class="material-icons">fiber_new</i> New Seed</a>
+							</li>
+							<li>
+								<a href="/settings">
+									<i class="material-icons">settings</i> Settings</a>
+							</li>
+							<li>
+								<a href="/logout">
+									<i class="material-icons">power_settings_new</i> Log out</a>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>

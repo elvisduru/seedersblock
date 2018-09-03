@@ -67,17 +67,22 @@ function updateScore() {
 // sowing logic
 $('.earning .sow div button').click(function() {
 	var amt = $('.amount').val();
-	$.ajax({
-		method: "PUT",
-		url: url + 'sow',
-		data: {amount: amt}
-	}).done(function(data) {
-		$('.seedEarnings').text(data.seedEarnings);
-		$('.currentUserEarnings').text(data.userEarnings);
-	})
-	.fail(function(err) {
-		console.log("Couldn't sow: " + err);
-	})
+	var currentUserEarnings = $('.currentUserEarnings').text();
+	if (amt < currentUserEarnings) {
+		$.ajax({
+			method: "PUT",
+			url: url + 'sow',
+			data: {amount: amt}
+		}).done(function(data) {
+			$('.seedEarnings').text(data.seedEarnings);
+			$('.currentUserEarnings').text(data.userEarnings);
+		})
+		.fail(function(err) {
+			console.log("Couldn't sow: " + err);
+		})
+	} else {
+		alert("You don't have enough GSD to do that!");
+	}
 })
 
 // sow button
@@ -98,3 +103,10 @@ function hide() {
 	$('.sow').removeClass('show');
 	$('.sow').hide();
 }
+
+$('.comment-form').submit(function(e) {
+	if (!($('#new-comment').val())) {
+		e.preventDefault();
+		alert('No input');
+	}        
+});
