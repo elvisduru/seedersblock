@@ -114,6 +114,7 @@ $('.earning .sow div button').click(function(e) {
 		$('.seedEarnings-' + id).text(data.seedEarnings);
 		$('.currentUserEarnings').text(data.userEarnings);
 		$(that).text("sow");
+		hide();
 	})
 	.fail(function(err) {
 		console.log("Couldn't sow: " + err);
