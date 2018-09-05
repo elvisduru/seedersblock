@@ -130,8 +130,8 @@ $('.earning .sow div button').click(function(e) {
 		})	
 	} else {
 		alert("You don't have enough GSD to do that!");
-		$(this).text("sow");
-		$(this).siblings('input').val();
+		$(that).text("sow");
+		$(that).siblings('input').val("");
 	}
 	
 })
