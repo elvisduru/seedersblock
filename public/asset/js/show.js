@@ -1,22 +1,9 @@
-// get all number fields
-var numInputs = document.querySelectorAll('input[type="number"]');
+function restrictMinus(e) {
+    var inputKeyCode = e.keyCode ? e.keyCode : e.which;
 
-// Loop through the collection and call addListener on each element
-Array.prototype.forEach.call(numInputs, addListener); 
-
-
-function addListener(elm,index){
-  elm.setAttribute('min', 1);  // set the min attribute on each field
-  
-  elm.addEventListener('keypress', function(e){  // add listener to each field 
-     var key = !isNaN(e.charCode) ? e.charCode : e.keyCode;
-     str = String.fromCharCode(key); 
-    if (str.localeCompare('-') === 0){
-       event.preventDefault();
+    if (inputKeyCode != null) {
+        if (inputKeyCode == 45) e.preventDefault();
     }
-    
-  });
-  
 }
 
 $('.dropdown-trigger').dropdown();
@@ -85,7 +72,7 @@ $('.earning .sow div button').click(function() {
 		})
 	} else {
 		alert("You don't have enough GSD to do that!");
-		$('.earning .sow div button').text("sow");
+		$(that).text("sow");
 	}
 })
 
