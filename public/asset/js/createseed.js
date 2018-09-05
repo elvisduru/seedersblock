@@ -47,7 +47,7 @@ $('#post-form').submit(function () {
 
 function createExcerpt() {
 	
-	$('#excerpt').val($('#editor').trumbowyg('html').substring($('#editor').trumbowyg('html').indexOf("<p"), $('#editor').trumbowyg('html').indexOf("</p>")).replace(/<p/g, "").replace(/<\/p>/g, "").replace(/<br>/g, ""));
+	$('#excerpt').val($('#editor').trumbowyg('html').substring($('#editor').trumbowyg('html').indexOf("<p>"), $('#editor').trumbowyg('html').indexOf("</p>")).replace(/<p>/g, "").replace(/<\/p>/g, "").replace(/<br>/g, ""));
 }
 
 // initialize materialized select
