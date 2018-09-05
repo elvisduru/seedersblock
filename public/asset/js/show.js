@@ -6,6 +6,10 @@ function restrictMinus(e) {
     }
 }
 
+$('.amount').on("cut copy paste",function(e) {
+  e.preventDefault();
+});
+
 $('.dropdown-trigger').dropdown();
 
 $(document).ready(function(){

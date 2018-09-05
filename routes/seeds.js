@@ -87,20 +87,17 @@ router.post('/', upload.single('featuredImg'), function (req, res) {
 
 	if (!req.file) {
 		console.log("No file received");
-		return res.send({
-			success: false
-		});
 	} else {
 		console.log('file received');
 		seed.image = req.file.secure_url;
-		Seed.create(seed, function (err, createdSeed) {
-			if (err) {
-				console.log(err);
-			} else {
-				return res.redirect('/seeds/' + createdSeed._id);
-			}
-		});
 	}
+	Seed.create(seed, function (err, createdSeed) {
+		if (err) {
+			console.log(err);
+		} else {
+			return res.redirect('/seeds/' + createdSeed._id);
+		}
+	});
 });
 
 // Show Route

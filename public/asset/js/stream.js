@@ -6,6 +6,10 @@ function restrictMinus(e) {
     }
 }
 
+$('.amount').on("cut copy paste",function(e) {
+  e.preventDefault();
+});
+
 $('#editor').trumbowyg({
 	btnsDef: {
 		// Create a new dropdown
