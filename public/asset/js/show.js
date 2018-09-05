@@ -70,13 +70,16 @@ $('.earning .sow div button').click(function() {
 			$('.seedEarnings').text(data.seedEarnings);
 			$('.currentUserEarnings').text(data.userEarnings);
 			$(that).text("sow");
+			$('.amount').val("");
+			hide();
 		})
 		.fail(function(err) {
 			console.log("Couldn't sow: " + err);
 		})
 	} else {
 		alert("You don't have enough GSD to do that!");
-		$(that).text("sow");
+		$(this).text("sow");
+		$('.amount').val("");
 	}
 })
 
