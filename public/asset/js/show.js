@@ -66,6 +66,8 @@ function updateScore() {
 
 // sowing logic
 $('.earning .sow div button').click(function() {
+	$(this).text("sowing...");
+	var that = this;
 	var amt = $('.amount').val();
 	var currentUserEarnings = $('.currentUserEarnings').text();
 	if (amt < currentUserEarnings) {
@@ -76,12 +78,14 @@ $('.earning .sow div button').click(function() {
 		}).done(function(data) {
 			$('.seedEarnings').text(data.seedEarnings);
 			$('.currentUserEarnings').text(data.userEarnings);
+			$(that).text("sow");
 		})
 		.fail(function(err) {
 			console.log("Couldn't sow: " + err);
 		})
 	} else {
 		alert("You don't have enough GSD to do that!");
+		$('.earning .sow div button').text("sow");
 	}
 })
 

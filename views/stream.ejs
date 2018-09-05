@@ -4,51 +4,51 @@
 	<div class="col s12 m8">
 		<div class="row stream large">
 			<div class="card-panel">
-                    <div class="card-content">
-                        <form>
-                            <div class="user-acc">
-                                <div>
-                                    <div id="profile-container">
-                                        <img id="profileImage" src="<%= currentUser.avatar %>" />
-                                    </div>
-                                </div>
-                                <div class="buttons">
-                                    <div class="gsd-btn">
-                                        <a class="btn-flat disabled"><%= currentUser.earnings %> GSDs</a>
-                                    </div>
-                                    <div class="buy-gsd">
-                                        <a class="waves-effect waves-light btn blue" href="#">Buy GSDs</a>
-                                    </div>
+                <div class="card-content">
+                    <form>
+                        <div class="user-acc">
+                            <div>
+                                <div id="profile-container">
+                                    <img id="profileImage" src="<%= currentUser.avatar %>" />
                                 </div>
                             </div>
-                            <div class="user-details">
-                                    <% if (currentUser) { %>
-                                        <h5><%= currentUser.username %></h5>
-                                    <%}%>
-                                <div class="input-field">
-                                    <i class="material-icons prefix">mode_edit</i>
-                                    <textarea class="materialize-textarea" readonly name="status" placeholder="What's your status?"><%= currentUser.status %></textarea>
+                            <div class="buttons">
+                                <div class="gsd-btn">
+                                    <a class="btn-flat disabled"><%= currentUser.earnings %> GSDs</a>
                                 </div>
-                                <div class="user-info">
-                                    <table class="responsive-table">
-                                        <tr class="input-field">
-                                            <td>Date of birth:</td>
-                                            <td><%= currentUser.dateOfBirth %></td>
-                                        </tr>
-                                        <tr class="input-field">
-                                            <td>City:</td>
-                                            <td><%= currentUser.state %></td>
-                                        </tr>
-                                        <tr class="input-field">
-                                            <td>Profession:</td>
-                                            <td><%= currentUser.occupation %></td>
-                                        </tr>
-                                    </table>
+                                <div class="buy-gsd">
+                                    <a class="waves-effect waves-light btn blue" href="#">Buy GSDs</a>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="user-details">
+                                <% if (currentUser) { %>
+                                    <h5><%= currentUser.username %></h5>
+                                <%}%>
+                            <div class="input-field">
+                                <i class="material-icons prefix">mode_edit</i>
+                                <textarea class="materialize-textarea" readonly name="status" placeholder="What's your status?"><%= currentUser.status %></textarea>
+                            </div>
+                            <div class="user-info">
+                                <table class="responsive-table">
+                                    <tr class="input-field">
+                                        <td>Date of birth:</td>
+                                        <td><%= currentUser.dateOfBirth %></td>
+                                    </tr>
+                                    <tr class="input-field">
+                                        <td>City:</td>
+                                        <td><%= currentUser.state %></td>
+                                    </tr>
+                                    <tr class="input-field">
+                                        <td>Profession:</td>
+                                        <td><%= currentUser.occupation %></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
                 </div>
+            </div>
 			<form class="col s12 content-form" action="/stream" method="POST">
 		      	<div class="row">
 			        <div class="input-field col s12">

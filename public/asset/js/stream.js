@@ -121,6 +121,8 @@ $('.comment-button a').click(function() {
 $('.earning .sow div button').click(function(e) {
 	id = e.target.id;
 	var amt = $(this).siblings('input').val();
+	$(this).text("sowing...");
+	var that = this;
 	$.ajax({
 		method: "PUT",
 		url: '/stream/' + id + '/sow',
@@ -128,6 +130,7 @@ $('.earning .sow div button').click(function(e) {
 	}).done(function(data) {
 		$('.seedEarnings-' + id).text(data.seedEarnings);
 		$('.currentUserEarnings').text(data.userEarnings);
+		$(that).text("sow");
 	})
 	.fail(function(err) {
 		console.log("Couldn't sow: " + err);
