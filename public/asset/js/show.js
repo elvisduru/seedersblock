@@ -1,11 +1,3 @@
-function restrictMinus(e) {
-    var inputKeyCode = e.keyCode ? e.keyCode : e.which;
-
-    if (inputKeyCode != null) {
-        if (inputKeyCode == 45) e.preventDefault();
-    }
-}
-
 $('.amount').on("cut copy paste",function(e) {
   e.preventDefault();
 });
@@ -60,28 +52,21 @@ $('.earning .sow div button').click(function() {
 	$(this).text("sowing...");
 	var that = this;
 	var amt = $('.amount').val();
-	var currentUserEarnings = $('.currentUserEarnings').text();
-	if (amt < currentUserEarnings) {
-		$.ajax({
-			method: "PUT",
-			url: url + 'sow',
-			data: {amount: amt}
-		}).done(function(data) {
-			$('.seedEarnings').text(data.seedEarnings);
-			$('.currentUserEarnings').text(data.userEarnings);
-			$(that).text("sow");
-			$('.amount').val("");
-			hide();
-		})
-		.fail(function(err) {
-			console.log("Couldn't sow: " + err);
-		})
-	} else {
-		alert("You don't have enough GSD to do that!");
-		$(this).text("sow");
+	$.ajax({
+		method: "PUT",
+		url: url + 'sow',
+		data: {amount: amt}
+	}).done(function(data) {
+		$('.seedEarnings').text(data.seedEarnings);
+		$('.currentUserEarnings').text(data.userEarnings);
+		$(that).text("sow");
 		$('.amount').val("");
-	}
-})
+		hide();
+	})
+	.fail(function(err) {
+		console.log("Couldn't sow: " + err);
+	})
+});
 
 // sow button
 $('.earning span').click(show);
