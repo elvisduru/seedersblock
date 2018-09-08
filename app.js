@@ -10,13 +10,18 @@ var express = require('express'),
 	seedDB = require('./seed');
 
 // create database
-mongoose.connect("mongodb://elvisduru:buildthefuture123@ds123372.mlab.com:23372/seeders");
+mongoose.connect("mongodb://elvisduru:buildthefuture123@ds123372.mlab.com:23372/seeders", { autoIndex: false })
+.catch(function() {
+	console.log("Could not connect to database");
+});
+mongoose.Promise = Promise;
 
 // Configure Routes
 var seedRoutes = require("./routes/seeds");
 var streamRoutes = require("./routes/stream");
 var commentRoutes = require("./routes/comments");
 var streamCommentRoutes = require("./routes/streamComments");
+var searchRoutes = require("./routes/search");
 var indexRoutes = require("./routes/index");
 
 // configure session middleware
@@ -52,6 +57,12 @@ app.use(function(req, res, next) {
 	next();
 });
 
+// add req.query as local variable
+app.use(function(req, res, next) {
+	res.locals.query = req.query;
+	next();
+});
+
 // prevent favicon redirect
 app.use( function(req, res, next) {
   if (req.originalUrl && req.originalUrl.split("/").pop() === 'favicon.ico') {
@@ -66,6 +77,7 @@ app.set("view engine", "ejs");
 // seedDB();
 
 // requiring routes
+app.use("/search", searchRoutes);
 app.use("/seeds", seedRoutes);
 app.use("/stream", streamRoutes);
 app.use("/seeds/:id/comments", commentRoutes);

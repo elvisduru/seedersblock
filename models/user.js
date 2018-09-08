@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var mongoosePaginate = require('mongoose-paginate');
 var passportLocalMongoose = require('passport-local-mongoose');
 var tempAvatar = 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png';
 
@@ -26,5 +27,6 @@ var userSchema = new mongoose.Schema({
 });
 
 userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('User', userSchema);

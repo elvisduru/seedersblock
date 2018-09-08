@@ -1,0 +1,51 @@
+<% include ../partials/header %>
+
+<div class="row">
+ 	<div class="col s12 m8">
+ 		<div class="row">
+ 			<div class="col s12 results">
+ 				<% if (streams.docs.length === 0) { %>
+					<div class="no-results">
+						<img src="asset/img/no-results.gif" alt="">
+					</div>
+ 				<% } %>
+ 				<% if (streams.docs.length > 0) { %>
+	 				<div class="card-panel streams">
+	 					<div class="header valign-wrapper">
+	 						<i class="material-icons">folder_special</i>
+	 						<span class="title">Streams</span>
+	 					</div>
+	 					<hr>
+	 					<div class="body">
+	 						<% streams.docs.forEach(function(stream) { %>
+	 							<div class="item">
+	 								<div class="description">
+	 									<div class="author valign-wrapper">
+	 										<div class="user-avatar">
+	 											<img src="<%= stream.author.avatar %>" alt="" class="circle responsive-img">
+	 										</div>
+	 										<p class="title"><a href="/<%= stream.author.username %>"><%= stream.author.username %></a></p>
+	 									</div>
+	 									<p class="excerpt"><%- stream.body %></p>
+	 									<div class="meta">
+	 										<span class="created"><%= stream.created.toDateString() %></span>
+	 									</div>
+	 								</div>
+	 							</div>
+	 						<% }); %>
+	 					</div>
+	 					<hr>
+	 					<% if (streams.docs.length > 1) { %>
+		 					<div class="footer center">
+		 						<a href="#"> See All</a>
+		 					</div>
+		 				<% } %>
+	 				</div>
+	 			<% } %>
+ 			</div>
+ 		</div>
+ 	</div>
+ </div> 
+
+<% include ../partials/footer %>
+<% include ../partials/footerSearch %>

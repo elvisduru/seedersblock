@@ -1,0 +1,47 @@
+<% include ../partials/header %>
+
+<div class="row">
+ 	<div class="col s12 m8">
+ 		<div class="row">
+ 			<div class="col s12 results">
+ 				<% if (users.docs.length === 0) { %>
+					<div class="no-results">
+						<img src="asset/img/no-results.gif" alt="">
+					</div>
+ 				<% } %>
+ 				<% if (users.docs.length > 0) { %>
+	 				<div class="card-panel users">
+	 					<div class="header valign-wrapper">
+	 						<i class="material-icons">people</i>
+	 						<span class="title">Users</span>
+	 					</div>
+	 					<hr>
+	 					<div class="body">
+	 						<div class="row">
+	 							<% users.docs.forEach(function(user) { %>
+	 							<div class="item col s12 m6">
+	 								<div class="featuredImg" style="background-image: url(<%= user.avatar %>); background-size: cover;"></div>
+	 								<div class="description">
+	 									<p class="title"><a href="/<%= user.username %>"><%= user.firstname %> <%= user.lastname %></a></p>
+	 									<p class="status"><%= user.occupation %></p>
+	 									<a class="link" href="/<%= user.username %>">View User</a>
+	 								</div>
+	 							</div>
+	 						<% }); %>
+	 						</div>
+	 					</div>
+	 					<hr>
+	 					<% if (users.docs.length > 1) { %>
+		 					<div class="footer center">
+		 						<a href="#"> See All</a>
+		 					</div>
+		 				<% } %>
+	 				</div>
+	 			<% } %>
+ 			</div>
+ 		</div>
+ 	</div>
+ </div> 
+
+<% include ../partials/footer %>
+<% include ../partials/footerSearch %>

@@ -448,7 +448,7 @@ span.badge {
 /******************************************************************************
 	Sidenavs styling
 ******************************************************************************/
-.sidenav.sidenav-fixed {
+.sidenav.sidenav-fixed, .sidenav {
 	background-color: #0e47a1;
 }
 
@@ -461,5 +461,73 @@ span.badge {
 .sidenav li>a li>a>[class*="mdi-"],
 .sidenav li>a>i.material-icons {
 	color: #fff;
->>>>>>> d884c61871a3da08f4dd4edcac711ba4727a3562
+}
+
+/******************************************************************************
+	Search Page
+******************************************************************************/
+
+.results {
+	height: 70vh;
+}
+
+.no-results {
+	display: flex;
+	align-items: center;
+}
+
+.header > a {
+	margin-left: auto;
+}
+
+.header > .title {
+	margin-left: 10px;
+	font-weight: bold;
+}
+
+.empty {
+	background-color: rgba(0, 0, 0, 0.03);
+}
+
+.item {
+	height: 200px;
+	display: flex;
+	background-color: rgba(0, 0, 0, 0.03);
+	padding: 10px;
+}
+
+.users .item {
+	height: 140px;
+}
+
+.streams .item {
+	height: unset;
+}
+
+.item > .featuredImg {
+	min-width: 40%;
+	height: 100%;
+}
+
+.item > .description {
+	padding-left: 5%;
+	padding-right: 10px;
+}
+
+.item > .description .title {
+	font-size: 1.1em;
+	font-weight: 500;
+	color: #039be5;
+}
+
+.item > .description .meta {
+	font-size: 0.9em;
+	font-weight: lighter;
+	color: #26a69a;
+}
+
+.item > .description > .excerpt img {
+	width: 30%;
+	float: right;
+	margin-left: 10px;
 }

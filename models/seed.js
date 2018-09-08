@@ -1,4 +1,5 @@
 var mongoose = require('mongoose'),
+	mongoosePaginate = require('mongoose-paginate'),
 	voting = require('mongoose-voting');
 
 var seedSchema = new mongoose.Schema({
@@ -30,6 +31,8 @@ var seedSchema = new mongoose.Schema({
 	]
 });
 
+seedSchema.index({title: 'text', body: 'text'});
 seedSchema.plugin(voting);
+seedSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Seed', seedSchema);
