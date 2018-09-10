@@ -48,3 +48,13 @@
     window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+<script>
+    $('.search-icon').click(function () {
+        $('.search-mobile').toggle();
+    })
+
+    $('.close-search').click(function() {
+        $('.search-mobile').hide();
+        $('.search-mobile #search').val("");
+    })
+</script>

@@ -531,3 +531,24 @@ span.badge {
 	float: right;
 	margin-left: 10px;
 }
+
+.search-mobile {
+	position: fixed;
+	top: 60px;
+	left: 0;
+	width: 100vw;
+	height: 40px;
+	padding: 10px;
+	border-radius: 30px;
+	border: 1px solid white;
+	display: none;
+	background-color: #333;
+}
+
+.close-search {
+	color: white !important;
+}
+
+.search-mobile #search {
+	width: 100%;
+}
