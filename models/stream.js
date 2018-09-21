@@ -1,4 +1,5 @@
 var mongoose = require('mongoose'),
+	mongoosePaginate = require('mongoose-paginate'),
 	voting	 = require('mongoose-voting');
 
 var streamSchema = new mongoose.Schema({
@@ -24,6 +25,8 @@ var streamSchema = new mongoose.Schema({
 	}]
 });
 
+streamSchema.index({body: 'text'});
 streamSchema.plugin(voting);
+streamSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Stream', streamSchema);

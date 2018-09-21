@@ -3,6 +3,52 @@
 <div class="row">
 	<div class="col s12 m8">
 		<div class="row stream large">
+			<div class="card-panel">
+                <div class="card-content">
+                    <form>
+                        <div class="user-acc">
+                            <div>
+                                <div id="profile-container">
+                                    <img id="profileImage" src="<%= currentUser.avatar %>" />
+                                </div>
+                            </div>
+                            <div class="buttons">
+                                <div class="gsd-btn">
+                                    <a class="btn-flat disabled"><%= currentUser.earnings %> GSDs</a>
+                                </div>
+                                <div class="buy-gsd">
+                                    <a class="waves-effect waves-light btn blue" href="#">Buy GSDs</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user-details">
+                                <% if (currentUser) { %>
+                                    <h5><%= currentUser.username %></h5>
+                                <%}%>
+                            <div class="input-field">
+                                <i class="material-icons prefix">mode_edit</i>
+                                <textarea class="materialize-textarea" readonly name="status" placeholder="What's your status?"><%= currentUser.status %></textarea>
+                            </div>
+                            <div class="user-info">
+                                <table class="responsive-table">
+                                    <tr class="input-field">
+                                        <td>Date of birth:</td>
+                                        <td><%= currentUser.dateOfBirth %></td>
+                                    </tr>
+                                    <tr class="input-field">
+                                        <td>City:</td>
+                                        <td><%= currentUser.state %></td>
+                                    </tr>
+                                    <tr class="input-field">
+                                        <td>Profession:</td>
+                                        <td><%= currentUser.occupation %></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
 			<form class="col s12 content-form" action="/stream" method="POST">
 		      	<div class="row">
 			        <div class="input-field col s12">
@@ -18,7 +64,7 @@
 		    <div class="col s12 posts">
 		    	<h6><strong>Posts</strong></h6>
 		    	<% streams.forEach(function(stream) { %>
-					<div class="card-panel">
+					<div class="card-panel" id="<%= stream._id %>">
 						<div class="right remove-stream">
 							<% if ( currentUser && stream.author.id.equals(currentUser._id) ) { %>
 								<form action="/stream/<%= stream._id %>/delete?_method=DELETE" method="POST">
@@ -55,16 +101,17 @@
 								</button>
 							</div>
 							<div class="earning">
-								<span><img width="20" src="/asset/img/coins.svg"> <span class="seedEarnings-<%= stream._id %>"><%= stream.earnings %></span> <small>GSD</small></span>
-								<div class="sow">
-									<span class="close">X</span>
-									<p>Sow a seed</p>
-									<div>
-										<img width="26" src="/asset/img/coins.svg">
-										<input class="amount" type="number" min="0" placeholder="1">
-										<button id="<%= stream._id %>">Send</button>
+								<span class="amt"><img width="20" src="/asset/img/coins.svg"> <span class="seedEarnings-<%= stream._id %>"><%= stream.earnings %></span> <small>GSD</small>
+									<div class="sow">
+										<span class="close">X</span>
+										<p>Sow a seed</p>
+										<div>
+											<img width="26" src="/asset/img/coins.svg">
+											<input class="amount" type="number" min="0" placeholder="1" max="<%= currentUser.earnings %>" oninput="validity.valid||(value='');">
+											<button id="<%= stream._id %>">Send</button>
+										</div>
 									</div>
-								</div>
+								</span>
 							</div>
 							<div class="comment-button">
 								<a class="btn btn-flat btn-small waves-effect waves-light">
@@ -74,7 +121,7 @@
 						</div>
 						<hr class="full-divider">
 						<div id="comments_<%= stream._id %>" class="comments">
-							<% stream.comments.forEach(function(comment) { %>
+							<% stream.comments.slice(-4).forEach(function(comment) { %>
 								<div id="comment_<%= comment._id %>">
 									<div class="right remove-comment">
 										<% if ( currentUser && (stream.author.id.equals(currentUser._id) || comment.author.id.equals(currentUser._id)) ) { %>

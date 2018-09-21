@@ -2,8 +2,15 @@ var express = require('express'),
 	router = express.Router({mergeParams: true}),
 	Stream = require('../models/stream'),
 	Comment = require('../models/comment'),
+	Notification = require('../models/notification'),
+	Feeds = require("pusher-feeds-server"),
 	sanitizeHtml = require('sanitize-html');
 
+// Feeds Config
+const feeds = new Feeds({
+	instanceLocator: process.env.instanceLocator,
+	key: process.env.key
+});
 
 // ****************
 // Stream Comment Route
@@ -31,7 +38,29 @@ router.post('/', function(req, res) {
 				} else {
 					foundStream.comments.push(newComment);
 					foundStream.save();
-					res.json(newComment);
+					var notification = {
+						sender: req.user._id,
+						receiver: foundStream.author.id,
+						content: "commented on your post",
+						type: "comment_stream",
+						is_read: false,
+						path: "/stream#" + foundStream._id
+					}
+					Notification.create(notification)
+					.then(() => {
+						var feed = {
+							sender: req.user,
+							receiver: foundStream.author.id,
+							text: "commented on your post just now",
+							path: "/stream#" + foundStream._id,
+							streamId: foundStream._id,
+							comment: req.body.text,
+							time: new Date()
+						}
+						feeds.publish("comment-stream", feed);
+						res.json(newComment);
+					})
+					.catch(err => console.log(err));
 				}
 			});
 		}

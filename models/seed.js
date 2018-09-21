@@ -1,4 +1,5 @@
 var mongoose = require('mongoose'),
+	mongoosePaginate = require('mongoose-paginate'),
 	voting = require('mongoose-voting');
 
 var seedSchema = new mongoose.Schema({
@@ -11,7 +12,7 @@ var seedSchema = new mongoose.Schema({
 		username: String 
 	},
 	title: String,
-	image: String,
+	image: {type: String, default: "https://miro.medium.com/fit/c/1400/420/1*MQl0Eq-bP3AAfzOyblPahw.png"},
 	created: {type: Date, default: Date.now},
 	body: String,
 	category: [String],
@@ -30,6 +31,8 @@ var seedSchema = new mongoose.Schema({
 	]
 });
 
+seedSchema.index({title: 'text', body: 'text'});
 seedSchema.plugin(voting);
+seedSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Seed', seedSchema);

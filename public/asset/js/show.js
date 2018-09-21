@@ -1,3 +1,7 @@
+$('.amount').on("cut copy paste",function(e) {
+  e.preventDefault();
+});
+
 $('.dropdown-trigger').dropdown();
 
 $(document).ready(function(){
@@ -45,6 +49,8 @@ function updateScore() {
 
 // sowing logic
 $('.earning .sow div button').click(function() {
+	$(this).text("sowing...");
+	var that = this;
 	var amt = $('.amount').val();
 	$.ajax({
 		method: "PUT",
@@ -53,24 +59,37 @@ $('.earning .sow div button').click(function() {
 	}).done(function(data) {
 		$('.seedEarnings').text(data.seedEarnings);
 		$('.currentUserEarnings').text(data.userEarnings);
+		$(that).text("sow");
+		$('.amount').val("");
+		hide();
 	})
 	.fail(function(err) {
 		console.log("Couldn't sow: " + err);
 	})
-})
+});
 
 // sow button
-$('.earning span').click(function() {
-    $('.sow').addClass('show');
-    $('.sow').show();
-})
+$('.earning span').click(show);
 
-$('.earning span').mouseenter(function() {
-    $('.sow').addClass('show');
-    $('.sow').show();
-})
+$('.earning span').mouseenter(show);
 
-$('.close').click(function() {
+$('.close').click(hide);
+
+$('.sow').mouseleave(hide);
+
+function show() {
+	$('.sow').addClass('show');
+    $('.sow').show();
+}
+
+function hide() {
 	$('.sow').removeClass('show');
 	$('.sow').hide();
-})
+}
+
+$('.comment-form').submit(function(e) {
+	if (!($('#new-comment').val())) {
+		e.preventDefault();
+		alert('No input');
+	}        
+});

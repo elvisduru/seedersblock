@@ -1,0 +1,48 @@
+<% include ../partials/header %>
+
+<div class="row">
+ 	<div class="col s12 m8">
+ 		<div class="row">
+ 			<div class="col s12 results">
+ 				<% if (seeds.docs.length === 0) { %>
+					<div class="no-results">
+						<img src="asset/img/no-results.gif" alt="">
+					</div>
+ 				<% } %>
+ 				<% if (seeds.docs.length > 0) { %>
+	 				<div class="card-panel seeds">
+	 					<div class="header valign-wrapper">
+	 						<i class="material-icons">folder_special</i>
+	 						<span class="title">Seeds</span>
+	 					</div>
+	 					<hr>
+	 					<div class="body">
+	 						<% seeds.docs.forEach(function(seed) { %>
+	 							<div class="item">
+	 								<div class="featuredImg" style="background-image: url(<%= seed.image %>); background-size: cover;"></div>
+	 								<div class="description">
+	 									<p class="title"><a href="/seeds/<%= seed._id %>"><%= seed.title %></a></p>
+	 									<p class="excerpt"><%= seed.excerpt.substring(0, 70) + "..." %></p>
+	 									<div class="meta">
+	 										<span class="created"><%= seed.created.toDateString() %></span> - 
+	 										<span class="views"><%= seed.views %> views</span>
+	 									</div>
+	 								</div>
+	 							</div>
+	 						<% }); %>
+	 					</div>
+	 					<hr>
+	 					<% if (seeds.docs.length > 1) { %>
+		 					<div class="footer center">
+		 						<a href="#"> See All</a>
+		 					</div>
+		 				<% } %>
+	 				</div>
+	 			<% } %>
+ 			</div>
+ 		</div>
+ 	</div>
+ </div> 
+
+<% include ../partials/footer %>
+<% include ../partials/footerSearch %>

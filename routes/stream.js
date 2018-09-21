@@ -2,9 +2,17 @@ var express = require('express'),
 	router = express.Router(),
 	Stream = require('../models/stream'),
 	User = require('../models/user'),
+	Notification = require('../models/notification'),
+	Feeds = require("pusher-feeds-server"),
 	middleware = require('../middleware'),
 	ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
 	sanitizeHtml = require('sanitize-html');
+
+// Feeds Config
+const feeds = new Feeds({
+	instanceLocator: process.env.instanceLocator,
+	key: process.env.key
+});
 
 // ****************
 // Stream Route
@@ -14,7 +22,7 @@ var express = require('express'),
 router.get('/', ensureLoggedIn('/'), function(req, res) {
 	Stream.find({$or:[{'author.username': req.user.username}, {'author.id': {$in: req.user.following}}]}).sort({created: -1}).populate('comments').exec(function(err, streams) {
 		if (err) {
-			console.log(err);
+			res.send(err);
 		} else {
 			res.render("stream", {streams: streams});
 		}
@@ -40,7 +48,7 @@ router.post('/', ensureLoggedIn('/'), function(req, res) {
 	};
 	Stream.create(stream, function(err, createdStream) {
 		if (err) {
-			console.log(err);
+			res.send(err);
 		} else {
 			res.redirect('back');
 		}
@@ -51,7 +59,7 @@ router.post('/', ensureLoggedIn('/'), function(req, res) {
 router.delete('/:id/delete', middleware.checkStreamOwnership, function(req, res) {
 	Stream.findByIdAndRemove(req.params.id, function(err) {
 		if (err) {
-			console.log(err);
+			res.send(err);
 		} else {
 			res.redirect('back');
 		}
@@ -68,7 +76,7 @@ router.put('/:id/sow', function(req, res) {
 			foundStream.earnings += req.body.amount;
 			User.findOneAndUpdate({username: foundStream.author.username}, { $inc: { earnings: +req.body.amount } }, {new: true }, function(err, user) {
 					if (err) {
-						console.log(err);
+						res.send(err);
 					}
 				})
 			foundStream.save();
@@ -89,7 +97,27 @@ router.post('/:id/like', function(req, res) {
 			if (!isInArray) {
 				foundStream.likes.push(req.user._id);
 				foundStream.save();
-				res.json({message: "success"});
+				var notification = {
+					sender: req.user._id,
+					receiver: foundStream.author.id,
+					content: "liked your post",
+					type: "like_stream",
+					is_read: false,
+					path: "/stream#" + foundStream._id
+				}
+				Notification.create(notification)
+				.then(() => {
+					var feed = {
+						sender: req.user,
+						receiver: foundStream.author.id,
+						text: "liked your post just now",
+						path: "/stream#" + foundStream._id,
+						time: new Date()
+					}
+					feeds.publish("like-stream", feed);
+					res.json({message: "success"});
+				})
+				.catch(err => console.log(err));
 			} else {
 				res.json({message: "already liked by you"});
 			}

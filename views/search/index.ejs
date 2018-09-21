@@ -1,0 +1,107 @@
+<% include ../partials/header %>
+
+<div class="row">
+ 	<div class="col s12 m8">
+ 		<div class="row">
+ 			<div class="col s12 results">
+ 				<% if (results.seeds.length === 0 && results.users.length === 0 && results.streams.length === 0) { %>
+					<div class="no-results">
+						<img src="asset/img/no-results.gif" alt="">
+					</div>
+ 				<% } %>
+ 				<% if (results.seeds.length > 0) { %>
+	 				<div class="card-panel seeds">
+	 					<div class="header valign-wrapper">
+	 						<i class="material-icons">folder_special</i>
+	 						<span class="title">Seeds</span>
+	 						<a href="search/seeds?q=<%= query.q %>" class="right">See All</a>
+	 					</div>
+	 					<hr>
+	 					<div class="body">
+	 						<% results.seeds.forEach(function(seed) { %>
+	 							<div class="item">
+	 								<div class="featuredImg" style="background-image: url(<%= seed.image %>); background-size: cover;"></div>
+	 								<div class="description">
+	 									<p class="title"><a href="/seeds/<%= seed._id %>"><%= seed.title %></a></p>
+	 									<p class="excerpt"><%= seed.excerpt.substring(0, 70) + "..." %></p>
+	 									<div class="meta">
+	 										<span class="created"><%= seed.created.toDateString() %></span> - 
+	 										<span class="views"><%= seed.views %> views</span>
+	 									</div>
+	 								</div>
+	 							</div>
+	 						<% }); %>
+	 					</div>
+	 					<hr>
+	 					<div class="footer center">
+	 						<a href="search/seeds?q=<%= query.q %>"> See All</a>
+	 					</div>
+	 				</div>
+	 			<% } %>
+ 				<% if (results.users.length > 0) { %>
+	 				<div class="card-panel users">
+	 					<div class="header valign-wrapper">
+	 						<i class="material-icons">people</i>
+	 						<span class="title">Users</span>
+	 						<a href="search/users?q=<%= query.q %>" class="right">See All</a>
+	 					</div>
+	 					<hr>
+	 					<div class="body">
+	 						<div class="row">
+	 							<% results.users.forEach(function(user) { %>
+	 							<div class="item col s12 m6">
+	 								<div class="featuredImg" style="background-image: url(<%= user.avatar %>); background-size: cover;"></div>
+	 								<div class="description">
+	 									<p class="title"><a href="/<%= user.username %>"><%= user.firstname %> <%= user.lastname %></a></p>
+	 									<p class="status"><%= user.occupation %></p>
+	 									<a class="link" href="/<%= user.username %>">View User</a>
+	 								</div>
+	 							</div>
+	 						<% }); %>
+	 						</div>
+	 					</div>
+	 					<hr>
+	 					<div class="footer center">
+	 						<a href="search/users?q=<%= query.q %>"> See All</a>
+	 					</div>
+	 				</div>
+	 			<% } %>
+	 			<% if (results.streams.length > 0) { %>
+	 				<div class="card-panel streams">
+	 					<div class="header valign-wrapper">
+	 						<i class="material-icons">art_track</i>
+	 						<span class="title">Streams</span>
+	 						<a href="search/streams?q=<%= query.q %>" class="right">See All</a>
+	 					</div>
+	 					<hr>
+	 					<div class="body">
+	 						<% results.streams.forEach(function(stream) { %>
+	 							<div class="item">
+	 								<div class="description">
+	 									<div class="author valign-wrapper">
+	 										<div class="user-avatar">
+	 											<img src="<%= stream.author.avatar %>" alt="" class="circle responsive-img">
+	 										</div>
+	 										<p class="title"><a href="/<%= stream.author.username %>"><%= stream.author.username %></a></p>
+	 									</div>
+	 									<p class="excerpt"><%- stream.body %></p>
+	 									<div class="meta">
+	 										<span class="created"><%= stream.created.toDateString() %></span>
+	 									</div>
+	 								</div>
+	 							</div>
+	 						<% }); %>
+	 					</div>
+	 					<hr>
+	 					<div class="footer center">
+	 						<a href="search/streams?q=<%= query.q %>"> See All</a>
+	 					</div>
+	 				</div>
+	 			<% } %>
+ 			</div>
+ 		</div>
+ 	</div>
+ </div> 
+
+<% include ../partials/footer %>
+<% include ../partials/footerSearch %>
