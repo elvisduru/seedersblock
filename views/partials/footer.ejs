@@ -48,13 +48,239 @@
     window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+<script src="https://unpkg.com/pusher-feeds-client@0.10.0"></script>
 <script>
     $('.search-icon').click(function () {
         $('.search-mobile').toggle();
+        $('.notifications-list').hide();
     })
 
     $('.close-search').click(function() {
         $('.search-mobile').hide();
         $('.search-mobile #search').val("");
+    })
+    $('.notifications-list').hide();
+    $('.notifications-trigger').click(function() {
+        $('.notifications-list').toggle();
+        $('.search-mobile').hide();
+    })
+    $('.notifications .badge').hide();
+    $.getJSON('/notifications')
+    .done(notifications => {
+        if (notifications.docs.every(notification => notification.is_read)) {
+            $('.notifications .badge').hide();
+        } else {
+            $('.notifications .badge').show();
+        }
+        notifications.docs.reverse().forEach(notification => {
+            if (notification.is_read) {
+                $('.notification-items').prepend(`<li style="background-color: #edf2fa; position: relative;" class="notification-item" id="${notification._id}">
+                    <div class="wrapper">
+                        <div class="left">
+                            <div class="avatar">
+                                <img class="notification-avatar" src="${notification.sender.avatar}" alt="">
+                            </div>
+                            <div class="notification-data">
+                                <span class="user"><a href="/${notification.sender.username}">${notification.sender.firstname} ${notification.sender.lastname}</a></span>
+                                <span class="info">${notification.content}</span>
+                            </div>
+                        </div>
+                        <span class="created">9/6/2018 14:03</span>
+                        <a class="wrap-link" href="${notification.path}">Click</a>
+                    </div>
+                </li>`);   
+            } else {
+                $('.notification-items').prepend(`<li class="notification-item" id="${notification._id}">
+                    <div class="wrapper">
+                        <div class="left">
+                            <div class="avatar">
+                                <img class="notification-avatar" src="${notification.sender.avatar}" alt="">
+                            </div>
+                            <div class="notification-data">
+                                <span class="user"><a href="/${notification.sender.username}">${notification.sender.firstname} ${notification.sender.lastname}</a></span>
+                                <span class="info">${notification.content}</span>
+                            </div>
+                        </div>
+                        <span class="created">9/6/2018 14:03</span>
+                        <a class="wrap-link" href="${notification.path}">Click</a>
+                    </div>
+                </li>`);      
+            }
+        })
+    })
+    .fail(err => console.log(err));
+    $('.notification-items').on("click", ".notification-item:first", function(e) {
+        $(this).css("background-color", "#edf2fa");
+        console.log("yes")
+    });
+    $('.notification-items').on("click", ".notification-item", function(e) {
+        e.stopPropagation();
+        var id = $(this).attr("id");
+        var that = this;
+        console.log(id);
+        if (id) {
+            $.ajax({
+                url: '/notification/' + id,
+                method: "PUT"
+            })
+            .done(msg => {
+                console.log(msg);
+                $(that).css("background-color", "#edf2fa");
+            })
+            .fail(err => console.log(err));
+        }
+        
+    });
+</script>
+<script>
+    const feeds = new Feeds({
+        instanceLocator: "v1:us1:f46083f7-c203-4839-a1f9-ea2466d85075"
+    });
+
+    var follow = feeds.feed("follow");
+    var commentSeed = feeds.feed("comment-seed");
+    var likeStream = feeds.feed("like-stream");
+    var commentStream = feeds.feed("comment-stream");
+    var currentUser;
+
+    follow.subscribe({
+        onOpen: () => {
+            console.log("Follow Feeds: Connection Established");
+        },
+        onItem: item => {
+        $.getJSON('/user')
+        .done(function(user) {
+            currentUser = user;
+            if ( currentUser && item.data.user.following.indexOf(currentUser._id) === (item.data.user.following.length - 1) && currentUser.followers.indexOf(item.data.user._id) === (currentUser.followers.length - 1) && !( item.data.user._id ==currentUser._id) ) {
+                    $('.notifications .badge').show();
+                    $('.notification-items').prepend(`<li class="notification-item">
+                        <div class="wrapper">
+                            <div class="left">
+                                <div class="avatar">
+                                    <img class="notification-avatar" src="${item.data.user.avatar}" alt="">
+                                </div>
+                                <div class="notification-data">
+                                    <span class="user"><a href="/${item.data.user.username}">${item.data.user.firstname} ${item.data.user.lastname}</a></span>
+                                    <span class="info">just followed you</span>
+                                </div>
+                            </div>
+                            <span class="created">9/6/2018 14:03</span>
+                            <a class="wrap-link" href="/${item.data.user.username}">Click</a>
+                        </div>
+                    </li>`);
+                }
+        })
+        .fail(err => console.log(err));
+        },
+        onError: error => {
+            console.error("Feeds error: " + error);
+        }
+    });
+
+    commentSeed.subscribe({
+        onOpen: () => {
+            console.log("Seed Comment Feeds: Connection Established");
+        },
+        onItem: item => {
+        $.getJSON('/user')
+        .done(function(user) {
+            currentUser = user;
+            if ( currentUser && currentUser._id === item.data.receiver ) {
+                    $('.notifications .badge').show();
+                    $('.notification-items').prepend(`<li class="notification-item">
+                        <div class="wrapper">
+                            <div class="left">
+                                <div class="avatar">
+                                    <img class="notification-avatar" src="${item.data.sender.avatar}" alt="">
+                                </div>
+                                <div class="notification-data">
+                                    <span class="user"><a href="/${item.data.sender.username}">${item.data.sender.firstname} ${item.data.sender.lastname}</a></span>
+                                    <span class="info">${item.data.text}</span>
+                                </div>
+                            </div>
+                            <span class="created">9/6/2018 14:03</span>
+                            <a class="wrap-link" href="${item.data.path}">Click</a>
+                        </div>
+                    </li>`);
+                }
+
+        })
+        .fail(err => console.log(err));
+        },
+        onError: error => {
+            console.error("Feeds error: " + error);
+        }
+    });
+
+    likeStream.subscribe({
+        onOpen: () => {
+            console.log("Stream Like Feeds: Connection Established");
+        },
+        onItem: item => {
+        $.getJSON('/user')
+        .done(function(user) {
+            currentUser = user;
+            if ( currentUser && currentUser._id === item.data.receiver ) {
+                    $('.notifications .badge').show();
+                    $('.notification-items').prepend(`<li class="notification-item">
+                        <div class="wrapper">
+                            <div class="left">
+                                <div class="avatar">
+                                    <img class="notification-avatar" src="${item.data.sender.avatar}" alt="">
+                                </div>
+                                <div class="notification-data">
+                                    <span class="user"><a href="/${item.data.sender.username}">${item.data.sender.firstname} ${item.data.sender.lastname}</a></span>
+                                    <span class="info">${item.data.text}</span>
+                                </div>
+                            </div>
+                            <span class="created">9/6/2018 14:03</span>
+                            <a class="wrap-link" href="${item.data.path}">Click</a>
+                        </div>
+                    </li>`);
+                }
+
+        })
+        .fail(err => console.log(err));
+        },
+        onError: error => {
+            console.error("Feeds error: " + error);
+        }
+    });
+
+    commentStream.subscribe({
+        onOpen: () => {
+            console.log("Stream Comment Feeds: Connection Established");
+        },
+        onItem: item => {
+        $.getJSON('/user')
+        .done(function(user) {
+            currentUser = user;
+            if ( currentUser && currentUser._id === item.data.receiver ) {
+                    $('.notifications .badge').show();
+                    $('.notification-items').prepend(`<li class="notification-item">
+                        <div class="wrapper">
+                            <div class="left">
+                                <div class="avatar">
+                                    <img class="notification-avatar" src="${item.data.sender.avatar}" alt="">
+                                </div>
+                                <div class="notification-data">
+                                    <span class="user"><a href="/${item.data.sender.username}">${item.data.sender.firstname} ${item.data.sender.lastname}</a></span>
+                                    <span class="info">${item.data.text}</span>
+                                </div>
+                            </div>
+                            <span class="created">9/6/2018 14:03</span>
+                            <a class="wrap-link" href="${item.data.path}">Click</a>
+                        </div>
+                    </li>`);
+                    $('#comments_' + item.data.streamId).append('<div id="comment_' + item.data.streamId + '"><div class="right remove-comment"><button id="' + item.data.streamId + '" class="btn-floating btn-small waves-effect waves-light light-teal comment-delete"><i class="material-icons">delete</i></button></div><div class="valign-wrapper"><div class="user-avatar"><img src="'+ item.data.sender.avatar + '" alt="" class="circle responsive-img"></div><div class="comment-meta"><span class="black-text">' + item.data.sender.username + '</span><br><span class="grey-text">' + item.data.time.toLocaleTimeString() + '</span></div></div><p>' + item.data.comment + '</p></div>'
+                    );
+                }
+
+        })
+        .fail(err => console.log(err));
+        },
+        onError: error => {
+            console.error("Feeds error: " + error);
+        }
     })
 </script>

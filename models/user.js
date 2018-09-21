@@ -23,6 +23,7 @@ var userSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId, ref: 'User'
 	}],
 	status: String,
+	notifications: [{type: mongoose.Schema.Types.ObjectId, ref: 'Notification'}],
 	earnings: {type: Number, default: 1000}
 });
 

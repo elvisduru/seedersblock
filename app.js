@@ -1,3 +1,4 @@
+require('dotenv').config();
 var express = require('express'),
 	app = express(),
 	path = require('path'),
@@ -6,8 +7,7 @@ var express = require('express'),
 	methodOverride = require('method-override'),
 	passport = require('passport'),
 	LocalStrategy = require("passport-local"),
-	User = require('./models/user'),
-	Pusher = require('pusher');
+	User = require('./models/user');
 
 // create database
 mongoose.connect("mongodb://elvisduru:buildthefuture123@ds123372.mlab.com:23372/seeders", { autoIndex: false })
@@ -76,22 +76,6 @@ app.set("view engine", "ejs");
 
 // seedDB();
 
-var pusher = new Pusher({
-  appId: '596148',
-  key: '98f11c5bb22e25f11ad2',
-  secret: '89d42380f2e9fd624d9a',
-  cluster: 'eu',
-  encrypted: true
-});
-
-pusher.trigger('my-channel', 'my-event', {
-  "message": "hello world"
-});
-
-app.get('/pusher/test', function(req, res) {
-	res.sendFile(__dirname + '/test.html');
-})
-
 // requiring routes
 app.use("/search", searchRoutes);
 app.use("/seeds", seedRoutes);
@@ -99,7 +83,6 @@ app.use("/stream", streamRoutes);
 app.use("/seeds/:id/comments", commentRoutes);
 app.use("/stream/:id/comments", streamCommentRoutes);
 app.use("/", indexRoutes);
-
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, function () {

@@ -60,9 +60,35 @@
 								</div>
 							</form>
 						</div>
-						<div>
+						<div class="notifications-trigger">
 							<i class="material-icons">notifications</i>
-							<span class="badge hide">10</span>
+							<span class="badge"></span>
+							<ul class="notifications-list">
+								<li class="header">
+									<h6>Notifications</h6>
+								</li>
+								<div class="notification-items">
+									
+								</div>
+								<!-- <li class="no-notification">
+									<i class="material-icons">error_outline</i>
+									<span>No new notifications</span>
+								</li> -->
+								<!-- <li class="notification-item">
+									<div class="wrapper">
+										<div class="left">
+											<div class="avatar">
+												<img class="notification-avatar" src="<%= currentUser.avatar %>" alt="">
+											</div>
+											<div class="notification-data">
+												<span class="user"><a href="/<%= currentUser.username %>"><%= currentUser.firstname %> <%= currentUser.lastname %></a></span>
+												<span class="info">just followed you</span>
+											</div>
+										</div>
+										<span class="created">9/6/2018 14:03</span>
+									</div>
+								</li> -->
+							</ul>
 						</div>
 						<div>
 							<i class="material-icons">mail_outline</i>

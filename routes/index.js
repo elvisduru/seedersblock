@@ -7,11 +7,18 @@ var express = require('express'),
 	multer  = require('multer'),
 	cloudinary = require('cloudinary'),
 	cloudinaryStorage = require('multer-storage-cloudinary'),
+	Feeds = require("pusher-feeds-server"),
 	Seed	= require('../models/seed'),
 	Stream = require('../models/stream'),
 	User	= require('../models/user'),
+	Notification = require('../models/notification'),
 	Comment	= require('../models/comment');
 
+
+const feeds = new Feeds({
+	instanceLocator: process.env.instanceLocator,
+	key: process.env.key
+});
 
 // config cloudinary
 cloudinary.config({ 
@@ -39,6 +46,17 @@ var upload = multer({storage: storage});
 router.get('/', function (req, res) {
 	res.render("landing");
 });
+
+// get logged in user data
+router.get('/user', ensureLoggedIn('/'), function(req, res) {
+	User.findById(req.user._id)
+	.then(function(user) {
+		res.status(200).json(user);
+	})
+	.catch(function(err) {
+		console.log(err);
+	})
+})
 
 //Dasboard Route 
 router.get('/settings', ensureLoggedIn('/'), function (req, res){
@@ -101,9 +119,33 @@ router.get('/logout', function(req, res) {
 	res.redirect("/");
 });
 
+router.get('/notifications', function(req, res) {
+	Notification.paginate({receiver: req.user._id}, {sort: {created: -1}, limit: 5, populate: "sender"})
+	.then(notifications => res.status(200).json(notifications))
+	.catch(err => console.log(err));
+})
+
+// read notification
+router.put('/notification/:id', function(req, res) {
+	Notification.findByIdAndUpdate(req.params.id, {is_read: true})
+	.then(() => res.json({message: "successful"}))
+	.catch(err => console.log(err));
+})
+
 router.post('/follow-user', function(req, res) {
 	User.findOne({ username: req.body.username }, function(err, user) {
 		user.followers.push(req.user._id);
+		var notification = {
+			sender: req.user._id,
+			receiver: user._id,
+			content: "followed you",
+			type: "follow",
+			path: req.user._id,
+			is_read: false
+		}
+		Notification.create(notification)
+		.then(() => console.log("notification created"))
+		.catch(err => console.log(err));
 		var followedUser = user._id;
 		user.save(function (err) {
 			if (err) {
@@ -116,6 +158,13 @@ router.post('/follow-user', function(req, res) {
 							console.log(err);
 						} else {
 							console.log("User successfully followed");
+							var feed = {
+								user: user,
+								text: "just followed you",
+								path: "/" + req.user.username,
+								time: new Date(),
+							}
+							feeds.publish("follow", feed);	
 							res.redirect('back');
 						}
 					});

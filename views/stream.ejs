@@ -64,7 +64,7 @@
 		    <div class="col s12 posts">
 		    	<h6><strong>Posts</strong></h6>
 		    	<% streams.forEach(function(stream) { %>
-					<div class="card-panel">
+					<div class="card-panel" id="<%= stream._id %>">
 						<div class="right remove-stream">
 							<% if ( currentUser && stream.author.id.equals(currentUser._id) ) { %>
 								<form action="/stream/<%= stream._id %>/delete?_method=DELETE" method="POST">
