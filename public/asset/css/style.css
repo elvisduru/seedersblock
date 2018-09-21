@@ -334,6 +334,7 @@ input[type=text]:not(.browser-default):disabled {
 	width: 250px;
 	padding-top: 30px;
 	margin-top: 66px;
+	background-color: #0e47a1;
 }
 
 .extra {
@@ -448,4 +449,18 @@ span.badge {
 .sidenav li>a li>a>[class*="mdi-"],
 .sidenav li>a>i.material-icons {
 	color: #fff;
+}
+
+/******************************************************************************
+	feature-img styling
+******************************************************************************/
+.featured-img {
+	margin-bottom: 60px;
+	z-index: 2;
+}
+
+.f-box-shadow {
+    background: #fff;
+    box-shadow: 0 0 8px rgba(0,0,0,.05);
+    position: relative;
 }
