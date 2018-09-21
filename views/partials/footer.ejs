@@ -153,7 +153,7 @@
             currentUser = user;
             if ( currentUser && item.data.user.following.indexOf(currentUser._id) === (item.data.user.following.length - 1) && currentUser.followers.indexOf(item.data.user._id) === (currentUser.followers.length - 1) && !( item.data.user._id ==currentUser._id) ) {
                     $('.notifications .badge').show();
-                    $('.notification-items').prepend(`<li class="notification-item">
+                    $('.notification-items').prepend(`<li class="notification-item" style="position: relative;">
                         <div class="wrapper">
                             <div class="left">
                                 <div class="avatar">
@@ -187,7 +187,7 @@
             currentUser = user;
             if ( currentUser && currentUser._id === item.data.receiver ) {
                     $('.notifications .badge').show();
-                    $('.notification-items').prepend(`<li class="notification-item">
+                    $('.notification-items').prepend(`<li class="notification-item" style="position: relative;">
                         <div class="wrapper">
                             <div class="left">
                                 <div class="avatar">
@@ -222,7 +222,7 @@
             currentUser = user;
             if ( currentUser && currentUser._id === item.data.receiver ) {
                     $('.notifications .badge').show();
-                    $('.notification-items').prepend(`<li class="notification-item">
+                    $('.notification-items').prepend(`<li class="notification-item" style="position: relative;">
                         <div class="wrapper">
                             <div class="left">
                                 <div class="avatar">
@@ -257,7 +257,7 @@
             currentUser = user;
             if ( currentUser && currentUser._id === item.data.receiver ) {
                     $('.notifications .badge').show();
-                    $('.notification-items').prepend(`<li class="notification-item">
+                    $('.notification-items').prepend(`<li class="notification-item" style="position: relative;">
                         <div class="wrapper">
                             <div class="left">
                                 <div class="avatar">
