@@ -140,7 +140,7 @@ router.post('/follow-user', function(req, res) {
 			receiver: user._id,
 			content: "followed you",
 			type: "follow",
-			path: req.user._id,
+			path: req.user.username,
 			is_read: false
 		}
 		Notification.create(notification)
