@@ -218,6 +218,22 @@ router.get('/followers', ensureLoggedIn('/'), function(req, res) {
 	});
 });
 
+router.get('/messenger', ensureLoggedIn(''), function(req, res) {
+	res.render('messenger');
+})
+
+router.get('/friends', ensureLoggedIn('/'), function(req, res) {
+	User.findById(req.user._id).populate('following').populate('followers').exec(function(err, foundUser) {
+		if (err) {
+			console.log(err);
+		} else {
+			var friends = foundUser.following.concat(foundUser.followers);
+			res.status(200).json(friends);
+			console.log(friends);
+		}
+	})
+})
+
 // User Show Route
 router.get('/:username', ensureLoggedIn('/'), function(req, res) {
 	Stream.find({$or:[{'author.username': req.params.username}, {'author.id': {$in: req.user.following}}]}).sort({created: -1}).populate('comments').exec(function(err, streams) {
@@ -237,6 +253,7 @@ router.get('/:username', ensureLoggedIn('/'), function(req, res) {
 		}
 	});
 });
+
 
 router.get('/:username/seeds', ensureLoggedIn('/'), function(req, res) {
 	Seed.find({ 'author.username': req.params.username }, function(err, seeds) {

@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/elvisduru/seedersblock#readme",
   "dependencies": {
+    "@pusher/chatkit-server": "^0.12.2",
     "body-parser": "^1.18.3",
     "cloudinary": "^1.11.0",
     "connect-ensure-login": "^0.1.1",

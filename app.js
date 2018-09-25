@@ -7,6 +7,7 @@ var express = require('express'),
 	methodOverride = require('method-override'),
 	passport = require('passport'),
 	LocalStrategy = require("passport-local"),
+	Chatkit = require('@pusher/chatkit-server'),
 	User = require('./models/user');
 
 // create database
@@ -83,6 +84,27 @@ app.use("/stream", streamRoutes);
 app.use("/seeds/:id/comments", commentRoutes);
 app.use("/stream/:id/comments", streamCommentRoutes);
 app.use("/", indexRoutes);
+
+// const chatkit = new Chatkit.default({
+// 	instanceLocator: process.env.chatInstanceLocator,
+// 	key: process.env.chatKey,
+// })
+
+// chatkit.createUser({
+// 	id: req.user._id,
+// 	name: req.user.username,
+// 	avatarURL: req.user.avatar
+// })
+// .then(() => {
+// 	console.log("user created successfully")
+// }).catch(err => console.log(err));
+
+// chatKit.createRoom({
+// 	creatorId: req.user._id,
+// 	name: "Chat-room"
+// })
+// .then(() => console.log("Room created successfully"))
+// .catch(err => console.log(err));
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, function () {
