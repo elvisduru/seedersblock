@@ -27,7 +27,8 @@
 	cursor: pointer;
 }
 
-.card .link, .wrap-link {
+.card .link,
+.wrap-link {
 	opacity: 0;
 	width: 100%;
 	height: 100%;
@@ -343,6 +344,7 @@ input[type=text]:not(.browser-default):disabled {
 	width: 250px;
 	padding-top: 30px;
 	margin-top: 66px;
+	background-color: #0e47a1;
 }
 
 .extra {
@@ -448,7 +450,8 @@ span.badge {
 /******************************************************************************
 	Sidenavs styling
 ******************************************************************************/
-.sidenav.sidenav-fixed, .sidenav {
+.sidenav.sidenav-fixed,
+.sidenav {
 	background-color: #0e47a1;
 }
 
@@ -464,9 +467,38 @@ span.badge {
 }
 
 /******************************************************************************
+	feature-img styling
+******************************************************************************/
+.feature-img {
+	z-index: 2;
+}
+
+.f-box-shadow {
+	background: #fff;
+	box-shadow: 0 0 8px rgba(14, 8, 8, 0.52);
+	position: relative;
+}
+
+.feed-bar--padded {
+	padding: 13px 20px;
+}
+
+.feed-bar {
+	align-items: center;
+	display: flex;
+	height: 60px;
+	justify-content: space-between;
+}
+
+.feed-bar {
+	background: #fff;
+	position: relative;
+	width: 100%;
+}
+
+/******************************************************************************
 	Search Page
 ******************************************************************************/
-
 .results {
 	height: 70vh;
 }
@@ -476,11 +508,11 @@ span.badge {
 	align-items: center;
 }
 
-.header > a {
+.header>a {
 	margin-left: auto;
 }
 
-.header > .title {
+.header>.title {
 	margin-left: 10px;
 	font-weight: bold;
 }
@@ -504,29 +536,29 @@ span.badge {
 	height: unset;
 }
 
-.item > .featuredImg {
+.item>.featuredImg {
 	min-width: 40%;
 	height: 100%;
 }
 
-.item > .description {
+.item>.description {
 	padding-left: 5%;
 	padding-right: 10px;
 }
 
-.item > .description .title {
+.item>.description .title {
 	font-size: 1.1em;
 	font-weight: 500;
 	color: #039be5;
 }
 
-.item > .description .meta {
+.item>.description .meta {
 	font-size: 0.9em;
 	font-weight: lighter;
 	color: #26a69a;
 }
 
-.item > .description > .excerpt img {
+.item>.description>.excerpt img {
 	width: 30%;
 	float: right;
 	margin-left: 10px;
@@ -559,6 +591,7 @@ span.badge {
 .no-notification {
 	text-align: center;
 }
+
 .no-notification i {
 	font-size: 5em !important;
 }
@@ -612,7 +645,7 @@ span.badge {
 }
 
 .notification-item:hover {
-	background-color: rgba(0,0,0,0.1);
+	background-color: rgba(0, 0, 0, 0.1);
 }
 
 .notification-item .left {
@@ -643,7 +676,8 @@ span.badge {
 	padding: unset;
 }
 
-.notification-data .info, .notification-item .created {
+.notification-data .info,
+.notification-item .created {
 	font-size: 12px;
 }
 
