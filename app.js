@@ -12,6 +12,7 @@ var express = require('express'),
 	Conversation = require('./models/conversation'),
 	Feeds = require("pusher-feeds-server"),
 	Notification = require('./models/notification'),
+	Message = require('./models/message');
 	User = require('./models/user'),
 	users = {};
 
@@ -101,6 +102,7 @@ io.on("connection", function(socket) {
 		var msg = data.msg.trim();
 		var recipient = data.recipient;
 		var sender = data.sender;
+		var conversationId = data.conversationId;
 		User.findOne({username: sender}, function(err, currentUser) {
 			if (err) {
 				console.log(err);
@@ -109,31 +111,42 @@ io.on("connection", function(socket) {
 					if (err) {
 						console.log(err);
 					} else {
-						var notification = {
+						Message.create({
 							sender: currentUser._id,
-							receiver: foundUser._id,
-							content: 'sent you a message',
-							type: "message",
-							path: '/messenger?friend=' + currentUser.username,
-							is_read: false
-						}
-						Notification.create(notification)
-						.then(() => {
-							var feed = {
-								sender: currentUser,
-								receiver: foundUser._id,
-								text: "messaged you just now",
-								path: '/messenger?friend=' + currentUser.username,
-								time: new Date()
-							}
-							feeds.publish("message", feed);
-							if (recipient in users) {
-								users[recipient].emit('new-message', {msg: msg, username: socket.username});
+							content: msg,
+							created: Date.now(),
+							conversationId: conversationId
+						}, function(err, createdMsg) {
+							if (err) {
+								console.log(err)
 							} else {
-								console.log("user offline");
+								var notification = {
+									sender: currentUser._id,
+									receiver: foundUser._id,
+									content: 'sent you a message',
+									type: "message",
+									path: '/messenger?friend=' + currentUser.username,
+									is_read: false
+								}
+								Notification.create(notification)
+								.then(() => {
+									var feed = {
+										sender: currentUser,
+										receiver: foundUser._id,
+										text: "messaged you just now",
+										path: '/messenger?friend=' + currentUser.username,
+										time: new Date()
+									}
+									feeds.publish("message", feed);
+									if (recipient in users) {
+										users[recipient].emit('new-message', {msg: msg, username: socket.username, firstname: currentUser.firstname, lastname: currentUser.lastname, conversationId: conversationId});
+									} else {
+										console.log("user offline");
+									}
+								})
+								.catch(err => console.log(err));
 							}
 						})
-						.catch(err => console.log(err));
 					}
 				});
 			}

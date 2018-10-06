@@ -448,19 +448,60 @@ $.getJSON('/user').done(user => {
     }
 
     $('.right .write input').keypress(function(e) {
-        if (e.which === 13) {
+        if (e.which === 13 && $(this).attr("data-to")) {
             var msg = $(this).val(),
                 sender = currentUser.username,
-                recipient = $(this).attr("data-to");
-            console.log(recipient)
-            var conversationId = $(this).attr("data-chatid");
-            socket.emit("send-message", {msg: msg, recipient: recipient, sender: sender});
+                recipient = $(this).attr("data-to"),
+                conversationId = $(this).attr("data-chatid");
 
+            var msgData = {msg: msg, recipient: recipient, sender: sender, conversationId: conversationId};
+            socket.emit("send-message", msgData);
+            $.post('/sendMessage', msgData)
+            .done(msg => {
+                console.log(msg);
+                $(`.right .chat-room > div[data-chat=${msg.conversationId}]`).append(
+                    `<div class="bubble me">
+                        ${msg.content}
+                    </div>`
+                    );
+            })
+            .fail(err => console.log(err));
             $(this).val("");
         }
     })
 
     socket.on('new-message', function(data) {
+        if (!($('.left .people').children(`#${data.username}`).length)) {
+            $('.left .people').children('.person').removeClass('active');
+            $('.right .chat-room').children('.chat').removeClass('active-chat');
+            $('.right span.name').text(`${data.firstname} ${data.lastname}`);
+            $('.right .write input').attr({'data-to': data.username, 'data-chatid': data.conversationId});
+            $('.left .people').prepend(
+                    `<li class="person active" data-chat="${data.conversationId}" id="${data.username}" data-user="${data.username}">
+                        <img src="${data.avatar}" alt="" />
+                        <span class="name">${data.firstname} ${data.lastname}</span>
+                        <span class="time">2:09 PM</span>
+                        <span class="preview"></span>
+                    </li>`
+                    );
+                $('.right .chat-room').prepend(
+                    `<div class="chat active-chat" data-chat="${data.conversationId}" data-user="${data.username}">
+                        <div class="conversation-start">
+                            <span>Today, 7:48 AM</span>
+                        </div>
+                    </div>`
+                    );
+        } else {
+            $(`.left .people > #${data.username}`).addClass('active');
+            $(`.left .people > #${data.username}`).insertBefore($('.left .people :first'));
+            $(`.right .chat-room > div[data-user=${data.username}]`).addClass('active-chat');
+            $(`.right .chat-room > div[data-user=${data.username}]`).insertBefore($('.right .chat-room :first'));
+        }
         
+        $(`.right .chat-room > div[data-user=${data.username}]`).append(
+            `<div class="bubble you">
+                ${data.msg}
+            </div>`
+            );
     })
 </script>

@@ -233,27 +233,7 @@ router.get('/followers', ensureLoggedIn('/'), function(req, res) {
 });
 
 router.get('/messenger', ensureLoggedIn('/'), function(req, res) {
-	if (req.query.friend) {
-		User.findById(req.user._id).populate('conversations').exec(function(err, foundUser) {
-			if (err) {
-				console.log(err);
-			} else {
-				foundUser.conversations.forEach(conversation => {
-					if (conversation.participants.includes(req.query.friend)) {
-						Message.find({conversationId: conversation._id}, function(err, foundMessages) {
-							var msgData = {
-								chatwith: conversation.participants[1];
-								messages: foundMessages;
-							}
-							res.render('messenger', msgData);
-						})
-					}
-				})
-			}
-		})
-	} else {
 		res.render('messenger');
-	}
 });
 
 router.post('/start-conversation', ensureLoggedIn('/'), function(req, res) {
@@ -295,15 +275,21 @@ router.post('/start-conversation', ensureLoggedIn('/'), function(req, res) {
 })
 
 router.post('/sendMessage', function(req, res) {
-	var newMessage = {
-		sender: req.user._id,
-		content: req.body.msg.content
-	}
-	User.findById(req.body.userId, function(err, foundUser) {
+	var newMessage = {};
+	User.findOne({username: req.body.sender}, function(err, sender) {
 		if (err) {
 			console.log(err);
 		} else {
-				
+			newMessage.sender = sender._id;
+			newMessage.content = req.body.msg;
+			newMessage.conversationId = req.body.conversationId;
+			Message.create(newMessage, function(err, newMsg) {
+				if (err) {
+					console.log(err);
+				} else {
+					res.status(200).json(newMessage);
+				}
+			})
 		}
 	})
 })
