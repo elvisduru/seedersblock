@@ -22,6 +22,9 @@ var userSchema = new mongoose.Schema({
 	followers: [{
 		type: mongoose.Schema.Types.ObjectId, ref: 'User'
 	}],
+	conversations: [{
+		type: mongoose.Schema.Types.ObjectId, ref: 'Conversation'
+	}],
 	status: String,
 	notifications: [{type: mongoose.Schema.Types.ObjectId, ref: 'Notification'}],
 	earnings: {type: Number, default: 1000}

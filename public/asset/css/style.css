@@ -611,6 +611,7 @@ span.badge {
 	transition: .3s;
 	top: 40px;
 	right: 0;
+	display: none;
 }
 
 .notifications-list .header {
@@ -723,7 +724,7 @@ span.badge {
   background-repeat: none;
 }*/
 
-.wrapper {
+.chatbox-wrapper {
   position: relative;
   left: 50%;
   width: var(--wrapper);
@@ -732,7 +733,7 @@ span.badge {
           transform: translate(-50%, 0);
 }
 
-.wrapper .container {
+.chatbox-wrapper .container {
   position: relative;
   top: 40%;
   left: 50%;
@@ -742,22 +743,23 @@ span.badge {
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
 }
-.wrapper .container .left {
+.chatbox-wrapper .container .left {
   float: left;
   width: 37.6%;
   height: 100%;
   border: 1px solid var(--light);
   background-color: var(--white);
   overflow-y: scroll;
+  position: relative;
   overflow-x: hidden;
 }
-.wrapper .container .left .top {
+.chatbox-wrapper .container .left .top {
   position: relative;
   width: 100%;
   height: 96px;
   padding: 29px;
 }
-.wrapper .container .left .top:after {
+.chatbox-wrapper .container .left .top:after {
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -769,7 +771,7 @@ span.badge {
   -webkit-transform: translate(-50%, 0);
           transform: translate(-50%, 0);
 }
-.wrapper .container .left input {
+.chatbox-wrapper .container .left input {
   float: left;
   width: 188px;
   height: 42px;
@@ -780,10 +782,10 @@ span.badge {
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 400;
 }
-.wrapper .container .left input:focus {
+.chatbox-wrapper .container .left input:focus {
   outline: none;
 }
-.wrapper .container .left a.search {
+.chatbox-wrapper .container .left a.search {
   display: block;
   float: left;
   width: 42px;
@@ -796,20 +798,20 @@ span.badge {
   background-position: top 12px left 14px;
   border-radius: 50%;
 }
-.wrapper .container .left .people {
+.chatbox-wrapper .container .left .people {
   margin-left: -1px;
   border-right: 1px solid var(--light);
   border-left: 1px solid var(--light);
   width: calc(100% + 2px);
 }
-.wrapper .container .left .people .person {
+.chatbox-wrapper .container .left .people .person {
   position: relative;
   width: 100%;
   padding: 12px 10% 16px;
   cursor: pointer;
   background-color: var(--white);
 }
-.wrapper .container .left .people .person:after {
+.chatbox-wrapper .container .left .people .person:after {
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -821,21 +823,21 @@ span.badge {
   -webkit-transform: translate(-50%, 0);
           transform: translate(-50%, 0);
 }
-.wrapper .container .left .people .person img {
+.chatbox-wrapper .container .left .people .person img {
   float: left;
   width: 40px;
   height: 40px;
   margin-right: 12px;
   border-radius: 50%;
 }
-.wrapper .container .left .people .person .name {
+.chatbox-wrapper .container .left .people .person .name {
   font-size: 14px;
   line-height: 22px;
   color: var(--dark);
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 600;
 }
-.wrapper .container .left .people .person .time {
+.chatbox-wrapper .container .left .people .person .time {
   font-size: 14px;
   position: absolute;
   top: 16px;
@@ -844,7 +846,7 @@ span.badge {
   color: var(--grey);
   background-color: var(--white);
 }
-.wrapper .container .left .people .person .preview {
+.chatbox-wrapper .container .left .people .person .preview {
   font-size: 14px;
   display: inline-block;
   overflow: hidden !important;
@@ -853,7 +855,7 @@ span.badge {
   text-overflow: ellipsis;
   color: var(--grey);
 }
-.wrapper .container .left .people .person.active, .wrapper .container .left .people .person:hover {
+.chatbox-wrapper .container .left .people .person.active, .chatbox-wrapper .container .left .people .person:hover {
   margin-top: -1px;
   margin-left: -1px;
   padding-top: 13px;
@@ -862,35 +864,35 @@ span.badge {
   width: calc(100% + 2px);
   padding-left: calc(10% + 1px);
 }
-.wrapper .container .left .people .person.active span, .wrapper .container .left .people .person:hover span {
+.chatbox-wrapper .container .left .people .person.active span, .chatbox-wrapper .container .left .people .person:hover span {
   color: var(--white);
   background: transparent;
 }
-.wrapper .container .left .people .person.active:after, .wrapper .container .left .people .person:hover:after {
+.chatbox-wrapper .container .left .people .person.active:after, .chatbox-wrapper .container .left .people .person:hover:after {
   display: none;
 }
-.wrapper .container .right {
+.chatbox-wrapper .container .right {
   position: relative;
   float: left !important;
   width: 62.4%;
   height: 100%;
 }
-.wrapper .container .right .top {
+.chatbox-wrapper .container .right .top {
   width: 100%;
   height: 47px;
   padding: 15px 29px;
   background-color: #eceff1;
 }
-.wrapper .container .right .top span {
+.chatbox-wrapper .container .right .top span {
   font-size: 15px;
   color: var(--grey);
 }
-.wrapper .container .right .top span .name {
+.chatbox-wrapper .container .right .top span .name {
   color: var(--dark);
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 600;
 }
-.wrapper .container .right .chat {
+.chatbox-wrapper .container .right .chat {
   position: relative;
   display: none;
   overflow: hidden;
@@ -902,54 +904,54 @@ span.badge {
   justify-content: flex-end;
   flex-direction: column;
 }
-.wrapper .container .right .chat.active-chat {
+.chatbox-wrapper .container .right .chat.active-chat {
   display: block;
   display: flex;
 }
-.wrapper .container .right .chat.active-chat .bubble {
+.chatbox-wrapper .container .right .chat.active-chat .bubble {
   transition-timing-function: cubic-bezier(0.4, -0.04, 1, 1);
 }
-.wrapper .container .right .chat.active-chat .bubble:nth-of-type(1) {
+.chatbox-wrapper .container .right .chat.active-chat .bubble:nth-of-type(1) {
   -webkit-animation-duration: 0.15s;
           animation-duration: 0.15s;
 }
-.wrapper .container .right .chat.active-chat .bubble:nth-of-type(2) {
+.chatbox-wrapper .container .right .chat.active-chat .bubble:nth-of-type(2) {
   -webkit-animation-duration: 0.3s;
           animation-duration: 0.3s;
 }
-.wrapper .container .right .chat.active-chat .bubble:nth-of-type(3) {
+.chatbox-wrapper .container .right .chat.active-chat .bubble:nth-of-type(3) {
   -webkit-animation-duration: 0.45s;
           animation-duration: 0.45s;
 }
-.wrapper .container .right .chat.active-chat .bubble:nth-of-type(4) {
+.chatbox-wrapper .container .right .chat.active-chat .bubble:nth-of-type(4) {
   -webkit-animation-duration: 0.6s;
           animation-duration: 0.6s;
 }
-.wrapper .container .right .chat.active-chat .bubble:nth-of-type(5) {
+.chatbox-wrapper .container .right .chat.active-chat .bubble:nth-of-type(5) {
   -webkit-animation-duration: 0.75s;
           animation-duration: 0.75s;
 }
-.wrapper .container .right .chat.active-chat .bubble:nth-of-type(6) {
+.chatbox-wrapper .container .right .chat.active-chat .bubble:nth-of-type(6) {
   -webkit-animation-duration: 0.9s;
           animation-duration: 0.9s;
 }
-.wrapper .container .right .chat.active-chat .bubble:nth-of-type(7) {
+.chatbox-wrapper .container .right .chat.active-chat .bubble:nth-of-type(7) {
   -webkit-animation-duration: 1.05s;
           animation-duration: 1.05s;
 }
-.wrapper .container .right .chat.active-chat .bubble:nth-of-type(8) {
+.chatbox-wrapper .container .right .chat.active-chat .bubble:nth-of-type(8) {
   -webkit-animation-duration: 1.2s;
           animation-duration: 1.2s;
 }
-.wrapper .container .right .chat.active-chat .bubble:nth-of-type(9) {
+.chatbox-wrapper .container .right .chat.active-chat .bubble:nth-of-type(9) {
   -webkit-animation-duration: 1.35s;
           animation-duration: 1.35s;
 }
-.wrapper .container .right .chat.active-chat .bubble:nth-of-type(10) {
+.chatbox-wrapper .container .right .chat.active-chat .bubble:nth-of-type(10) {
   -webkit-animation-duration: 1.5s;
           animation-duration: 1.5s;
 }
-.wrapper .container .right .write {
+.chatbox-wrapper .container .right .write {
   position: absolute;
   bottom: 29px;
   left: 30px;
@@ -960,7 +962,7 @@ span.badge {
   width: calc(100% - 58px);
   border-radius: 5px;
 }
-.wrapper .container .right .write input {
+.chatbox-wrapper .container .right .write input {
   font-size: 16px;
   float: left;
   width: 450px;
@@ -973,7 +975,7 @@ span.badge {
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 400;
 }
-.wrapper .container .right .write .write-link.attach:before {
+.chatbox-wrapper .container .right .write .write-link.attach:before {
   display: inline-block;
   float: left;
   width: 20px;
@@ -983,7 +985,7 @@ span.badge {
   background-repeat: no-repeat;
   background-position: center;
 }
-.wrapper .container .right .write .write-link.smiley:before {
+.chatbox-wrapper .container .right .write .write-link.smiley:before {
   /*display: inline-block;*/
   display: none;
   float: left;
@@ -994,7 +996,7 @@ span.badge {
   background-repeat: no-repeat;
   background-position: center;
 }
-.wrapper .container .right .write .write-link.send:before {
+.chatbox-wrapper .container .right .write .write-link.send:before {
   display: inline-block;
   float: right;
   width: 20px;
@@ -1005,7 +1007,7 @@ span.badge {
   background-repeat: no-repeat;
   background-position: center;
 }
-.wrapper .container .right .bubble {
+.chatbox-wrapper .container .right .bubble {
   font-size: 16px;
   position: relative;
   display: inline-block;
@@ -1015,7 +1017,7 @@ span.badge {
   vertical-align: top;
   border-radius: 5px;
 }
-.wrapper .container .right .bubble:before {
+.chatbox-wrapper .container .right .bubble:before {
   position: absolute;
   top: 19px;
   display: block;
@@ -1025,7 +1027,7 @@ span.badge {
   -webkit-transform: rotate(29deg) skew(-35deg);
           transform: rotate(29deg) skew(-35deg);
 }
-.wrapper .container .right .bubble.you {
+.chatbox-wrapper .container .right .bubble.you {
   float: left;
   color: var(--white);
   background-color: var(--blue);
@@ -1033,11 +1035,11 @@ span.badge {
   -webkit-animation-name: slideFromLeft;
           animation-name: slideFromLeft;
 }
-.wrapper .container .right .bubble.you:before {
+.chatbox-wrapper .container .right .bubble.you:before {
   left: -3px;
   background-color: var(--blue);
 }
-.wrapper .container .right .bubble.me {
+.chatbox-wrapper .container .right .bubble.me {
   float: right;
   color: var(--dark);
   background-color: #eceff1;
@@ -1045,22 +1047,22 @@ span.badge {
   -webkit-animation-name: slideFromRight;
           animation-name: slideFromRight;
 }
-.wrapper .container .right .bubble.me:before {
+.chatbox-wrapper .container .right .bubble.me:before {
   right: -3px;
   background-color: #eceff1;
 }
-.wrapper .container .right .conversation-start {
+.chatbox-wrapper .container .right .conversation-start {
   position: relative;
   width: 100%;
   margin-bottom: 27px;
   text-align: center;
 }
-.wrapper .container .right .conversation-start span {
+.chatbox-wrapper .container .right .conversation-start span {
   font-size: 14px;
   display: inline-block;
   color: var(--grey);
 }
-.wrapper .container .right .conversation-start span:before, .wrapper .container .right .conversation-start span:after {
+.chatbox-wrapper .container .right .conversation-start span:before, .chatbox-wrapper .container .right .conversation-start span:after {
   position: absolute;
   top: 10px;
   display: inline-block;
@@ -1069,10 +1071,10 @@ span.badge {
   content: '';
   background-color: var(--light);
 }
-.wrapper .container .right .conversation-start span:before {
+.chatbox-wrapper .container .right .conversation-start span:before {
   left: 0;
 }
-.wrapper .container .right .conversation-start span:after {
+.chatbox-wrapper .container .right .conversation-start span:after {
   right: 0;
 }
 
@@ -1115,4 +1117,16 @@ span.badge {
     margin-right: 0;
     opacity: 1;
   }
+}
+
+.friendList {
+	position: absolute;
+	top: 96px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: white;
+	z-index: 1;
+	overflow-y: auto;
+	display: none;
 }

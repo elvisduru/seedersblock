@@ -12,6 +12,9 @@ var express = require('express'),
 	Stream = require('../models/stream'),
 	User	= require('../models/user'),
 	Notification = require('../models/notification'),
+	Chatkit = require('@pusher/chatkit-server'),
+	Conversation = require('../models/conversation'),
+	Message = require('../models/message'),
 	Comment	= require('../models/comment');
 
 
@@ -49,7 +52,18 @@ router.get('/', function (req, res) {
 
 // get logged in user data
 router.get('/user', ensureLoggedIn('/'), function(req, res) {
-	User.findById(req.user._id)
+	User.findById(req.user._id).populate("conversations").exec()
+	.then(function(user) {
+		res.status(200).json(user);
+	})
+	.catch(function(err) {
+		console.log(err);
+	})
+})
+
+// get a user
+router.get('/anyuser', ensureLoggedIn('/'), function(req, res) {
+	User.findOne({username: req.query.username})
 	.then(function(user) {
 		res.status(200).json(user);
 	})
@@ -218,8 +232,84 @@ router.get('/followers', ensureLoggedIn('/'), function(req, res) {
 	});
 });
 
-router.get('/messenger', ensureLoggedIn(''), function(req, res) {
-	res.render('messenger');
+router.get('/messenger', ensureLoggedIn('/'), function(req, res) {
+	if (req.query.friend) {
+		User.findById(req.user._id).populate('conversations').exec(function(err, foundUser) {
+			if (err) {
+				console.log(err);
+			} else {
+				foundUser.conversations.forEach(conversation => {
+					if (conversation.participants.includes(req.query.friend)) {
+						Message.find({conversationId: conversation._id}, function(err, foundMessages) {
+							var msgData = {
+								chatwith: conversation.participants[1];
+								messages: foundMessages;
+							}
+							res.render('messenger', msgData);
+						})
+					}
+				})
+			}
+		})
+	} else {
+		res.render('messenger');
+	}
+});
+
+router.post('/start-conversation', ensureLoggedIn('/'), function(req, res) {
+	var participants = req.body.participants;
+	console.log(participants[0]);
+	var newConversation = {
+		participants,
+	}
+
+	User.findById(req.user._id).populate("conversations").exec(function(err, foundUser) {
+		if (err) {
+			console.log(err);
+		} else {
+			var conversation;
+			console.log(foundUser.conversations);
+			var hasConversation = false;
+			foundUser.conversations.forEach(conversation => {
+				if (conversation.participants.includes(participants[0])) {
+					hasConversation = true;
+					console.log("already conversing");
+					res.status(200).json(conversation);
+				}
+			})
+			if (hasConversation == false) {
+				Conversation.create(newConversation, function(err, createdConversation) {
+					if (err) {
+						console.log(err);
+					} else {
+						req.user.conversations.push(createdConversation._id);
+						req.user.save();
+						res.status(200).json(createdConversation);
+						console.log("new conversation");
+					}
+				});
+			}
+		}
+	});
+	
+})
+
+router.post('/sendMessage', function(req, res) {
+	var newMessage = {
+		sender: req.user._id,
+		content: req.body.msg.content
+	}
+	User.findById(req.body.userId, function(err, foundUser) {
+		if (err) {
+			console.log(err);
+		} else {
+				
+		}
+	})
+})
+
+router.post('/fetchMessages', function(req, res) {
+	Conversation.find()
 })
 
 router.get('/friends', ensureLoggedIn('/'), function(req, res) {
@@ -228,11 +318,13 @@ router.get('/friends', ensureLoggedIn('/'), function(req, res) {
 			console.log(err);
 		} else {
 			var friends = foundUser.following.concat(foundUser.followers);
+			friends = friends.filter((friend, index, arr) => {
+				return arr.map(mapObj => mapObj["username"]).indexOf(friend["username"]) === index;
+			});
 			res.status(200).json(friends);
-			console.log(friends);
 		}
-	})
-})
+	});
+});
 
 // User Show Route
 router.get('/:username', ensureLoggedIn('/'), function(req, res) {
@@ -244,10 +336,14 @@ router.get('/:username', ensureLoggedIn('/'), function(req, res) {
 				if (err) {
 					console.log(err);
 				} else {
-					var obj = {};
-					obj.returnedUser = foundUser;
-					obj.streams = streams;
-					res.render("stream_user", {obj: obj});
+					if (!foundUser) {
+						res.send("<h3>No user found with that username</h3>");
+					} else {
+						var obj = {};
+						obj.returnedUser = foundUser;
+						obj.streams = streams;
+						res.render("stream_user", {obj: obj});
+					}
 				}
 			});
 		}

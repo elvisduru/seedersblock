@@ -1,17 +1,22 @@
 require('dotenv').config();
 var express = require('express'),
 	app = express(),
+	server = require('http').Server(app),
+	io = require('socket.io')(server),
 	path = require('path'),
 	mongoose = require('mongoose'),
 	bodyParser = require('body-parser'),
 	methodOverride = require('method-override'),
 	passport = require('passport'),
 	LocalStrategy = require("passport-local"),
-	Chatkit = require('@pusher/chatkit-server'),
-	User = require('./models/user');
+	Conversation = require('./models/conversation'),
+	Feeds = require("pusher-feeds-server"),
+	Notification = require('./models/notification'),
+	User = require('./models/user'),
+	users = {};
 
 // create database
-mongoose.connect("mongodb://elvisduru:buildthefuture123@ds123372.mlab.com:23372/seeders", { autoIndex: false })
+mongoose.connect("mongodb://elvisduru:buildthefuture123@ds123753.mlab.com:23753/seedersblock", { autoIndex: false })
 .catch(function() {
 	console.log("Could not connect to database");
 });
@@ -54,13 +59,8 @@ app.use('/jquery-resizable-dom', express.static(path.join(__dirname, '/node_modu
 // add req.path as local variable
 app.use(function(req, res, next) {
 	res.locals.path = req.path;
-	res.locals.currentUser = req.user;
-	next();
-});
-
-// add req.query as local variable
-app.use(function(req, res, next) {
 	res.locals.query = req.query;
+	res.locals.currentUser = req.user;
 	next();
 });
 
@@ -85,28 +85,73 @@ app.use("/seeds/:id/comments", commentRoutes);
 app.use("/stream/:id/comments", streamCommentRoutes);
 app.use("/", indexRoutes);
 
-// const chatkit = new Chatkit.default({
-// 	instanceLocator: process.env.chatInstanceLocator,
-// 	key: process.env.chatKey,
-// })
+const feeds = new Feeds({
+	instanceLocator: process.env.instanceLocator,
+	key: process.env.key
+});
 
-// chatkit.createUser({
-// 	id: req.user._id,
-// 	name: req.user.username,
-// 	avatarURL: req.user.avatar
-// })
-// .then(() => {
-// 	console.log("user created successfully")
-// }).catch(err => console.log(err));
+io.on("connection", function(socket) {
+	socket.on("new-user", function(data) {
+		socket.username = data;
+		users[socket.username] = socket;
+		updateOnlineUsers();
+	})
+	
+	socket.on("send-message", function(data) {
+		var msg = data.msg.trim();
+		var recipient = data.recipient;
+		var sender = data.sender;
+		User.findOne({username: sender}, function(err, currentUser) {
+			if (err) {
+				console.log(err);
+			} else {
+				User.findOne({username: recipient}, function(err, foundUser) {
+					if (err) {
+						console.log(err);
+					} else {
+						var notification = {
+							sender: currentUser._id,
+							receiver: foundUser._id,
+							content: 'sent you a message',
+							type: "message",
+							path: '/messenger?friend=' + currentUser.username,
+							is_read: false
+						}
+						Notification.create(notification)
+						.then(() => {
+							var feed = {
+								sender: currentUser,
+								receiver: foundUser._id,
+								text: "messaged you just now",
+								path: '/messenger?friend=' + currentUser.username,
+								time: new Date()
+							}
+							feeds.publish("message", feed);
+							if (recipient in users) {
+								users[recipient].emit('new-message', {msg: msg, username: socket.username});
+							} else {
+								console.log("user offline");
+							}
+						})
+						.catch(err => console.log(err));
+					}
+				});
+			}
+		})
+	});
 
-// chatKit.createRoom({
-// 	creatorId: req.user._id,
-// 	name: "Chat-room"
-// })
-// .then(() => console.log("Room created successfully"))
-// .catch(err => console.log(err));
+	socket.on('disconnect', function(data) {
+		if (!socket.username) return;
+		delete users[socket.username];
+		updateOnlineUsers();
+	})
+})
+
+function updateOnlineUsers() {
+	io.emit('userIds', Object.keys(users));
+}
 
 const PORT = process.env.PORT || 3000
-app.listen(PORT, function () {
+server.listen(PORT, function () {
 	console.log("Started Seedersblock app...");
 });
