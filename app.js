@@ -17,7 +17,7 @@ var express = require('express'),
 	users = {};
 
 // create database
-mongoose.connect("mongodb://elvisduru:buildthefuture123@ds123753.mlab.com:23753/seedersblock", { autoIndex: false })
+mongoose.connect("mongodb://elvisduru:buildthefuture123@ds123753.mlab.com:23753/seedersblock", { autoIndex: false,useNewUrlParser: true })
 .catch(function() {
 	console.log("Could not connect to database");
 });
@@ -125,7 +125,7 @@ io.on("connection", function(socket) {
 									receiver: foundUser._id,
 									content: 'sent you a message',
 									type: "message",
-									path: '/messenger?friend=' + currentUser.username,
+									path: '/messenger/' + conversationId,
 									is_read: false
 								}
 								Notification.create(notification)
@@ -134,7 +134,7 @@ io.on("connection", function(socket) {
 										sender: currentUser,
 										receiver: foundUser._id,
 										text: "messaged you just now",
-										path: '/messenger?friend=' + currentUser.username,
+										path: '/messenger/' + conversationId,
 										time: new Date()
 									}
 									feeds.publish("message", feed);

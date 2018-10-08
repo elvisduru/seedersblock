@@ -122,7 +122,6 @@
     .fail(err => console.log(err));
     $('.notification-items').on("click", ".notification-item:first", function(e) {
         $(this).css("background-color", "#edf2fa");
-        console.log("yes")
     });
     $('.notification-items').on("click", ".notification-item", function(e) {
         e.stopPropagation();
@@ -135,7 +134,6 @@
                 method: "PUT"
             })
             .done(msg => {
-                console.log(msg);
                 $(that).css("background-color", "#edf2fa");
             })
             .fail(err => console.log(err));
@@ -305,15 +303,71 @@ $.getJSON('/user').done(user => {
     var friends =  $.getJSON('/friends');
     return friends;
 }).then(function(friends) {
-    friends.forEach(function(friend) {
-        $('.left .people .friendList').append(
-        `<li class="person" id="${friend.username}" data-room="">
-            <img src="${friend.avatar}" alt="" />
-            <span class="name">${friend.firstname} ${friend.lastname}</span>
-            <span class="preview"></span>
-        </li>`
-        );
-    });
+    // get active chats
+    var date_sort_desc = function (conversation1, conversation2) {
+      if (conversation1.lastUpdated > conversation2.lastUpdated) return -1;
+      if (conversation1.lastUpdated < conversation2.lastUpdated) return 1;
+      return 0;
+    };
+    activeChats = currentUser.conversations.sort(date_sort_desc);
+    activeChats.forEach(chat => {
+        if (chat.participants) {
+            chat.participants.forEach(name => {
+                if (name !== currentUser.username && !($('.left .people').children(`#${name}`).length)) {
+                    $.getJSON('/anyuser?username='+name)
+                    .done(user => {
+                        $('.left .people').prepend(
+                        `<li class="person" data-chat="${chat._id}" id="${user.username}" data-user="${user.username}">
+                            <img src="${user.avatar}" alt="" />
+                            <span class="name">${user.firstname} ${user.lastname}</span>
+                            <span class="time">2:09 PM</span>
+                            <span class="preview"></span>
+                        </li>`
+                        );
+                        $('.right .chat-room').prepend(
+                            `<div class="chat" data-chat="${chat._id}" data-user="${user.username}">
+                                <div class="conversation-start">
+                                    <span>Today, 7:48 AM</span>
+                                </div>
+                                </div>`
+                                );
+                        $.getJSON('/fetchMessages', {chatid: chat._id})
+                        .done(messages => {
+
+                            console.log(messages)
+                            messages.forEach(msg => {
+                                var sender;
+                                if (msg.sender == currentUser._id) {
+                                    sender = 'me';
+                                } else {
+                                    sender = 'you';
+                                }
+                                $('.right [data-chat='+chat._id+']').append(
+                                `<div class="bubble ${sender}">
+                                    ${msg.content}
+                                </div>`
+                                );
+                            })
+                        }).fail(err => console.log(err));
+                    }).fail(err => console.log(err));
+                }
+            })
+        }
+    })
+    setTimeout(function() {
+        friends.forEach(function(friend) {
+            if (!($('.left .people').children(`#${friend.username}`).length)) {
+                $('.left .people .friendList').append(
+                `<li class="person" id="${friend.username}" data-room="">
+                    <img src="${friend.avatar}" alt="" />
+                    <span class="name">${friend.firstname} ${friend.lastname}</span>
+                    <span class="preview"></span>
+                </li>`
+                );
+            }
+        });
+    }, 2000);
+
 })
 .fail(err => console.log(err));
 
@@ -326,63 +380,25 @@ $.getJSON('/user').done(user => {
         console.log(data);
     })
 
-    // Get current chats
-    $.getJSON('/subscribe-chat')
-    .done(function(users) {
-        users.forEach(function(user) {
-            $('.left .people').prepend(
-                `<li class="person" data-chat="${user.username}" id="${user.username}" data-user="${user.username}">
-                    <img src="${user.avatar}" alt="" />
-                    <span class="name">${user.firstname} ${user.lastname}</span>
-                    <span class="time">2:09 PM</span>
-                    <span class="preview"></span>
-                </li>`
-                );
-            $('.right .chat-room').prepend(
-                `<div class="chat" data-chat="${user.username}" data-user="${user.username}">
-                    <div class="conversation-start">
-                        <span>Today, 7:48 AM</span>
-                    </div>
-                    <div class="bubble you">
-                        Hello,
-                    </div>
-                    <div class="bubble you">
-                        it's me.
-                    </div>
-                    <div class="bubble you">
-                        I was wondering...
-                    </div>
-                </div>`
-                )
-            $('.right .write input').attr("data-to", user.username);
-        })
-    })
-    .fail(err => console.log(err));
-
-
-
-    
-
-    // const ChatManager = window.Chatkit.ChatManager;
-    // const TokenProvider = window.Chatkit.TokenProvider;
-    // const chatManager = new ChatManager({
-    //     instanceLocator: 'v1:us1:8e9a3447-8115-42a5-8dcb-de5ffa4b6ab0',
-    //     userId: '<%= currentUser._id %>',
-    //     tokenProvider: new TokenProvider({url: '/auth'})
-    // })
-
     $('.top .search').click(function() {
         $('.left .people .friendList').toggle();
     })
 
-    $('.left .people .friendList').on("click", ".person", function() {
+    $('.left .people').on("click", ".person", function() {
+        if ($(this).parent(".friendList").length) {
+            $(this).remove();
+        }
         var receiver = $(this).attr('id');
         var sender = currentUser.username;
         var that = this;
         var participants = [receiver, sender];
         $.post('/start-conversation', {participants: participants})
         .then((conversation) => {
-            var foundUser = $.getJSON(`/anyuser?username=${conversation.participants[0]}`);
+            conversation.participants.forEach(name => {
+                if (name !== currentUser.username && !($('.left .people').children(`#${name}`).length)) {
+                    var foundUser = $.getJSON(`/anyuser?username=${name}`);
+                }
+            });
             currentConversation = conversation;
             return foundUser; 
         }).then(function(user) {
@@ -471,11 +487,11 @@ $.getJSON('/user').done(user => {
     })
 
     socket.on('new-message', function(data) {
+        $('.right .write input').attr({'data-to': data.username, 'data-chatid': data.conversationId});
         if (!($('.left .people').children(`#${data.username}`).length)) {
             $('.left .people').children('.person').removeClass('active');
             $('.right .chat-room').children('.chat').removeClass('active-chat');
             $('.right span.name').text(`${data.firstname} ${data.lastname}`);
-            $('.right .write input').attr({'data-to': data.username, 'data-chatid': data.conversationId});
             $('.left .people').prepend(
                     `<li class="person active" data-chat="${data.conversationId}" id="${data.username}" data-user="${data.username}">
                         <img src="${data.avatar}" alt="" />

@@ -236,9 +236,59 @@ router.get('/messenger', ensureLoggedIn('/'), function(req, res) {
 		res.render('messenger');
 });
 
+router.get('/messenger/:id', ensureLoggedIn('/'), function(req, res) {
+	var conversationId = req.params.id;
+	User.findById(req.user._id).populate("conversations").exec(function(err, foundUser) {
+		if (err) {
+			console.log(err)
+		} else {
+			Conversation.findById(req.params.id, function(err, foundConv) {
+				if (err) {
+					console.log(err)
+				} else {
+					var startedConversation = foundUser.conversations.some(conversation => {
+						return conversation.equals(foundConv._id);
+					});
+					if (!startedConversation) {
+						console.log("not conversing, adding to conversations");
+						foundUser.conversations.push(conversationId);
+						foundUser.save();
+						foundConv.participants.forEach(user => {
+							if (user !== foundUser.username) {
+								User.findOne({username: user}, function (err, otherUser) {
+									Message.find({conversationId: conversationId}).sort({created: -1}).exec(function(err, foundMessages) {
+										res.render('chatroom', {conversation: foundConv, messages: foundMessages, user: otherUser});
+									})
+								})
+							}
+						})
+					} else {
+						console.log("already started conversing")
+						foundConv.participants.forEach(user => {
+							if (user !== foundUser.username) {
+								User.findOne({username: user}, function (err, otherUser) {
+									Message.find({conversationId: conversationId}).sort({created: -1}).exec(function(err, foundMessages) {
+										res.render('chatroom', {conversation: foundConv, messages: foundMessages, user: otherUser});
+									})
+								})
+							}
+						})
+					}
+				}
+			});
+		}
+	});
+});
+
 router.post('/start-conversation', ensureLoggedIn('/'), function(req, res) {
+	var otherpartcipant;
 	var participants = req.body.participants;
-	console.log(participants[0]);
+	participants.forEach(name => {
+		if (name !== req.user.username) {
+			otherpartcipant = name;
+		}
+	})
+	console.log(otherpartcipant);
 	var newConversation = {
 		participants,
 	}
@@ -251,7 +301,7 @@ router.post('/start-conversation', ensureLoggedIn('/'), function(req, res) {
 			console.log(foundUser.conversations);
 			var hasConversation = false;
 			foundUser.conversations.forEach(conversation => {
-				if (conversation.participants.includes(participants[0])) {
+				if (conversation.participants.includes(otherpartcipant)) {
 					hasConversation = true;
 					console.log("already conversing");
 					res.status(200).json(conversation);
@@ -294,8 +344,14 @@ router.post('/sendMessage', function(req, res) {
 	})
 })
 
-router.post('/fetchMessages', function(req, res) {
-	Conversation.find()
+router.get('/fetchMessages', function(req, res) {
+	Message.find({conversationId: req.body.chatid}).sort({created: -1}).exec(function (err, foundMessages) {
+		if (err) {
+			console.log(err);
+		} else {
+			res.status(200).json(foundMessages);
+		}
+	})
 })
 
 router.get('/friends', ensureLoggedIn('/'), function(req, res) {
