@@ -61,7 +61,7 @@ you blind bitch</span>
                 <div class="chat active-chat" data-chat="<%= conversation._id %>" data-user="<%= user.username %>">
                     <div class="conversation-start">
                         <span>Today, 7:48 AM</span>
-                        <% messages.forEach(message => { %>
+                        <% messages.reverse().forEach(message => { %>
                             <% var sender; %>
                             <% if (message.sender.equals(currentUser._id)) { %>
                                 <% sender = 'me' %>

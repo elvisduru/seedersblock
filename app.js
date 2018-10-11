@@ -111,42 +111,33 @@ io.on("connection", function(socket) {
 					if (err) {
 						console.log(err);
 					} else {
-						Message.create({
-							sender: currentUser._id,
-							content: msg,
-							created: Date.now(),
-							conversationId: conversationId
-						}, function(err, createdMsg) {
-							if (err) {
-								console.log(err)
-							} else {
-								var notification = {
-									sender: currentUser._id,
-									receiver: foundUser._id,
-									content: 'sent you a message',
-									type: "message",
-									path: '/messenger/' + conversationId,
-									is_read: false
-								}
-								Notification.create(notification)
-								.then(() => {
-									var feed = {
-										sender: currentUser,
-										receiver: foundUser._id,
-										text: "messaged you just now",
-										path: '/messenger/' + conversationId,
-										time: new Date()
-									}
-									feeds.publish("message", feed);
-									if (recipient in users) {
-										users[recipient].emit('new-message', {msg: msg, username: socket.username, firstname: currentUser.firstname, lastname: currentUser.lastname, conversationId: conversationId});
-									} else {
-										console.log("user offline");
-									}
-								})
-								.catch(err => console.log(err));
+						if (path !== '/messenger') {
+							var notification = {
+								sender: currentUser._id,
+								receiver: foundUser._id,
+								content: 'sent you a message',
+								type: "message",
+								path: '/messenger/' + conversationId,
+								is_read: false
 							}
-						})
+							Notification.create(notification)
+							.then(() => {
+								var feed = {
+									sender: currentUser,
+									receiver: foundUser._id,
+									text: "messaged you just now",
+									path: '/messenger/' + conversationId,
+									time: new Date()
+								}
+								feeds.publish("message", feed);
+							})
+							.catch(err => console.log(err));
+						}
+						if (recipient in users) {
+							users[recipient].emit('new-message', {msg: msg, username: socket.username, firstname: currentUser.firstname, lastname: currentUser.lastname, conversationId: conversationId});
+						} else {
+							console.log("user offline");
+						}
 					}
 				});
 			}

@@ -345,7 +345,7 @@ router.post('/sendMessage', function(req, res) {
 })
 
 router.get('/fetchMessages', function(req, res) {
-	Message.find({conversationId: req.body.chatid}).sort({created: -1}).exec(function (err, foundMessages) {
+	Message.find({conversationId: req.query.chatid}).sort({created: -1}).exec(function (err, foundMessages) {
 		if (err) {
 			console.log(err);
 		} else {
