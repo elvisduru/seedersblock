@@ -1159,6 +1159,8 @@ span.badge {
 	.chatbox-wrapper .container .right .write {
 		left: unset;
 		width: 100%;
+		position: absolute;
+		bottom: -25px;
 	}
 
 	.chatbox-wrapper .container .right .write input {
@@ -1176,7 +1178,7 @@ span.badge {
 
 	.chatbox-wrapper .container {
 		height: 100%;
-		margin-top: 30px;
+		margin-top: 40px;
 	}
 
 	/*.chatbox-wrapper .container .right .top {
