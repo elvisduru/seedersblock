@@ -1148,6 +1148,8 @@ span.badge {
 	.chatbox-wrapper .container .left {
 		display: none;
 		width: 100%;
+		position: absolute;
+		z-index: 1;
 	}
 
 	.chatbox-wrapper .container .right {
@@ -1165,10 +1167,16 @@ span.badge {
 
 	.new-chat {
 		display: inline-block;
+		z-index: 2;
 	}
 
 	.chatbox-wrapper {
 		height: 300px;
+	}
+
+	.chatbox-wrapper .container {
+		height: 100%;
+		margin-top: 30px;
 	}
 
 	/*.chatbox-wrapper .container .right .top {
