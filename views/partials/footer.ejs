@@ -65,16 +65,16 @@
     $('.search-icon').click(function () {
         $('.search-mobile').toggle();
         $('.notifications-list').hide();
-    })
+    });
 
     $('.close-search').click(function() {
         $('.search-mobile').hide();
         $('.search-mobile #search').val("");
-    })
+    });
     $('.notifications-trigger').click(function() {
         $('.notifications-list').toggle();
         $('.search-mobile').hide();
-    })
+    });
     $('.notifications .badge').hide();
     $.getJSON('/notifications')
     .done(notifications => {
@@ -333,7 +333,7 @@ $.getJSON('/user').done(user => {
                                 );
                         $.getJSON(`/fetchMessages?chatid=${chat._id}`)
                         .done(messages => {
-                            messages.forEach(msg => {
+                            messages.reverse().forEach(msg => {
                                 var sender;
                                 if (msg.sender == currentUser._id) {
                                     sender = 'me';
@@ -429,11 +429,14 @@ $.getJSON('/user').done(user => {
                 $(`.right .chat-room > div[data-user=${user.username}]`).addClass('active-chat');
                 $(`.right .chat-room > div[data-user=${user.username}]`).insertBefore($('.right .chat-room :first'));
             }
-            $('.left .people .friendList').hide(); 
+            $('.left .people .friendList').hide();
+            activeChat = document.querySelector('.active-chat');
+
+            activeChat.scrollTop = activeChat.scrollHeight;
         })
         .fail(err => console.log(err));
     });
-
+    var activeChat;
     $(document).on("mousedown", ".left .people > .person", function() {
         this.classList.contains('active') || setAciveChat(this);
     });
@@ -453,6 +456,10 @@ $.getJSON('/user').done(user => {
       }
       friends.name = f.querySelector('.name').innerText;
       chat.name.innerHTML = friends.name;
+
+      activeChat = document.querySelector('.active-chat');
+
+      activeChat.scrollTop = activeChat.scrollHeight;
     }
 
     $('.right .write input').on("keypress", function(e) {
@@ -475,6 +482,11 @@ $.getJSON('/user').done(user => {
             })
             .fail(err => console.log(err));
             $(this).val("");
+
+            activeChat = document.querySelector('.active-chat');
+
+            activeChat.scrollTop = activeChat.scrollHeight;
+
         }
     })
 
@@ -511,5 +523,20 @@ $.getJSON('/user').done(user => {
                 ${data.msg}
             </div>`
             );
+
+        activeChat = document.querySelector('.active-chat');
+
+        activeChat.scrollTop = activeChat.scrollHeight;
     })
+
+    $('.new-chat').click(function() {
+        $('.left').toggle();
+    })
+
+    if (window.matchMedia( "(min-width: 500px)" )) {
+        $('.left .people').on("click", ".person", function() {
+            $('.left').toggle();
+        });
+    }
+
 </script>

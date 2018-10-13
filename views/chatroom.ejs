@@ -4,8 +4,7 @@
     <div class="container">
         <div class="left">
             <div class="top">
-                <input type="text" placeholder="Search" />
-                <a href="javascript:;" class="search"></a>
+                <a href="javascript:;" class="search">New Chat</a>
             </div>
             <ul class="people">
                 <div class="friendList">
@@ -61,18 +60,18 @@ you blind bitch</span>
                 <div class="chat active-chat" data-chat="<%= conversation._id %>" data-user="<%= user.username %>">
                     <div class="conversation-start">
                         <span>Today, 7:48 AM</span>
-                        <% messages.reverse().forEach(message => { %>
-                            <% var sender; %>
-                            <% if (message.sender.equals(currentUser._id)) { %>
-                                <% sender = 'me' %>
-                            <% } else { %>
-                                <% sender = 'you'%>
-                            <% } %>
-                            <div class="bubble <%=sender%>">
-                                <%= message.content %>
-                            </div>
-                        <% }); %>
                     </div>
+                    <% messages.reverse().forEach(message => { %>
+                        <% var sender; %>
+                        <% if (message.sender.equals(currentUser._id)) { %>
+                            <% sender = 'me' %>
+                        <% } else { %>
+                            <% sender = 'you'%>
+                        <% } %>
+                        <div class="bubble <%=sender%>">
+                            <%= message.content %>
+                        </div>
+                    <% }); %>
                 </div>
                 <!-- <div class="chat" data-chat="person1">
                     <div class="conversation-start">
