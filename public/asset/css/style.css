@@ -1166,4 +1166,12 @@ span.badge {
 	.new-chat {
 		display: inline-block;
 	}
+
+	.chatbox-wrapper {
+		height: 300px;
+	}
+
+	/*.chatbox-wrapper .container .right .top {
+		position: absolute;
+	}*/
 }
