@@ -1181,6 +1181,14 @@ span.badge {
 		top: 45%;
 	}
 
+	.chatbox-wrapper .container .right .chat-room {
+		height: 95%;
+	}
+
+	.chatbox-wrapper .container .right .chat {
+		height: 100%;
+	}
+
 	/*.chatbox-wrapper .container .right .top {
 		position: absolute;
 	}*/
