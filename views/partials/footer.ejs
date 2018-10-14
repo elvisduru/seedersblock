@@ -466,7 +466,11 @@ $.getJSON('/user').done(user => {
       activeChat.scrollTop = activeChat.scrollHeight;
     }
 
-    $('.right .write input').on("keypress", function(e) {
+    $('.right .write .send').on("click", sendMessageHandler2);
+
+    $('.right .write input').on("keypress", sendMessageHandler)
+
+    function sendMessageHandler(e) {
         if (e.which === 13 && $(this).attr("data-to")) {
             var msg = $(this).val(),
                 sender = currentUser.username,
@@ -492,7 +496,35 @@ $.getJSON('/user').done(user => {
             activeChat.scrollTop = activeChat.scrollHeight;
 
         }
-    })
+    }
+
+    function sendMessageHandler2() {
+        if ($(this).siblings('input').attr("data-to")) {
+            var msg = $(this).siblings('input').val(),
+                sender = currentUser.username,
+                recipient = $(this).siblings('input').attr("data-to"),
+                conversationId = $(this).siblings('input').attr("data-chatid");
+
+            var msgData = {msg: msg, recipient: recipient, sender: sender, conversationId: conversationId};
+            socket.emit("send-message", msgData);
+            $.post('/sendMessage', msgData)
+            .done(msg => {
+                console.log(msg);
+                $(`.right .chat-room > div[data-chat=${msg.conversationId}]`).append(
+                    `<div class="bubble me">
+                        ${msg.content}
+                    </div>`
+                    );
+            })
+            .fail(err => console.log(err));
+            $(this).siblings('input').val("");
+
+            activeChat = document.querySelector('.active-chat');
+
+            activeChat.scrollTop = activeChat.scrollHeight;
+
+        }
+    }
 
     socket.on('new-message', function(data) {
         $('.right .write input').attr({'data-to': data.username, 'data-chatid': data.conversationId});
