@@ -1173,12 +1173,12 @@ span.badge {
 	}
 
 	.chatbox-wrapper {
-		height: 600px;
+		height: 100vh;
 	}
 
 	.chatbox-wrapper .container {
-		height: 100%;
-		margin-top: 40px;
+		height: 80%;
+		top: 45%;
 	}
 
 	/*.chatbox-wrapper .container .right .top {
