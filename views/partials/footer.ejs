@@ -569,7 +569,7 @@ $.getJSON('/user').done(user => {
         $('.left').toggle();
     })
 
-    if (window.matchMedia( "(min-width: 500px)" )) {
+    if (window.matchMedia("(max-width: 500px)").matches) {
         $('.left .people').on("click", ".person", function() {
             $('.left').toggle();
         });
